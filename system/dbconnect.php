@@ -1,5 +1,9 @@
 <?php
-    require('./dbsettings.php');
-    $connect = mysqli_connect();
-    /* TODO: Datenbank erstellen, verbindungsinfos in dbsettings eintragen und mysqli nutzen zur Verbindung */
+    require("./dbsettings.php");
+    $mysqli = new mysqli($dbhost, $dbuser, $dbpw, $db);
+    if($mysqli->connect_error) {
+        die("Connection to Database failed..." . $mysqli->connect_error);
+    } else {
+        echo "Connection to Database established!";
+    }
 ?>

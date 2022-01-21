@@ -1,3 +1,6 @@
+<?php
+    /* TODO: Include all important files */
+?>
 <!DOCTYPE html>
 <html lang="de">
 <head>

@@ -1,7 +1,7 @@
 <?php
-    $dbpre = "";
-    $dbhost = "";
-    $dbpw = "";
-    $dbuser = "";
-    $db = "";
+    $dbpre = "clanms_";
+    $dbhost = "localhost";
+    $dbpw = "IZMDPMrIxp6oT7QnqWKA";
+    $dbuser = "clanms";
+    $db = "clanms";
 ?>
