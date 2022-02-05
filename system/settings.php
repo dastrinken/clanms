@@ -6,7 +6,7 @@ function getSetting($property) {
     property = '".$property."';";
     $result = $mysqli->query($query);
     while($row = $result->fetch_row()) {
-        echo $row[0];
+        return $row[0];
     }
 }
 ?>
