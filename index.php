@@ -18,17 +18,10 @@
     <?php echo "<title>$title</title>" ?>
 </head>
 <body>
-    <div class="d-flex flex-column flex-shrink-0 bg-light">
-        <ul class="nav nav-pills nav-flush flex-column mb-auto text-center">
-            <li>Test</li>
-        </ul>
-    </div>
-    <nav class="nav justify-content-center nav-tabs">
-        <a class="nav-link active" aria-current="page" href="#">Home</a>
-        <a class="nav-link" href="#">Link</a>
-        <a class="nav-link" href="#">Link</a>
-        <a class="nav-link disabled">Disabled</a>
-    </nav>
+   <?php 
+   require("./nav.php");
+   require("./sidebar.php"); 
+   ?>
     <div class="wrapper">
 
     </div>

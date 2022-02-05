@@ -1,4 +1,14 @@
+@import url("https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.0/font/bootstrap-icons.css");
+
+* {
+  color: white;
+}
 .nav {
-  color: black;
+  color: rgb(255, 255, 255);
+  fill: currentColor;
   background-color: var(--bs-danger);
+}
+
+.sidebar a:hover {
+  color: white;
 }
