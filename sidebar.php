@@ -1,10 +1,12 @@
-<!-- Example for a sidebar, has to be modified -->
-<div class="d-flex flex-column flex-shrink-0 bg-lightdark float-start sidebar" style="width: 4.5rem;">
+<!-- Example for a sidebar, has to be modified 
+    TODO: position sticky/fixed
+-->
+<div class="d-flex flex-column flex-shrink-0 bg-lightdark float-start sidebar sticky-top" style="width: 4.5rem;">
   <div class="nav-item" style="display: block; width: 100%; height: 5%;">
 
   </div>
     <ul class="nav nav-pills nav-flush flex-column mb-auto text-center">
-      
+
       <li class="nav-item">
         <a href="#" class="nav-link py-3 border-bottom border-dark" aria-current="page" title="" data-bs-toggle="tooltip" data-bs-placement="right" data-bs-original-title="Home">
             <img class="bi" src="./bootstrap/bootstrap-icons-1.8.0/house.svg" width="24" height="24" alt="Home"></img>

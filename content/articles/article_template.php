@@ -1,5 +1,5 @@
-<!-- TODO: Load content from database -->
-<div class="content p-3 bg-lightdark">
+<!-- TODO: Load content from database, automatically set badges (span) -->
+<div class="content mb-4 p-3 bg-lightdark">
     <h3>Article Headline h3! <span class="badge bg-highlighted ml-2">New</span></h3>
     <hr />
     <p>

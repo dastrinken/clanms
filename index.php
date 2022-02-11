@@ -32,8 +32,11 @@
                     </div> 
                     -->
                     <!-- Content -->
-                    <div class="row p-3 content-wrapper bg-blackened">
-                        <?php include("./content/articles/article_template.php"); 
+                    <div class="row p-3 bg-blackened overflow-auto">
+                        <?php 
+                        for($i = 0; $i < 5; $i++) {
+                            include("./content/articles/article_template.php"); 
+                        }
                             /* TODO: 
                             **   - autom. include all articles
                             **   - avoid potential security risk when using get
