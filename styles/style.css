@@ -39,3 +39,16 @@ header {
 .bg-highlighted {
   background-color: var(--bs-danger);
 }
+
+.btn-darkmode {
+  background-color: #F98692;
+  border: 1px solid #C42F3E;
+}
+
+.btn-darkmode:hover {
+  background-color: #C42F3E;
+}
+
+.btn-darkmode-outline {
+  border: 1px solid #C42F3E;
+}

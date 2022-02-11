@@ -13,8 +13,8 @@
     </ul>
 
     <div class="col-md-3 text-end">
-        <button type="button" class="btn btn-outline-primary me-2" data-bs-toggle="modal" data-bs-target="#exampleModal">Login</button>
-        <button type="button" class="btn btn-primary">Sign-up</button>
+        <button type="button" class="btn btn-darkmode-outline me-2" data-bs-toggle="modal" data-bs-target="#exampleModal">Login</button>
+        <button type="button" class="btn btn-darkmode">Sign-up</button>
     </div>
 
     <!-- Modal triggered by login button TODO: include form to register and login, make it dynamic: one modal, two forms -->
