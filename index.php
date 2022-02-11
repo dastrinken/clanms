@@ -1,6 +1,6 @@
 <?php
     /* TODO: Include all important files 
-    ** - Session anlegen
+    ** - Start session, set all cookies
     */
     require("./system/dbconnect.php");
     require("./system/settings.php");
@@ -17,23 +17,35 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
     <?php echo "<title>$title</title>" ?>
 </head>
-<body>
-    <div class="container">
-        <div class="row"><?php require("./nav.php"); ?></div>
-        <div class="row">
-            <div class="col-md-auto"><?php require("./sidebar.php"); ?></div>
-            <div class="col"><!-- Content einfügen -->
-                <div class="row">Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.   
-Duis autem vel eum iriure dolor in hendrerit in vulputate velit esse molestie consequat, vel illum dolore eu feugiat nulla facilisis at vero eros et accumsan et iusto odio dignissim qui blandit praesent luptatum zzril delenit augue duis dolore te feugait nulla facilisi. Lorem ipsum dolor sit amet,</div>
-                <div class="row">Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.</div>
-                <div class="row">Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.   
-Duis autem vel eum iriure dolor in hendrerit in vulputate velit esse molestie consequat, vel illum dolore eu feugiat nulla facilisis at vero eros et accumsan et iusto odio dignissim qui blandit praesent luptatum zzril delenit augue duis dolore te feugait nulla facilisi. Lorem ipsum dolor sit amet,</div>
-                <div class="row"></div>
-                <div class="row"></div>
-                <div class="row"></div>
+<body class="bg-dark text-white">
+    <main>
+        <div class="container">
+            <div class="row">
+                <div class="col-md-auto"><?php require("./sidebar.php"); ?></div>
+                <div class="col">
+                    <div class="row">
+                        <?php require("./header.php"); ?>
+                    </div>
+                    <!-- This extra row is for optional sub-pages. Can be enabled and disabled by admin-backend
+                    <div class="row">
+                        <?php //require("./nav.php"); ?>
+                    </div> 
+                    -->
+                    <!-- Content -->
+                    <div class="row p-3 content-wrapper bg-blackened">
+                        <?php include("./content/articles/article_template.php"); 
+                            /* TODO: 
+                            **   - autom. include all articles
+                            **   - avoid potential security risk when using get
+                            */
+                        ?>
+                    </div>
+                </div>
+            </div>
+            <div class="row"><!-- Footer -->
+                <?php include("./footer.php"); ?>
             </div>
         </div>
-        <div class="row"><!-- Footer einfügen --></div>
-    </div>
+    </main>
 </body>
 </html>

@@ -8,15 +8,29 @@
 */
 /* navbar and sidebar */
 
-.nav {
-  color: rgb(255, 255, 255);
-  fill: currentColor;
+header {
   background-color: var(--bs-danger);
 }
 
-.sidebar a:hover {
-  color: white;
+/* following section describes main content layout and design 
+**  TODO: proper text style and decoration! E.g. what should a p-tag look like; what should lists look like and so on...
+**
+*/
+
+.content {
+  border: 1px solid black;
 }
 
-/* following section describes main content layout and design */
+/* Color ressources */
 
+.bg-dark {
+  background: #2c2c2c;
+}
+
+.bg-lightdark {
+  background: #464646;
+}
+
+.bg-blackened {
+  background: #222222;
+}
