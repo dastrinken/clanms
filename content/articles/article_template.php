@@ -1,6 +1,6 @@
 <!-- TODO: Load content from database -->
 <div class="content p-3 bg-lightdark">
-    <h3>Article Headline h3!</h3>
+    <h3>Article Headline h3! <span class="badge bg-highlighted ml-2">New</span></h3>
     <hr />
     <p>
     Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut 

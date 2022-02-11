@@ -23,6 +23,11 @@ header {
 
 /* Color ressources */
 
+/* Darkmode (standard skin) */
+.bg-blackened {
+  background: #222222;
+}
+
 .bg-dark {
   background: #2c2c2c;
 }
@@ -31,6 +36,6 @@ header {
   background: #464646;
 }
 
-.bg-blackened {
-  background: #222222;
+.bg-highlighted {
+  background-color: var(--bs-danger);
 }
