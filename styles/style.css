@@ -47,8 +47,15 @@ header {
 
 .btn-darkmode:hover {
   background-color: #C42F3E;
+  box-shadow: 1px 1px 2px inset black;
 }
 
 .btn-darkmode-outline {
   border: 1px solid #C42F3E;
+}
+
+.btn-darkmode-outline:hover {
+  background-color: #C42F3E;
+  border: 1px solid #C42F3E;
+  box-shadow: 1px 1px 2px inset black;
 }
