@@ -1,5 +1,14 @@
 @import url("https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.0/font/bootstrap-icons.css");
 
+main {
+  display: flex;
+  flex-wrap: nowrap;
+  height: 100vh;
+  height: -webkit-fill-available;
+  max-height: 100vh;
+  overflow-x: auto;
+  overflow-y: hidden;
+}
 /* general layout / design 
 
 .container {
@@ -10,6 +19,14 @@
 
 header {
   background-color: var(--bs-danger);
+}
+
+.sidebar {
+  height: 100%;
+}
+
+.sidebar a:hover {
+  background: #C42F3E;
 }
 
 /* following section describes main content layout and design 
