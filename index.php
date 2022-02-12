@@ -46,7 +46,7 @@
                 </div>
             </div>
             <div class="row"><!-- Footer -->
-                <?php include("./footer.php"); ?>
+                <?php include("./footer.php"); //hallo ?>
             </div>
         </div>
     </main>
