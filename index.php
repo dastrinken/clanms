@@ -2,9 +2,9 @@
     /* TODO: Include all important files 
     ** - Start session, set all cookies
     */
-    require("./system/dbconnect.php");
-    require("./system/settings.php");
-    $title = getSetting("title");
+    //require("./system/dbconnect.php");
+    //require("./system/settings.php");
+    //$title = getSetting("title");
 ?>
 <!DOCTYPE html>
 <html lang="de">
