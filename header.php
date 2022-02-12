@@ -5,14 +5,14 @@
     </a>
 
     <ul class="nav justify-content-center">
-        <li><a href="#" class="nav-link px-4 link-dark">Home</a></li>
-        <li><a href="#" class="nav-link px-4 link-dark">Blog</a></li>
-        <li><a href="#" class="nav-link px-4 link-dark">About us</a></li>
-        <li><a href="#" class="nav-link px-4 link-dark">Games</a></li>
-        <li><a href="#" class="nav-link px-4 link-dark">FAQ</a></li>
+        <li><a href="#" class="nav-link px-2 link-dark">Home</a></li>
+        <li><a href="#" class="nav-link px-2 link-dark">Blog</a></li>
+        <li><a href="#" class="nav-link px-2 link-dark">About us</a></li>
+        <li><a href="#" class="nav-link px-2 link-dark">Games</a></li>
+        <li><a href="#" class="nav-link px-2 link-dark">FAQ</a></li>
     </ul>
 
-    <div class="col-md-3 text-end">
+    <div class="col-md-2 text-end">
         <button type="button" class="btn btn-darkmode-outline me-2" data-bs-toggle="modal" data-bs-target="#exampleModal">Login</button>
         <button type="button" class="btn btn-darkmode">Sign-up</button>
     </div>
