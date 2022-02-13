@@ -2,6 +2,10 @@
     /* TODO: Include all important files 
     ** - Start session, set all cookies
     */
+    if(session_start()) {
+        $userid = $_SESSION['userid'];
+        $username = $_SESSION['username'];
+    }
     //require("./system/dbconnect.php");
     //require("./system/settings.php");
     //$title = getSetting("title");
@@ -15,6 +19,7 @@
     <link href="./bootstrap/css/bootstrap.css" rel="stylesheet">
     <link rel="stylesheet" href="./styles/style.css"> 
     <script src="./bootstrap/js/bootstrap.bundle.js"></script>
+    <script src="./system/js/script.js"></script>
     <?php echo "<title>$title</title>" ?>
 </head>
 <body class="bg-dark text-white">
