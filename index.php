@@ -6,9 +6,12 @@
         $userid = $_SESSION['userid'];
         $username = $_SESSION['username'];
     }
-    //require("./system/dbconnect.php");
-    //require("./system/settings.php");
-    //$title = getSetting("title");
+    require("./system/dbconnect.php");
+    require("./system/functions.php");
+    $title = getSetting("title");
+    if($_POST['registerBtn']){
+        registerNewAccount();
+    }
 ?>
 <!DOCTYPE html>
 <html lang="de">
