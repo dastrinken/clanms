@@ -13,8 +13,8 @@
     </ul>
 
     <div class="col-md-2 text-end">
-        <button type="button" class="btn btn-darkmode-outline me-2" data-bs-toggle="modal" data-bs-target="#exampleModal">Login</button>
-        <button type="button" class="btn btn-darkmode">Sign-up</button>
+        <button type="button" id="loginBtn" class="btn btn-darkmode-outline me-2" data-bs-toggle="modal" data-bs-target="#loginRegisterModal" onclick="openLoginRegisterModal(this.id)">Login</button>
+        <button type="button" id="signupBtn" class="btn btn-darkmode" data-bs-toggle="modal" data-bs-target="#loginRegisterModal" onclick="openLoginRegisterModal(this.id)">Sign-up</button>
     </div>
 
     <!-- Modal triggered by login button 
@@ -22,15 +22,15 @@
                     make it dynamic: one modal, two forms
                     forms should be placed in /system/login
     -->
-    <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal fade" id="loginRegisterModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog text-dark">
         <div class="modal-content">
         <div class="modal-header">
             <h5 class="modal-title" id="exampleModalLabel">Login to your account</h5>
             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
-        <div class="modal-body">
-        <?php include("./system/login/login.php") ?>
+        <div id="loginSignupModalBody" class="modal-body">
+            <!-- Login / Register form -->
         </div>
         <div class="modal-footer">
             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
