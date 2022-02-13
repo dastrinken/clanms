@@ -86,7 +86,7 @@ function registerNewAccount() {
                         }
                         $mysqli->close();
                     } else {
-                        $errormsg = "Die beiden Passwörte stimmen nicht überein";
+                        $errormsg = "Die beiden Passwörter stimmen nicht überein";
                     }
                 } else {
                     $errormsg = "Bitte bestätige dein Passwort.";
