@@ -1,12 +1,5 @@
-
 <?php 
-if($_POST['registerBtn']){
-    $getuser = $_POST['username'];
-    $getemail = $_POST['email'];
-    var_dump($getuser, $getemail);
-}
-
-    $register_form = "<form action='' method='post'>
+    $register_form = "<form action='./index.php' method='post'>
                         <div class='mb-3'>
                             <label for='registerUsername' class='form-label'>Username</label>
                             <input type='text' class='form-control' id='registerUsername' name='username' value='$getuser' required>
@@ -18,19 +11,13 @@ if($_POST['registerBtn']){
                         </div>
                         <div class='mb-3'>
                             <label for='registerPassword' class='form-label'>Password</label>
-                            <input type='password' name='password' class='form-control' id='registerPassword' value ='' required>
+                            <input type='password' name='password' class='form-control' id='registerPassword' value ='$getpassword' required>
                         </div>
                         <div class='mb-3'>
                             <label for='registerPassword' class='form-label'>Retype Password</label>
-                            <input type='password' name='passwordRetype' class='form-control' id='registerPasswordRetype' value ='' required>
+                            <input type='password' name='passwordRetype' class='form-control' id='registerPasswordRetype' value ='$getpassretype' required>
                         </div>
-                            <button type='submit' class='btn btn-primary' name='registerBtn'>Submit</button>
-                    </form>"; 
-
-
-
-
-
-echo $register_form;
-
+                            <input type='submit' class='btn btn-primary' name='registerBtn'>Submit</button>
+                    </form>";
+    echo $register_form;
 ?>
