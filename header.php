@@ -18,26 +18,23 @@
     </div>
 
     <!-- Modal triggered by login button 
-            TODO:   include forms to register and login
-                    make it dynamic: one modal, two forms
-                    forms should be placed in /system/login
+            TODO:   change buttons and content via javascript (not fully functional yet)
     -->
     <div class="modal fade" id="loginRegisterModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-    <div class="modal-dialog text-dark">
-        <div class="modal-content">
-        <div class="modal-header">
-            <h5 class="modal-title" id="exampleModalLabel">Login to your account</h5>
-            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-        </div>
-        <div id="loginSignupModalBody" class="modal-body">
-            <!-- Login / Register form -->
-        </div>
-        <div class="modal-footer">
-            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-            <button type="button" class="btn btn-primary">Login</button>
-        </div>
+        <div class="modal-dialog text-dark">
+            <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Login to your account</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div id="loginSignupModalBody" class="modal-body">
+                <!-- Login / Register form -->
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                <button type="button" id="changeLoginFormBtn" class="btn btn-primary" onclick=""></button>
+            </div>
+            </div>
         </div>
     </div>
-    </div>
-
 </header>
