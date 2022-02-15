@@ -40,7 +40,7 @@
                     </div> 
                     -->
                     <!-- Content -->
-                    <div class="row p-3 bg-blackened overflow-auto">
+                    <div id="mainContent" class="row p-3 bg-blackened overflow-auto">
                         <?php 
                         for($i = 0; $i < 5; $i++) {
                             include("./content/articles/article_template.php"); 
