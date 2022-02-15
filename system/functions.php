@@ -20,14 +20,6 @@ function registerNewAccount() {
     $getpass = $_POST['password'];
     $getpassretype = $_POST['passwordRetype'];
 
-    /*
-        - variablen in denen registrierdaten gespeichert werden
-        - überprüfen ob die beiden passwörter übereinstimmen
-        - wenn alles stimmt, dann in sql statement verpacken und datensatz in db einfügen (INSERT)
-        - verifikations email verschicken
-        - Fehlermeldungen für jeden Schritt
-    */
-
     if($getuser) {
         if($getemail && filter_var($getemail, FILTER_VALIDATE_EMAIL)) {
             if($getpass) {
@@ -59,7 +51,7 @@ function registerNewAccount() {
                                     /* Verschicke bestätigungsemail */
                                     // TODO: Schönere Email formulieren
                                     $site = $_SERVER['SERVER_NAME']."/clanms/system/login/activation.php"; // TODO: !clanms (Ordner) aus URL entfernen vor dem Release! url aus Datenbank auslesen?
-                                    $webmaster = ""; //TODO: email des Seitenbetreibers aus Datenbank auslesen
+                                    $webmaster = getSetting("email"); //TODO: Set up webmaster email during installation process!
                                     $header[] = 'MIME-Version: 1.0';
                                     $header[] = 'Content-type: text/html; charset=iso-8859-1';
                                     $header[] = "To: $getuser <$getemail>";
@@ -68,9 +60,14 @@ function registerNewAccount() {
                                     $message = "Hallo $getuser!<br/>Du hast dich soeben erfolgreich bei $title registriert.<br/>"; 
                                     $message .= "<a href=\"$site?code=$code\">Um deine Registrierung abzuschließen, klicke bitte auf diesen Link</a>";
                                     if(mail($getemail, $subject, $message, implode("\r\n", $header))) {
+                                        $errormsg = "Registrierung erfolgreich, es wurde eine Email mit Aktivierungslink an die angegebene Adresse verschickt";
+                                        $errormsg .= "<br>webmaster mail: $webmaster";
+                                        $errormsg .= "<br>header: $header";
+                                        $errormsg .= "<br>subject: $subject";
+                                        $errormsg .= "<br>message: $message";
+                                        /* important: empty user and email variable (don't change this!) */
                                         $getuser = "";
                                         $getemail = "";
-                                        $errormsg = "Registrierung erfolgreich, es wurde eine Email mit Aktivierungslink an die angegebene Adresse verschickt";
                                     } else {
                                         $errormsg = "Email konnte nicht verschickt werden. Bitte kontaktiere den Administrator. $webmaster";
                                     }
@@ -101,7 +98,7 @@ function registerNewAccount() {
     else {
         $errormsg = "Bitte geben sie einen Benutzernamen ein";
     }
-var_dump($errormsg);
+echo $errormsg; //TODO: display errormsg in own window or as part of the site, not just a printed string
 }
 
 /* Hilfsfunktionen */
