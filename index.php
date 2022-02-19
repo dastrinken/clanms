@@ -8,10 +8,6 @@
     }
     require("./system/dbconnect.php");
     require("./system/functions.php");
-    $title = getSetting("title");
-    if($_POST['registerBtn']){
-        registerNewAccount();
-    }
 ?>
 <!DOCTYPE html>
 <html lang="de">
@@ -42,8 +38,12 @@
                     <!-- Content -->
                     <div id="mainContent" class="row p-3 bg-blackened overflow-auto">
                         <?php 
-                        for($i = 0; $i < 5; $i++) {
-                            include("./content/articles/article_template.php"); 
+                        if($_GET['code']) {
+                            include("./system/login/activation.php");
+                        } else {
+                            for($i = 0; $i < 5; $i++) {
+                                include("./content/articles/article_template.php"); 
+                            }
                         }
                             /* TODO: 
                             **   - autom. include all articles
