@@ -45,12 +45,17 @@ function selectOneRow_DB($column, $tablename, $condition, $value) {
 }
 
 /* Login und Registrieren 
- 1. Vergleich username mit datenbank
- 2. passwort Verifikation
+ 1. Vergleich username mit datenbank 
+ 2. passwort Verifikation  -> verifypassword($getpass === $hash)
  3. $_Session updaten ? 
 */
 function loginAccount() {
     echo "Login wird ausgeführt";
+    $getemail = $_POST['email'];
+    $getpass = $_POST['password'];
+    $mysqli = connect_DB();
+
+    $mysqli->close();
 }
 
 function registerNewAccount() {
