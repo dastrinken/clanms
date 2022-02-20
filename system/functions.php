@@ -53,11 +53,6 @@ function loginAccount() {
     echo "Login wird ausgeführt";
     $getemail = $_POST['email'];
     $getpass = $_POST['password'];
-<<<<<<< Updated upstream
-    $mysqli = connect_DB();
-
-    $mysqli->close();
-=======
     if($getemail) {
         if($getpass) {
             $mysqli = connect_DB();
@@ -92,7 +87,6 @@ function loginAccount() {
     } else {
         echo "Bitte Email eingeben.";
     }
->>>>>>> Stashed changes
 }
 
 function registerNewAccount() {
