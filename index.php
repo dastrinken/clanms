@@ -22,6 +22,7 @@
     <?php echo "<title>$title</title>" ?>
 </head>
 <body class="bg-dark text-white">
+    <div id="errormsgBox" onclick="overlayOff()"></div>
     <main>
     <?php require("./sidebar.php"); ?>
         <div class="container">
