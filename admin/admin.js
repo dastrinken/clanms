@@ -1,3 +1,17 @@
+function showNewsblogDashboard() {
+  var content = document.getElementById("mainContent");
+  var headline = document.getElementById("headlineDashboardContent");
+  headline.innerHTML = "Newsblog";
+
+  /* TODO:
+  ** Content austauschen. Der innere Teil soll erstezt werden durch eine Ansicht aller bisherigen Artikel (Ordnerinhalt auflisten)
+  ** Diese Artikel sollen bearbeitet werden können.
+  ** Buttons erstellen für: Neuen Artikel schreiben, Bearbeiten, Löschen usw.
+  ** Gerne weitere Ideen sammeln und erstmal hier aufschreiben!
+  */
+}
+
+
 /* globals Chart:false, feather:false */
 
 (function () {
