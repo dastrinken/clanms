@@ -10,10 +10,6 @@ if($_POST['registerBtn']){
     loginAccount();
 }
 
-if($_GET['code']){
-
-}
-
 /* Settings aus DB auslesen */
 function getSetting($property) {
     global $dbpre;
@@ -50,12 +46,41 @@ function selectOneRow_DB($column, $tablename, $condition, $value) {
  3. $_Session updaten ? 
 */
 function loginAccount() {
-    echo "Login wird ausgeführt";
     $getemail = $_POST['email'];
     $getpass = $_POST['password'];
-    $mysqli = connect_DB();
+    if($getemail) {
+        if($getpass) {
+            $mysqli = connect_DB();
+            $stmt = $mysqli->prepare("SELECT id, username, password, activated FROM clanms_user WHERE email=?");
+            $stmt->bind_param("s", $getemail);
+            $stmt->execute();
+            $result = $stmt->get_result();
+            $row = $result->fetch_assoc();
+            $id = $row['id'];
+            $username = $row['username'];
+            $password = $row['password'];
+            $activated = $row['activated'];
+            $stmt->close();
+            $mysqli->close();
 
-    $mysqli->close();
+            if(password_verify($getpass, $password)){
+                if($activated === 1) {
+                    $_SESSION['userid'] = $id;
+                    $_SESSION['username'] = $username; 
+                    //Eventuell neue Tabellenspalte "lastvisited" anlegen und an dieser Stelle Timestamp setzen für Nutzungsstatistiken?
+                    echo "Login erfolgreich! ID=$id | username=$username";
+                } else {
+                    echo "Bitte aktiviere erst deinen Account!"; //Anbieten Email erneut zu schicken falls nicht angekommen?
+                }
+            } else {
+                echo "Falsches Passwort!";
+            }
+        } else {
+            echo "Bitte ein Passwort eingeben!";
+        }
+    } else {
+        echo "Bitte Email eingeben.";
+    }
 }
 
 function registerNewAccount() {
