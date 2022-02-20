@@ -16,13 +16,3 @@ function openLoginRegisterModal(buttonId) {
     }
     xhttp.send();
 }
-
-function overlayOn(errorMsg) {
-    var overlay = document.getElementById("errormsgBox");
-    overlay.innerHTML = "<p>"+errorMsg+"</p>";
-    overlay.style.display = "block";
-}
-function overlayOff() {
-    var overlay = document.getElementById("errormsgBox");
-    overlay.style.display = "none";
-}
