@@ -1,5 +1,5 @@
 <!-- Example for a sidebar, has to be modified -->
-<div class="d-flex flex-column flex-shrink-0 bg-lightdark float-start sidebar fixed-top" style="width: 4.5rem;">
+<div id="sidebar" class="d-flex flex-column flex-shrink-0 bg-lightdark float-start sidebar fixed-top" style="width: 4.5rem;">
   <div class="nav-item" style="display: block; width: 100%; height: 5%;"></div>
   <ul class="nav nav-pills nav-flush flex-column mb-auto text-center">
 
