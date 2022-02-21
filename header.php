@@ -1,4 +1,4 @@
-<header class="p-3 d-flex flex-wrap align-items-center justify-content-center justify-content-md-between mb-4 border-bottom">
+<header class="p-3 d-flex flex-wrap align-items-center justify-content-center justify-content-md-between mb-4 border-bottom border-dark">
     
     <link rel="icon" href="./ressources/icons/clanms_logo.svg">
 
