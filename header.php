@@ -2,7 +2,7 @@
     
     <link rel="icon" href="./ressources/icons/clanms_logo.svg">
 
-    <a href="/" class="d-flex align-items-center col-md-3 mb-2 mb-md-0 text-dark text-decoration-none">
+    <a href="./" class="d-flex align-items-center col-md-3 mb-2 mb-md-0 text-dark text-decoration-none">
         <!-- Logo TODO: select logo name/location from database -->
         <img class="bi" src="./ressources/icons/clanms_logo.svg" width="70" height="50" alt="Logo"></img>
     </a>
