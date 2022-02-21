@@ -11,7 +11,7 @@
         if($stmt->execute()) {
             echo "Ihr Account wurde erfolgreich aktiviert";
         } else {
-            echo "Die Aktivierung ist fehlgeschlagen, bitte kontaktieren sie den Systemadministrator";
+            echo "Die Aktivierung ist fehlgeschlagen, bitte kontaktieren Sie den Systemadministrator";
         }
         $stmt->close();
         $mysqli->close();

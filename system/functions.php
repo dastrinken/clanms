@@ -23,6 +23,22 @@ function getSetting($property) {
     $mysqli->close();
 }
 
+/* Daten aus DB auslesen */
+
+//GruppenID des Nutzers auslesen
+function getUserGroup($userid) {
+    global $dbpre;
+    $mysqli = connect_DB();
+    $query = "SELECT id_group FROM ".$dbpre."user_groups WHERE id_user=$userid";
+    $select = $mysqli->query($query);
+    while($row = $select->fetch_row()) {
+        return $row[0];
+    }
+    $select->close();
+    $mysqli->close();
+}
+
+//selectOneRow_DB: nur nutzen, wenn erwartete Rückgabe nur eine einzelne Zeile ist
 function selectOneRow_DB($column, $tablename, $condition, $value) {
     global $dbpre;
     $mysqli = connect_DB();
@@ -37,14 +53,11 @@ function selectOneRow_DB($column, $tablename, $condition, $value) {
     while($row = $select->fetch_row()) {
         return $row[0];
     }
+    $select->close();
     $mysqli->close();
 }
 
-/* Login und Registrieren 
- 1. Vergleich username mit datenbank 
- 2. passwort Verifikation  -> verifypassword($getpass === $hash)
- 3. $_Session updaten ? 
-*/
+/* Login und Registrieren */
 function loginAccount() {
     $getemail = $_POST['email'];
     $getpass = $_POST['password'];
@@ -68,7 +81,7 @@ function loginAccount() {
                     $_SESSION['userid'] = $id;
                     $_SESSION['username'] = $username; 
                     //Eventuell neue Tabellenspalte "lastvisited" anlegen und an dieser Stelle Timestamp setzen für Nutzungsstatistiken?
-                    echo "Login erfolgreich! ID=$id | username=$username";
+                    echo "Login erfolgreich!";
                 } else {
                     echo "Bitte aktiviere erst deinen Account!"; //Anbieten Email erneut zu schicken falls nicht angekommen?
                 }

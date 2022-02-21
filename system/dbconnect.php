@@ -1,5 +1,5 @@
 <?php
-    require("./system/dbsettings.php");
+    require(__DIR__."/dbsettings.php");
     function connect_DB() {
         global $dbhost, $dbuser, $dbpw, $db;
         $mysqli = new mysqli($dbhost, $dbuser, $dbpw, $db);
