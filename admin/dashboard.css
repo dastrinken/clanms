@@ -68,7 +68,6 @@ body {
 /*
  * Navbar
  */
-
 .navbar-brand {
   padding-top: .75rem;
   padding-bottom: .75rem;
@@ -86,6 +85,10 @@ body {
   padding: .75rem 1rem;
   border-width: 0;
   border-radius: 0;
+}
+
+.navbar a:hover {
+  background: #C42F3E;
 }
 
 .form-control-dark {
