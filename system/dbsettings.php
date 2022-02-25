@@ -3,7 +3,7 @@
     In a real release, there should be no need to manually change the values */
     $dbpre = "clanms_";
     $dbhost = "localhost";
-    $dbpw = "IZMDPMrIxp6oT7QnqWKA";
-    $dbuser = "clanms";
+    $dbpw = "";
+    $dbuser = "root";
     $db = "clanms";
 ?>
