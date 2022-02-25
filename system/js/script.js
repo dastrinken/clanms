@@ -4,8 +4,8 @@ function destroy_session() {
     xhttp.open('GET','./system/destroy_session.php', true);
     xhttp.onreadystatechange=function(){
         if (xhttp.readyState == 4){
-           if(xhttp.status == 200){
-              alert(xhttp.responseText);
+            if(xhttp.status == 200){
+                window.location.href = './';
           }
         }
      };
