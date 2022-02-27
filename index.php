@@ -54,7 +54,7 @@
                 </div>
             </div>
             <div class="row"><!-- Footer -->
-                <?php include("./footer.php"); //hallo ?>
+                <?php include("./footer.php"); ?>
             </div>
         </div>
     </main>
