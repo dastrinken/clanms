@@ -19,7 +19,7 @@ Bist du dir sicher, dass alle stimmt, klicke unten auf Installation starten.</p>
     <tr>
       <th scope="col">Einstellung</th>
       <th scope="col">Wert</th>
-      <th scope="col">&check; / &cross;</th>
+      <th scope="col"></th>
     </tr>
   </thead>
   <tbody>

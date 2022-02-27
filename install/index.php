@@ -52,12 +52,12 @@ $userpw = $_SESSION['userpw'];
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="../bootstrap/css/bootstrap.css" rel="stylesheet">
-    <link rel="stylesheet" href="./styles/style.css"> 
+    <link rel="stylesheet" href="../styles/style.css"> 
     <script src="../bootstrap/js/bootstrap.bundle.js"></script>
     <script src="../system/js/script.js"></script>
     <title>ClanMS - Installation</title>
 </head>
-<body class="bg-dark text-white">
+<body class="bg-blackened text-white">
     <main>
         <div class="container-fluid">
             <div class="row">
@@ -66,7 +66,7 @@ $userpw = $_SESSION['userpw'];
             <div class="row">
                 <div class="container">
                     <div id="mainContent" class="row p-3 bg-blackened overflow-auto justify-content-md-center">
-                        <div class="content mb-4 p-3 bg-lightdark col-md-auto">
+                        <div class="content mb-4 p-3 bg-lightdark col-md-auto shadow-sm rounded">
                             <?php 
                             /* Idee: Bei erstem Aufruf wird welcome.php aufgerufen, hier kann man sich durch die installation klicken
                                     Man kann jedoch jederzeit über den Header die einzelnen Formulare mit den bisher eingefüllten Daten aufrufen.
@@ -111,7 +111,7 @@ $userpw = $_SESSION['userpw'];
                                     break;
                                 case 3:
                                     /* installation ausführen, progress anzeigen? */
-                                    if(include("./contents/install.php")) {
+                                    if(include("./contents/confirm.php")) {
         
                                     } else {
                                         echo "<p class='lead'>
