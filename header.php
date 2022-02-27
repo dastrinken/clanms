@@ -7,6 +7,7 @@
         <img class="bi" src="./ressources/icons/clanms_logo.svg" width="70" height="50" alt="Logo"></img>
     </a>
     
+    <!-- Navigation der Seite. Hier GET-Parameter per URL im href-Attribut an index.php übergeben -->
     <ul class="nav justify-content-center">
         <li><a href="#" class="nav-link px-2 link-dark nav-darkmode">Home</a></li>
         <li><a href="#" class="nav-link px-2 link-dark nav-darkmode">Blog</a></li>
