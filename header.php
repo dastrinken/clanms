@@ -9,11 +9,11 @@
     
     <!-- Navigation der Seite. Hier GET-Parameter per URL im href-Attribut an index.php übergeben -->
     <ul class="nav justify-content-center">
-        <li><a href="#" class="nav-link px-2 link-dark">Home</a></li>
-        <li><a href="#" class="nav-link px-2 link-dark">Blog</a></li>
-        <li><a href="#" class="nav-link px-2 link-dark">About us</a></li>
-        <li><a href="#" class="nav-link px-2 link-dark">Games</a></li>
-        <li><a href="#" class="nav-link px-2 link-dark">FAQ</a></li>
+        <li><a href="#" class="nav-link px-2 link-dark nav-darkmode">Home</a></li>
+        <li><a href="#" class="nav-link px-2 link-dark nav-darkmode">Blog</a></li>
+        <li><a href="#" class="nav-link px-2 link-dark nav-darkmode">About us</a></li>
+        <li><a href="#" class="nav-link px-2 link-dark nav-darkmode">Games</a></li>
+        <li><a href="#" class="nav-link px-2 link-dark nav-darkmode">FAQ</a></li>
     </ul>
 
     <div class="col-md-2 text-end">
