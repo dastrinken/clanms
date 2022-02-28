@@ -36,7 +36,6 @@
                 <img src='https://avatars.githubusercontent.com/u/61236723?v=4' alt='mdo' class='rounded-circle' width='24' height='24'>
               </a>
               <ul class='dropdown-menu text-small shadow' aria-labelledby='dropdownUser3'>
-                <li><a class='dropdown-item' href='#'>New project...</a></li>
                 <li><a class='dropdown-item' href='#'>Settings</a></li>
                 <li><a class='dropdown-item' href='#'>Profile</a></li>
                 <li><hr class='dropdown-divider'></li>

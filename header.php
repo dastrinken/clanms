@@ -11,8 +11,8 @@
     <ul class="nav justify-content-center">
         <li><a href="./" class="nav-link px-2 link-dark nav-darkmode">Home</a></li>
         <li><a href="./?nav=news" class="nav-link px-2 link-dark nav-darkmode">Blog</a></li>
-        <li><a href="#" class="nav-link px-2 link-dark nav-darkmode">About us</a></li>
-        <li><a href="#" class="nav-link px-2 link-dark nav-darkmode">Games</a></li>
+        <li><a href="./?nav=info" class="nav-link px-2 link-dark nav-darkmode">About us</a></li>
+        <li><a href="./?nav=games" class="nav-link px-2 link-dark nav-darkmode">Games</a></li>
         <li><a href="#" class="nav-link px-2 link-dark nav-darkmode">FAQ</a></li>
     </ul>
 
