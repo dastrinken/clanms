@@ -1,14 +1,29 @@
-<h1>Monatskalender</h1>
-<table id="kalender"> </table>
+<div class="row">
+	<div class="col">
+		<h2 id="headline"></h1>
+	</div>
+	<div class="col">
+		<div class="btn-group" role="group" aria-label="Basic example">
+			<button type="button" class="btn btn-secondary">Left</button>
+			<button type="button" class="btn btn-secondary">Right</button>
+		  </div>
+	</div>
+</div>
+<div class="row">
+	<table id="calendar" class="table-sm text-white"> </table>
+</div>
+
 <script>
-	// dm und dj sind Monat und Jahr, die im Kalender dargestellt werden
+	// dm und dj sind Monat und Jahr, die im calendar dargestellt werden
 	// insbesondere könnte auch ein Monat gewählt werden, in dem das aktuelle Datum nicht vorkommt
 	const d = new Date();
 	const dm = d.getMonth() + 1;
 	const dj = d.getYear() + 1900;
-	Kalender(dm, dj, 'kalender');
+	calendar(dm, dj, 'calendar');
 
-	function Kalender(Monat, Jahr, KalenderId) {
+	/* Monat als Parameter übergeben? */
+	
+	function calendar(Monat, Jahr, calendarId) {
 		const Monatsname = new Array("Januar", "Februar", "März", "April", "Mai",
 			"Juni", "Juli", "August", "September", "Oktober", "November", "Dezember");
 		const Tag = new Array("Mo", "Di", "Mi", "Do", "Fr", "Sa", "So");
@@ -34,11 +49,12 @@
 			if (Jahr % 100 == 0) Stop--;
 			if (Jahr % 400 == 0) Stop++;
 		}
-		const tabelle = document.getElementById(KalenderId);
+		const tabelle = document.getElementById(calendarId);
 		if (!tabelle) return false;
 		// schreibe Tabellenüberschrift
-		const caption = tabelle.createCaption();
-		caption.innerHTML = Monatsname[Monat - 1] + " " + Jahr;
+		//const caption = tabelle.createCaption();
+		const headline = document.getElementById("headline");
+		headline.innerHTML = Monatsname[Monat - 1] + " " + Jahr;
 		// schreibe Tabellenkopf
 		const headRow = tabelle.insertRow(0);
 		for (var i = 0; i < 7; i++) {
@@ -56,9 +72,9 @@
 				if (((i == 0) && (j < Start)) || (Tageszahl > Stop)) {
 					cell.innerHTML = ' ';
 				} else {
-					// normale Zellen werden mit der Tageszahl befüllt und mit der Klasse Kalendertag markiert
+					// normale Zellen werden mit der Tageszahl befüllt und mit der Klasse calendartag markiert
 					cell.innerHTML = Tageszahl;
-					cell.className = 'kalendertag'
+					cell.className = 'calendartag'
 						// und der aktuelle Tag (heute) wird noch einmal speziell mit der Klasse "heute" markiert
 					if (Tageszahl == DieserTag) {
 						cell.className = cell.className + ' heute';
