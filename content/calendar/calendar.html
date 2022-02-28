@@ -1,29 +1,46 @@
 <div class="row">
-	<div class="col">
+	<div class="col d-flex justify-content-center">
 		<h2 id="headline"></h1>
-	</div>
-	<div class="col">
-		<div class="btn-group" role="group" aria-label="Basic example">
-			<button type="button" class="btn btn-secondary">Left</button>
-			<button type="button" class="btn btn-secondary">Right</button>
-		  </div>
 	</div>
 </div>
 <div class="row">
-	<table id="calendar" class="table-sm text-white"> </table>
+	<div class="col d-flex justify-content-center">
+		<table id="calendar" class="table text-white"> </table>
+	</div>
+</div>
+<div class="row">
+	<div class="col d-flex justify-content-center">
+		<div class="btn-group" role="group" aria-label="Basic example">
+			<button type="button" class="btn button-icon" onclick="--dm; calendar(dm, dj, 'calendar');"><i class="bi-arrow-left-circle button-icon"></i></button>
+			<button type="button" class="btn button-icon" onclick="++dm; calendar(dm, dj, 'calendar');"><i class="bi-arrow-right-circle button-icon"></i></button>
+		</div>
+	</div>
 </div>
 
 <script>
-	// dm und dj sind Monat und Jahr, die im calendar dargestellt werden
-	// insbesondere könnte auch ein Monat gewählt werden, in dem das aktuelle Datum nicht vorkommt
 	const d = new Date();
-	const dm = d.getMonth() + 1;
-	const dj = d.getYear() + 1900;
+	var dm = d.getMonth() + 1;
+	var dj = d.getYear() + 1900;
 	calendar(dm, dj, 'calendar');
 
-	/* Monat als Parameter übergeben? */
-	
+	function deleteCalendar() {
+		document.getElementById("calendar").innerHTML = "";
+	}
+
 	function calendar(Monat, Jahr, calendarId) {
+		deleteCalendar(); 
+		if(Monat < 1) {
+			Monat = 12;
+			dm = 12;
+			--Jahr;
+			--dj;
+		} else if(Monat > 12) {
+			Monat = 1;
+			dm = 1;
+			++Jahr;
+			++dj;
+		}
+
 		const Monatsname = new Array("Januar", "Februar", "März", "April", "Mai",
 			"Juni", "Juli", "August", "September", "Oktober", "November", "Dezember");
 		const Tag = new Array("Mo", "Di", "Mi", "Do", "Fr", "Sa", "So");
@@ -75,9 +92,9 @@
 					// normale Zellen werden mit der Tageszahl befüllt und mit der Klasse calendartag markiert
 					cell.innerHTML = Tageszahl;
 					cell.className = 'calendartag'
-						// und der aktuelle Tag (heute) wird noch einmal speziell mit der Klasse "heute" markiert
+						// und der aktuelle Tag (today) wird noch einmal speziell mit der Klasse "today" markiert
 					if (Tageszahl == DieserTag) {
-						cell.className = cell.className + ' heute';
+						cell.className = cell.className + ' today';
 					}
 					Tageszahl++;
 				}
