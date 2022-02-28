@@ -5,13 +5,13 @@
 
     <li class='nav-item'>
       <a href='./' class='nav-link py-3 border-bottom border-dark' aria-current='page' title='Home' data-bs-toggle='tooltip' data-bs-placement='right' data-bs-original-title='Home'>
-          <img class='bi' src='./bootstrap/bootstrap-icons-1.8.0/house.svg' width='24' height='24' alt='Home'></img>
+          <img class='bi' src='./bootstrap/icons/house.svg' width='24' height='24' alt='Home'></img>
       </a>
     </li>
     
     <li class='nav-item'>
       <a href='#' class='nav-link py-3 border-bottom border-dark' aria-current='page' title='Calendar' data-bs-toggle='tooltip' data-bs-placement='right' data-bs-original-title='Calendar'>
-          <img src='./bootstrap/bootstrap-icons-1.8.0/calendar-event.svg' width='24' height='24' alt='Calendar'></img>
+          <img src='./bootstrap/icons/calendar-event.svg' width='24' height='24' alt='Calendar'></img>
       </a>
     </li>
 <!-- Followed by optional Nav-Items for specific user groups -->
@@ -20,7 +20,7 @@
         if(getUserGroup($_SESSION['userid']) <= 2) { // Admin = 1, Moderator = 2, bessere Lösungs wünschenswert! 
           echo "<li class='nav-item'>
                   <a href='./admin' class='nav-link py-3 border-bottom border-dark' aria-current='page' title='Admin Dashboard' data-bs-toggle='tooltip' data-bs-placement='right' data-bs-original-title='Admin_Dashboard'>
-                      <img src='./bootstrap/bootstrap-icons-1.8.0/robot.svg' width='24' height='24' alt='Admin-Dashboard'></img>
+                      <img src='./bootstrap/icons/robot.svg' width='24' height='24' alt='Admin-Dashboard'></img>
                   </a>
                 </li>";
         }
@@ -36,7 +36,6 @@
                 <img src='https://avatars.githubusercontent.com/u/61236723?v=4' alt='mdo' class='rounded-circle' width='24' height='24'>
               </a>
               <ul class='dropdown-menu text-small shadow' aria-labelledby='dropdownUser3'>
-                <li><a class='dropdown-item' href='#'>New project...</a></li>
                 <li><a class='dropdown-item' href='#'>Settings</a></li>
                 <li><a class='dropdown-item' href='#'>Profile</a></li>
                 <li><hr class='dropdown-divider'></li>

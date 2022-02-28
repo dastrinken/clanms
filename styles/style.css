@@ -61,7 +61,47 @@ header {
   border: 1px solid black;
 }
 
+/* Calendar style */
+#calendar {
+  max-width: 70%;
+  text-align: center;
+}
+
+#calendar tr td {
+  
+}
+
+.today {
+  color: #222222;
+  border-radius: 3rem;
+  background-color: white !important;
+}
+
 /* Color ressources */
+
+
+/* Alles was mit icons zu tun hat */
+.button-icon {
+  color: white;
+  font-size: 150%;
+}
+
+.button-icon:focus {
+  box-shadow: none;
+}
+
+.button-icon:hover {
+  color: #dc3545;
+}
+
+.footer-icon {
+  color: black;
+  font-size: 150%;
+}
+
+.footer-icon:hover {
+  color: #dc3545;
+}
 
 /* Darkmode (standard skin) */
 .bg-blackened {
@@ -102,7 +142,4 @@ header {
 
 .nav-darkmode:hover {
   color: white;
-}
-.icon-bg:hover {
-  background-color: #C42F3E;
 }

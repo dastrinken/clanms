@@ -16,6 +16,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="./bootstrap/css/bootstrap.css" rel="stylesheet">
+    <link rel="stylesheet" href="./bootstrap/icons/bootstrap-icons.css"> 
     <link rel="stylesheet" href="./styles/style.css"> 
     <script src="./bootstrap/js/bootstrap.bundle.js"></script>
     <script src="./system/js/script.js"></script>
@@ -38,31 +39,17 @@
                     <!-- Content -->
                     <div id="mainContent" class="row p-3 bg-blackened overflow-auto">
                         <?php 
-                        /* 
-                            Hier wird der eigentliche Inhalt geladen, das könnte wie folgt aussehen...
-                            in der Datei header.php wird ein GET-Parameter mittels link (a-tag) übergeben, z.B. so:
-                                <li><a href="./?nav=info" class="nav-link px-2 link-dark">About us</a></li>
-                            hier in index.php wird eine Kontrollstruktur angelegt, die nach GET-Parametern entscheidet, was angezeigt wird.
-                            Mit gegebenem Beispiellink etwa so:
-                            if($_GET['nav'] === info) {
-                                include('./content/info.php');
-                            } elseif( - anderer GET-Parameter - ) {
-                                include('./andere/seite.php');
-                            } elseif ...
-
-                            usw., gefolgt von einem letzten:
-                            else {
-                                include('./content/landingpage.php');
-                            }
-
-                            Der Code sollte anschließend zur besseren Lesbarkeit in eine andere Datei ausgelagert und hier per require(); eingebunden werden.
-                        */
                         if($_GET['code']) {
                             include("./system/login/activation.php");
-                        } else {
+                        } elseif($_GET['nav'] === 'news') {
                             for($i = 0; $i < 5; $i++) {
                                 include("./content/articles/article_template.php"); 
                             }
+                        } elseif($_GET['nav'] === 'info') {
+                            /* include("info.php"); */
+                        } else {
+                            /* default, vorerst Kalender + Willkommenstext einbinden, später variabel machen */
+                            include("./content/eventorganizer/main.php");
                         }
                             /* TODO: 
                             **   - autom. include all articles
