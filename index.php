@@ -59,10 +59,13 @@
                         */
                         if($_GET['code']) {
                             include("./system/login/activation.php");
-                        } else {
+                        } elseif($_GET['nav'] === 'news') {
                             for($i = 0; $i < 5; $i++) {
                                 include("./content/articles/article_template.php"); 
                             }
+                        } else {
+                            /* default, vorerst Kalender + Willkommenstext einbinden, später variabel machen */
+                            include("./content/eventorganizer/main.php");
                         }
                             /* TODO: 
                             **   - autom. include all articles
