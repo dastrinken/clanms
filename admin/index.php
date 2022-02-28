@@ -15,7 +15,7 @@
       echo "Nur Administratoren und Moderatoren haben hier zugriff,";
     }
   } else {
-    // Display login page
+    // Display login page TEST
     echo "Bitte logge dich zuerst ein.";
   }
 ?>
