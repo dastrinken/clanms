@@ -1,6 +1,5 @@
 <div>
-    Home
 
-    Willkommen blabla.....
+<hr>
 
 </div>
