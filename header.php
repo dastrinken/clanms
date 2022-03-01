@@ -1,6 +1,4 @@
 <header class="p-3 d-flex flex-wrap align-items-center justify-content-center justify-content-md-between mb-4 border-bottom border-dark">
-    
-    <link rel="icon" href="./ressources/icons/clanms_logo.svg">
 
     <a href="./" class="d-flex align-items-center col-md-3 mb-2 mb-md-0 text-dark text-decoration-none">
         <!-- Logo TODO: select logo name/location from database -->
@@ -12,7 +10,7 @@
         <li><a href="./" class="nav-link px-2 link-dark nav-darkmode">Home</a></li>
         <li><a href="./?nav=news" class="nav-link px-2 link-dark nav-darkmode">Blog</a></li>
         <li><a href="./?nav=info" class="nav-link px-2 link-dark nav-darkmode">About us</a></li>
-        <li><a href="./?nav=games" class="nav-link px-2 link-dark nav-darkmode">Games</a></li>
+        <li><a href="./?nav=games" class="nav-link px-2 link-dark nav-darkmode">Events</a></li>
         <li><a href="#" class="nav-link px-2 link-dark nav-darkmode">FAQ</a></li>
     </ul>
 
