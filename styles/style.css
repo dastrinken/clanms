@@ -143,3 +143,27 @@ header {
 .nav-darkmode:hover {
   color: white;
 }
+
+.linktab.active{
+  background-color: #C42F3E !important;
+  color: black !important;
+  border-color: #212529 !important;
+}
+
+.linktab{
+  color: white !important;
+}
+
+.linktab:focus{
+  border-color: #212529 !important;
+
+}
+
+.linktab:hover{
+  background-color: #C42F3E;
+  color: black !important;
+  border-color: #212529 !important;
+  
+}
+
+

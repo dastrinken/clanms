@@ -25,3 +25,7 @@
             <button type='submit' class='btn btn-primary' name='install'>Nächster Schritt</button>
     </div>
 </form>
+
+<script>
+    
+</script>

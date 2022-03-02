@@ -1,0 +1,25 @@
+<?php 
+
+/*
+    Accountsettings:
+    Sidebar > Profil > Load settings.php
+
+    settings.php includes:
+    picture (show pic, change pic, delete pic)
+        -> include username (public visible, not accountname)
+        -> includes public info (show info, change, delete)
+    accountnav (menu with options), which decides about display of:
+        1. about
+        2. accountsettings (change accountinfo, password, delete account)
+        3. pageoptions
+        4. events (maybe preferences, or list of enrolled ones)
+
+    make sure database is prepared
+
+    creating userprofile in database:
+    do so after registration, create procedure or triggers to automatically delete unused user profiles
+    on delete user -> delete entries in user_groups and user_profile
+*/
+
+
+?>

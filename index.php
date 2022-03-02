@@ -41,22 +41,7 @@
                     <!-- Content -->
                     <div id="mainContent" class="row p-3 bg-blackened overflow-auto">
                         <?php 
-                        if($_GET['code']) {
-                            include("./system/login/activation.php");
-                        } elseif($_GET['nav'] === 'news') {
-                            for($i = 0; $i < 5; $i++) {
-                                include("./content/articles/article_template.php"); 
-                            }
-                        } elseif($_GET['nav'] === 'info') {
-                            /* include("info.php"); */
-                        } else {
-                            /* default, vorerst Kalender + Willkommenstext einbinden, später variabel machen */
-                            include("./content/eventorganizer/main.php");
-                        }
-                            /* TODO: 
-                            **   - autom. include all articles
-                            **   - avoid potential security risk when using get
-                            */
+                            require("./system/sitemenu.php");
                         ?>
                     </div>
                 </div>

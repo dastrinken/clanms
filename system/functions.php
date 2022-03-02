@@ -96,6 +96,16 @@ function loginAccount() {
     }
 }
 
+/*
+**  registerNewAccount is performed once when registering as a new user
+**  there are different parts of this function:
+**      1. register new user into database
+**      2. insert user into standard user group
+**      3. create new user_profile with standard avatar
+**      4. send activation email
+**
+**      TODO: create procedure or trigger to automatically detect and delete unused user profiles
+*/
 function registerNewAccount() {
     // TODO: Mögliche Sicherheitslücke: Variablen aus POST Escapen oder prepared stmt nutzen!
     global $dbpre;
@@ -141,6 +151,20 @@ function registerNewAccount() {
                                 }
                                 $result->close();
                                 if($rowcount == 1) {
+                                    /* Setze Rechte für neu erstelltes Benutzerprofil */
+                                    $usergroup = 4;
+                                    $comment = $getuser." - new User";
+                                    $stmt = $mysqli->prepare("INSERT INTO clanms_user_groups (id_user, id_group, comment) VALUES (?,?,?)");
+                                    $stmt->bind_param("iis", $id, $usergroup, $comment);
+                                    $stmt->execute();
+                                    $stmt->close();
+                                    /* Erstelle Benutzerprofil in der Datenbank */
+                                    $avatar = file_get_contents(__DIR__."/../ressources/images/standard_avatar.jpg");
+                                    $info = "Willkommen auf meinem öffentlichen Profil!";
+                                    $stmt = $mysqli->prepare("INSERT INTO clanms_user_profile (id_user, name, avatar, info) VALUES (?,?,?,?)");
+                                    $stmt->bind_param("isss", $id, $getuser, $avatar, $info);
+                                    $stmt->execute();
+                                    $stmt->close();
                                     /* Verschicke bestätigungsemail */
                                     // TODO: Schönere Email formulieren
                                     $site = $_SERVER['SERVER_NAME']."/clanms/index.php"; // TODO: !clanms (Ordner) aus URL entfernen vor dem Release! url aus Datenbank auslesen?
@@ -196,6 +220,35 @@ function registerNewAccount() {
 echo $errormsg; //TODO: display errormsg in own window or as part of the site, not just a printed string
 }
 
+function getUserProfile() {
+    $userid = $_SESSION['userid'];
+    $mysqli = connect_DB();
+    $select = $mysqli->prepare("SELECT * FROM clanms_user_profile WHERE id_user=?");
+    $select->bind_param("i", $userid);
+    $select->execute();
+    $result = $select->get_result();
+    $data = $result->fetch_all(MYSQLI_ASSOC);
+    return $data;
+}
+
+function getProfilePic($size, $rounded) {
+    $userid = $_SESSION['userid'];
+    $mysqli = connect_DB();
+    $select = $mysqli->prepare("SELECT avatar FROM clanms_user_profile WHERE id_user=?");
+    $select->bind_param("i", $userid);
+    $select->execute();
+    $result = $select->get_result();
+    $data = $result->fetch_assoc();
+    foreach($data as $value) {
+        $content = base64_encode($value);
+    }
+    if($rounded == 0) {
+        $image = '<img src = "data:image/png;base64,'.$content.'" width = "'.$size.'px" height = "'.$size.'px"/>';
+    } elseif($rounded == 1) {
+        $image = '<img src = "data:image/png;base64,'.$content.'" width = "'.$size.'px" height = "'.$size.'px" class="rounded-circle" />';
+    }
+    return $image;
+}
 
 /* Hilfsfunktionen */
 function debug_to_console($data) {

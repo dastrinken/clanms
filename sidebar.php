@@ -33,11 +33,10 @@
       echo "<!-- TODO: Sidebar je nach Benutzerstatus (Gruppen / Berechtigungen) anpassen! -->
             <div class='dropdown border-top border-dark'>
               <a href='#' class='d-flex align-items-center justify-content-center p-3 link-dark text-decoration-none dropdown-toggle' id='dropdownUser3' data-bs-toggle='dropdown' aria-expanded='false'>
-                <img src='https://avatars.githubusercontent.com/u/61236723?v=4' alt='mdo' class='rounded-circle' width='24' height='24'>
+                ".getProfilePic(24, 1)."
               </a>
               <ul class='dropdown-menu text-small shadow' aria-labelledby='dropdownUser3'>
-                <li><a class='dropdown-item' href='#'>Settings</a></li>
-                <li><a class='dropdown-item' href='#'>Profile</a></li>
+                <li><a class='dropdown-item' href='./?nav=profile'>Profile</a></li>
                 <li><hr class='dropdown-divider'></li>
                 <li><a class='dropdown-item' href='#' onclick='destroy_session();return false;'>Sign out</a></li>
               </ul>
