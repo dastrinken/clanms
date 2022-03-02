@@ -32,10 +32,6 @@
             <div id="loginSignupModalBody" class="modal-body">
                 <!-- Login / Register form -->
             </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                <button type="button" id="changeLoginFormBtn" class="btn btn-primary" onclick=""></button>
-            </div>
             </div>
         </div>
     </div>
