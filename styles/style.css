@@ -166,4 +166,21 @@ header {
   
 }
 
+.modal-header{
+  
+  border-bottom: none;
+}
 
+.modal-content{
+  background-color: #212529;
+  color: white !important;
+}
+
+.sendbtn{
+  background-color: #C42F3E !important;
+  border-color: #C42F3E !important;
+}
+
+.sendbtn:focus{
+  border-color: #C42F3E !important;
+}
