@@ -1,4 +1,8 @@
 <?php
+    if($_POST['changeProfile']) {
+        changeProfile();
+    }
+
     $profile = getUserProfile();
 
     foreach($profile as $row) {
@@ -47,7 +51,6 @@
 document.onload = changeContent("profileTab");
 
 function changeContent(id) {
-    /* Lese alle linktab ein, und if classlist.contains("active") -> classlist.remove("active") */
     var xhttp = new XMLHttpRequest();
     var tabs = document.getElementsByClassName("linktab");
 
