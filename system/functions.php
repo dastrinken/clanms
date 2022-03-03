@@ -236,6 +236,52 @@ function deleteAccount($userid) {
     }
 }
 
+function emailChange($userid){
+    $getpass = $_POST['passwordEmail'];
+    $getemail = $_POST['newEmail'];
+    $password = selectOneRow_DB("password", "clanms_user", "id", $userid);
+    if(password_verify($getpass, $password)) {
+        $mysqli = connect_DB();
+        $changemail = $mysqli->prepare("UPDATE clanms_user SET email=? WHERE id=?");
+        $changemail->bind_param("si", $getemail, $userid);
+        if($changemail->execute()){
+            echo("Email wurde erfolgreich geändert!");
+        }else{
+            echo("Emailänderung fehlgeschlagen!");
+        }
+        $changemail->close();
+        $mysqli->close();
+    }
+}
+
+function passwordChange($userid){
+    $getpass = $_POST['oldPass'];
+    $getnewpass = $_POST['newPass'];
+    $getnewpassre = $_POST['newPassRe'];
+    $password = selectOneRow_DB("password", "clanms_user", "id", $userid);
+    if(password_verify($getpass, $password)) {
+        if($getnewpass === $getnewpassre){
+            $newpass = password_hash($getnewpass, PASSWORD_DEFAULT);
+            $mysqli = connect_DB();
+            $changepass = $mysqli->prepare("UPDATE clanms_user SET password=? WHERE id=?");
+            $changepass->bind_param("si", $newpass, $userid);
+            if($changepass->execute()){
+                echo("Passwort wurde erfolgreich geändert!");
+            }else{
+                echo("Passwortänderung fehlgeschlagen!");
+            }
+            $changepass->close();
+            $mysqli->close();
+        }else{
+            echo "Passwörter stimmen nicht überein!";
+        }
+    
+    }
+
+
+
+}
+
 function getUserProfile() {
     $userid = $_SESSION['userid'];
     $mysqli = connect_DB();

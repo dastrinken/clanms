@@ -5,7 +5,12 @@
     <!-- Leading Paragraph -->
     <p class="lead">Herzlich Willkommen auf deinem ClanMS!</p>
     <!-- Fließtext -->
-    <p>Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.</p>
+    <p>Noch ist bei weitem nicht alles funktionsfähig. Schau dich dennoch gerne ein wenig um!<br/>
+    Links hiervon solltest du den Eventkalender sehen. Dort bekommst du einen schnellen Überblick über alle anstehenden Aktivitäten.
+    Oben im Header findest du die Hauptnavigation, du kannst jedoch auch über die Sidebar auf alle wichtigen Bereiche der Seite zugreifen.<br/><br/>
+    Viel Spaß, dein ClanMS-Team!
+    </p>
+    <hr/>
     <!-- Zitat -->
     <figure class="text-center">
         <blockquote class="blockquote">

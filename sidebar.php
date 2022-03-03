@@ -33,12 +33,6 @@
       </a>
     </li>
 
-    <li class='nav-item'>
-      <a href='./?nav=profile' class='nav-link py-3 border-bottom border-dark nav-darkmode' aria-current='page' title='Settings' data-bs-toggle='tooltip' data-bs-placement='right' data-bs-original-title='Settings'>
-          <i class="bi-gear sidebar-icon"></i>
-      </a>
-    </li>
-
 <!-- Followed by optional Nav-Items for specific user groups -->
     <?php
       if($_SESSION['username'] && $_SESSION['userid']) {
@@ -49,6 +43,15 @@
                   </a>
                 </li>";
         }
+      }
+
+
+      if($_SESSION['username'] && $_SESSION) {
+        echo "<li class='nav-item'>
+                <a href='./?nav=profile' class='nav-link py-3 border-bottom border-dark nav-darkmode' aria-current='page' title='Settings' data-bs-toggle='tooltip' data-bs-placement='right' data-bs-original-title='Settings'>
+                    <i class='bi-gear sidebar-icon'></i>
+                </a>
+              </li>";
       }
     ?>
   </ul>

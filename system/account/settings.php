@@ -15,12 +15,40 @@
             if($_POST['passwordDelete']) {
                 /* delete Account */
                 deleteAccount($_SESSION['userid']);
-                echo "Account wird gelöscht!";
+                echo "<script>destroy_session();</script>";
             } else {
                 echo "Zur Sicherheit musst du dein Passwort eingeben";
             }
         } else {
             echo "Bitte bestätige, dass du den Account wirklich löschen willst!";
+        }
+    }
+    
+    if($_POST['confirmEmail']){
+        if($_POST['newEmail']){
+            if($_POST['passwordEmail']){
+                emailChange($_SESSION['userid']);
+            }else{
+                echo "Passwort inkorrekt!";
+            }
+        }else{
+            echo "Geben sie eine korrekte Email ein!";
+        }
+    }
+
+    if($_POST['confirmPass']){
+        if($_POST['oldPass']){
+            if($_POST['newPass']){
+                if($_POST['newPassRe']){
+                    passwordChange($_SESSION['userid']);
+                }else{
+                    echo "Geben sie das Passwort erneut ein!!";
+                }
+            }else{
+                echo "Geben sie ein neues Passwort ein!";
+            }
+        }else{
+            echo "Geben sie ihr altes Passwort ein!";
         }
     }
 ?>

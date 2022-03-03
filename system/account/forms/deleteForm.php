@@ -1,7 +1,7 @@
-<form action='?nav=profile&tab=accountTab' method='post' enctype='multipart/form-data'>
+<form action='?nav=profile&tab=accountTab' method='post'>
     <div class="mb-3">
         <label for="password" class="form-label">Passwort</label>
-        <input type="text" class="form-control" id="password" value="" placeholder="Geben sie ihr Passwort ein" name="passwordDelete">
+        <input type="password" class="form-control" id="password" value="" placeholder="Geben sie ihr Passwort ein" name="passwordDelete">
     </div>
     <div class="mb-3">
         <p><strong>ACHTUNG!</strong> Mit diesem Schritt wird ihr Account und sämtliche zugehörige Daten <strong><u>unwiderruflich</u></strong> gelöscht. Sind sie sich wirklich sicher?</p>
