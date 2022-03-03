@@ -2,9 +2,13 @@
     /* TODO: Include all important files 
     ** - Start session, set all cookies
     */
-    if(session_start()) {
-        $userid = $_SESSION['userid'];
-        $username = $_SESSION['username'];
+    session_start();
+
+    if($_SESSION['userid'] && $_SESSION['username']) {
+        /* setze cookie -> lade seite neu */
+        setcookie("login", "true");
+    } else {
+        setcookie("login", "false");
     }
     require("./system/dbconnect.php");
     require("./system/functions.php");

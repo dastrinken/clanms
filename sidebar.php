@@ -4,14 +4,14 @@
   <ul class='nav nav-pills nav-flush flex-column mb-auto text-center'>
 
     <li class='nav-item'>
-      <a href='./' class='nav-link py-3 border-bottom border-dark' aria-current='page' title='Home' data-bs-toggle='tooltip' data-bs-placement='right' data-bs-original-title='Home'>
-          <img class='bi' src='./bootstrap/icons/house.svg' width='24' height='24' alt='Home'></img>
+      <a href='./' class='nav-link py-3 border-bottom border-dark nav-darkmode' aria-current='page' title='Home' data-bs-toggle='tooltip' data-bs-placement='right' data-bs-original-title='Home'>
+        <i class="bi-house sidebar-icon"></i>
       </a>
     </li>
     
     <li class='nav-item'>
-      <a href='#' class='nav-link py-3 border-bottom border-dark' aria-current='page' title='Calendar' data-bs-toggle='tooltip' data-bs-placement='right' data-bs-original-title='Calendar'>
-          <img src='./bootstrap/icons/calendar-event.svg' width='24' height='24' alt='Calendar'></img>
+      <a href='#' class='nav-link py-3 border-bottom border-dark nav-darkmode' aria-current='page' title='Calendar' data-bs-toggle='tooltip' data-bs-placement='right' data-bs-original-title='Calendar'>
+          <i class="bi-calendar-event sidebar-icon"></i>
       </a>
     </li>
 <!-- Followed by optional Nav-Items for specific user groups -->
@@ -19,8 +19,8 @@
       if($_SESSION['username'] && $_SESSION['userid']) {
         if(getUserGroup($_SESSION['userid']) <= 2) { // Admin = 1, Moderator = 2, bessere Lösungs wünschenswert! 
           echo "<li class='nav-item'>
-                  <a href='./admin' class='nav-link py-3 border-bottom border-dark' aria-current='page' title='Admin Dashboard' data-bs-toggle='tooltip' data-bs-placement='right' data-bs-original-title='Admin_Dashboard'>
-                      <img src='./bootstrap/icons/robot.svg' width='24' height='24' alt='Admin-Dashboard'></img>
+                  <a href='./admin' class='nav-link py-3 border-bottom border-dark nav-darkmode' aria-current='page' title='Admin Dashboard' data-bs-toggle='tooltip' data-bs-placement='right' data-bs-original-title='Admin_Dashboard'>
+                      <i class='bi-robot sidebar-icon'></i>
                   </a>
                 </li>";
         }
