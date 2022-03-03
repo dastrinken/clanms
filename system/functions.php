@@ -242,9 +242,9 @@ function getProfilePic($size, $rounded) {
         $content = base64_encode($value);
     }
     if($rounded == 0) {
-        $image = '<img src = "data:image/png;base64,'.$content.'" width = "'.$size.'px" height = "'.$size.'px"/>';
+        $image = '<img src="data:image/png;base64,'.$content.'" width = "'.$size.'px" height= "'.$size.'px" />';
     } elseif($rounded == 1) {
-        $image = '<img src = "data:image/png;base64,'.$content.'" width = "'.$size.'px" height = "'.$size.'px" class="rounded-circle" />';
+        $image = '<img src="data:image/png;base64,'.$content.'" width = "'.$size.'px" height="'.$size.'px" class="rounded-circle" />';
     }
     return $image;
 }
