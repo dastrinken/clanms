@@ -1,4 +1,4 @@
-<form action='./?nav=profile' method='post'>
+<form action='./?nav=profile' method='post' enctype='multipart/form-data'>
     <div class="mb-3">
         <label for="profilename" class="form-label"><abbr title="Ändere deinen öffentlichen Namen">Profilname</abbr></label>
         <input type="text" class="form-control" id="profilename" value="<?php echo $pname; ?>" name="pname">

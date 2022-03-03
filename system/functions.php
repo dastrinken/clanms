@@ -254,14 +254,21 @@ function getProfilePic($size, $rounded) {
 function changeProfile() {
     $pname = $_POST['pname'];
     $pinfo = $_POST['pinfo'];
-    $ppic = file_get_contents($_POST['ppic']);
+    $ppic = file_get_contents($_FILES['ppic']['name']);
+
+    if(is_uploaded_file($_FILES['ppic']['test'])) {
+        $imgData = addslashes(file_get_contents($_FILES['userImage']['tmp_name']));
+        $imgProperties = getimageSize($_FILES['userImage']['tmp_name']);
+        var_dump($ppic, $imgData, $imgProperties);
+    }
+
 
     $update = "UPDATE clanms_user_profile SET name=?, avatar=?, info=? WHERE id_user=?";
 
     $mysqli = connect_DB();
 
     $stmt = $mysqli->prepare($update);
-
+    //var_dump($pname, $pinfo, $ppic);
     if(!empty($pname) && !empty($pinfo) && !empty($ppic)) {
         if($stmt->bind_param("sssi", $pname, $ppic, $pinfo, $_SESSION['userid'])) {
             debug_to_console("Hat geklappt!");
