@@ -1,3 +1,6 @@
+var cookie = document.cookie;
+console.log("Cookies: "+cookie);
+
 // General
 function destroy_session() {
     var xhttp = new XMLHttpRequest();

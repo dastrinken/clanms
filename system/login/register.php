@@ -17,7 +17,7 @@
                             <label for='registerPassword' class='form-label'>Retype Password</label>
                             <input type='password' name='passwordRetype' class='form-control' id='registerPasswordRetype' value ='$getpassretype' required>
                         </div>
-                            <input type='submit' class='btn btn-primary' name='registerBtn'>
+                            <input type='submit' class='btn btn-primary sendbtn' name='registerBtn'>
                     </form>";
     echo $register_form;
 ?>

@@ -13,7 +13,7 @@
                     <input type='checkbox' class='form-check-input' id='permaLogin'>
                     <label class='form-check-label' for='permaLogin'>Eingeloggt bleiben</label>
                   </div>
-                  <input type='submit' class='btn btn-primary' name='loginBtn'></button>
+                  <input type='submit' class='btn btn-primary sendbtn' name='loginBtn'></input>
                 </form>";
 
   echo $login_form;

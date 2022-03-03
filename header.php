@@ -13,11 +13,18 @@
         <li><a href="./?nav=calendar" class="nav-link px-2 link-dark nav-darkmode">Events</a></li>
         <li><a href="#" class="nav-link px-2 link-dark nav-darkmode">FAQ</a></li>
     </ul>
-
-    <div class="col-md-2 text-end">
-        <button type="button" id="loginBtn" class="btn btn-darkmode-outline me-2" data-bs-toggle="modal" data-bs-target="#loginRegisterModal" onclick="openLoginRegisterModal(this.id)">Login</button>
-        <button type="button" id="signupBtn" class="btn btn-darkmode" data-bs-toggle="modal" data-bs-target="#loginRegisterModal" onclick="openLoginRegisterModal(this.id)">Sign-up</button>
-    </div>
+    <?php
+        if(empty($_SESSION['userid']) && empty($_SESSION['username'])) {
+            echo '<div class="col-md-2 text-end">
+                        <button type="button" id="loginBtn" class="btn btn-darkmode-outline me-2" data-bs-toggle="modal" data-bs-target="#loginRegisterModal" onclick="openLoginRegisterModal(this.id)">Login</button>
+                        <button type="button" id="signupBtn" class="btn btn-darkmode" data-bs-toggle="modal" data-bs-target="#loginRegisterModal" onclick="openLoginRegisterModal(this.id)">Sign-up</button>
+                    </div>';
+        } else {
+            echo '<div class="col-md-2 text-end">
+                    <button type="button" id="logoutBtn" class="btn btn-darkmode-outline me-2" onclick="destroy_session();return false;">Logout</button>
+                </div>';
+        }
+    ?>
 
     <!-- Modal triggered by login button 
             TODO:   change buttons and content via javascript (not fully functional yet)
