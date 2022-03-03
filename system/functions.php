@@ -250,6 +250,31 @@ function getProfilePic($size, $rounded) {
     return $image;
 }
 
+/* Profilseite */
+function changeProfile() {
+    $pname = $_POST['pname'];
+    $pinfo = $_POST['pinfo'];
+    $ppic = file_get_contents($_POST['ppic']);
+
+    $update = "UPDATE clanms_user_profile SET name=?, avatar=?, info=? WHERE id_user=?";
+
+    $mysqli = connect_DB();
+
+    $stmt = $mysqli->prepare($update);
+
+    if(!empty($pname) && !empty($pinfo) && !empty($ppic)) {
+        if($stmt->bind_param("sssi", $pname, $ppic, $pinfo, $_SESSION['userid'])) {
+            debug_to_console("Hat geklappt!");
+        } else {
+            debug_to_console($stmt);
+        }
+    }
+
+    $stmt->execute();
+    $stmt->close();
+    $mysqli->close();
+}
+
 /* Hilfsfunktionen */
 function debug_to_console($data) {
     $output = $data;
