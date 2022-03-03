@@ -1,7 +1,7 @@
 <?php
     $id = $_GET['id'];
     $code = $_GET['code'];
-    $codeDB = selectOneRow_DB("activationCode", "user", "id", $id);
+    $codeDB = selectOneRow_DB("activationCode", "clanms_user", "id", $id);
 
     if($codeDB === $code){
         $active = 1;

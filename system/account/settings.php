@@ -1,9 +1,9 @@
 <?php
-    $profile = getUserProfile();
-
     if($_POST['changeProfile']) {
         changeProfile();
     }
+
+    $profile = getUserProfile();
 
     foreach($profile as $row) {
         $pname = $row['name'];

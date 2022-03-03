@@ -40,7 +40,6 @@ function getUserGroup($userid) {
 
 //selectOneRow_DB: nur nutzen, wenn erwartete Rückgabe nur eine einzelne Zeile ist
 function selectOneRow_DB($column, $tablename, $condition, $value) {
-    global $dbpre;
     $mysqli = connect_DB();
 
     $column = mysqli_escape_string($mysqli, $column);
@@ -48,7 +47,7 @@ function selectOneRow_DB($column, $tablename, $condition, $value) {
     $condition = mysqli_escape_string($mysqli, $condition);
     $value = mysqli_escape_string($mysqli, $value);
     
-    $query = "SELECT $column FROM ".$dbpre."$tablename WHERE $condition=$value";
+    $query = "SELECT $column FROM $tablename WHERE $condition=$value";
     $select = $mysqli->query($query);
     while($row = $select->fetch_row()) {
         return $row[0];
@@ -252,29 +251,29 @@ function getProfilePic($size, $rounded) {
 
 /* Profilseite */
 function changeProfile() {
-    $pname = $_POST['pname'];
-    $pinfo = $_POST['pinfo'];
-    $ppic = file_get_contents($_FILES['ppic']['name']);
-
-    if(is_uploaded_file($_FILES['ppic']['test'])) {
-        $imgData = addslashes(file_get_contents($_FILES['userImage']['tmp_name']));
-        $imgProperties = getimageSize($_FILES['userImage']['tmp_name']);
-        var_dump($ppic, $imgData, $imgProperties);
+    if(empty($_POST['pname'])) {
+        $pname = selectOneRow_DB("name", "clanms_user_profile", "id_user", $_SESSION['userid']);
+    } else {
+        $pname = $_POST['pname'];
+    }
+    if(empty($_POST['pinfo'])){
+        $pinfo = selectOneRow_DB("info", "clanms_user_profile", "id_user", $_SESSION['userid']);
+    } else {
+        $pinfo = $_POST['pinfo'];
+    }
+    if(empty($_FILES['ppic']['tmp_name'])) {
+        $ppic = selectOneRow_DB("avatar", "clanms_user_profile", "id_user", $_SESSION['userid']);
+    } else {
+        $ppic = file_get_contents($_FILES['ppic']['tmp_name']);
     }
 
-
-    $update = "UPDATE clanms_user_profile SET name=?, avatar=?, info=? WHERE id_user=?";
-
     $mysqli = connect_DB();
-
+    $update = "UPDATE clanms_user_profile SET name=?, avatar=?, info=? WHERE id_user=?";
     $stmt = $mysqli->prepare($update);
-    //var_dump($pname, $pinfo, $ppic);
-    if(!empty($pname) && !empty($pinfo) && !empty($ppic)) {
-        if($stmt->bind_param("sssi", $pname, $ppic, $pinfo, $_SESSION['userid'])) {
-            debug_to_console("Hat geklappt!");
-        } else {
-            debug_to_console($stmt);
-        }
+    if($stmt->bind_param("sssi", $pname, $ppic, $pinfo, $_SESSION['userid'])) {
+        debug_to_console("Hat geklappt!");
+    } else {
+        debug_to_console($stmt);
     }
 
     $stmt->execute();

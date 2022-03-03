@@ -5,6 +5,7 @@
     </div>
     <div class="mb-3">
         <label for="avatar" class="form-label"><abbr title="Hier kannst du ein neues Profilbild hochladen (max. 64kB)">Profilbild</abbr></label>
+        <input type="hidden" name="MAX_FILE_SIZE" value="64000" />
         <input class="form-control" type="file" id="avatar" name="ppic">
     </div>
     <div class="mb-3">
