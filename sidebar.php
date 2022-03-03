@@ -14,13 +14,38 @@
           <i class="bi-calendar-event sidebar-icon"></i>
       </a>
     </li>
+    
+    <li class='nav-item'>
+      <a href='./?nav=news' class='nav-link py-3 border-bottom border-dark nav-darkmode' aria-current='page' title='Newsblog' data-bs-toggle='tooltip' data-bs-placement='right' data-bs-original-title='Newsblog'>
+          <i class="bi-journal-bookmark sidebar-icon"></i>
+      </a>
+    </li>
+
+    <li class='nav-item'>
+      <a href='#' class='nav-link py-3 border-bottom border-dark nav-darkmode' aria-current='page' title='Camera' data-bs-toggle='tooltip' data-bs-placement='right' data-bs-original-title='Camera'>
+          <i class="bi-camera sidebar-icon"></i>
+      </a>
+    </li>
+
+    <li class='nav-item'>
+      <a href='#' class='nav-link py-3 border-bottom border-dark nav-darkmode' aria-current='page' title='Chat' data-bs-toggle='tooltip' data-bs-placement='right' data-bs-original-title='Chat'>
+          <i class="bi-chat-dots sidebar-icon"></i>
+      </a>
+    </li>
+
+    <li class='nav-item'>
+      <a href='./?nav=profile' class='nav-link py-3 border-bottom border-dark nav-darkmode' aria-current='page' title='Settings' data-bs-toggle='tooltip' data-bs-placement='right' data-bs-original-title='Settings'>
+          <i class="bi-gear sidebar-icon"></i>
+      </a>
+    </li>
+
 <!-- Followed by optional Nav-Items for specific user groups -->
     <?php
       if($_SESSION['username'] && $_SESSION['userid']) {
         if(getUserGroup($_SESSION['userid']) <= 2) { // Admin = 1, Moderator = 2, bessere Lösungs wünschenswert! 
           echo "<li class='nav-item'>
                   <a href='./admin' class='nav-link py-3 border-bottom border-dark nav-darkmode' aria-current='page' title='Admin Dashboard' data-bs-toggle='tooltip' data-bs-placement='right' data-bs-original-title='Admin_Dashboard'>
-                      <i class='bi-robot sidebar-icon'></i>
+                      <i class='bi-heart-pulse sidebar-icon'></i>
                   </a>
                 </li>";
         }

@@ -9,6 +9,20 @@
         $pname = $row['name'];
         $pinfo = $row['info'];
     }
+
+    if($_POST['confirmDelete']) {
+        if(isset($_POST['checkDelete'])) {
+            if($_POST['passwordDelete']) {
+                /* delete Account */
+                deleteAccount($_SESSION['userid']);
+                echo "Account wird gelöscht!";
+            } else {
+                echo "Zur Sicherheit musst du dein Passwort eingeben";
+            }
+        } else {
+            echo "Bitte bestätige, dass du den Account wirklich löschen willst!";
+        }
+    }
 ?>
 
 <div class="container">
@@ -48,7 +62,15 @@
 </div>
 
 <script>
-document.onload = changeContent("profileTab");
+
+const getUrl = window.location.search;
+const urlParams = new URLSearchParams(getUrl);
+
+if(urlParams.get('tab') != null) {
+    document.onload = changeContent(urlParams.get('tab'));
+} else {
+    document.onload = changeContent('profileTab');
+}
 
 function changeContent(id) {
     var xhttp = new XMLHttpRequest();
@@ -82,7 +104,7 @@ function changeModalContent(id) {
         var xhttp = new XMLHttpRequest();
         var accountModalBody = document.getElementById("accountModalBody");
         var accountModalLabel = document.getElementById("accountModalLabel");
-        console.log(xhttp, accountModalBody, accountModalLabel);
+        
         xhttp.onload = function() {
             accountModalBody.innerHTML = this.responseText;
         }

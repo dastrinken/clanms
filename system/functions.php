@@ -219,6 +219,23 @@ function registerNewAccount() {
 echo $errormsg; //TODO: display errormsg in own window or as part of the site, not just a printed string
 }
 
+function deleteAccount($userid) {
+    $getpass = $_POST['passwordDelete'];
+    $password = selectOneRow_DB("password", "clanms_user", "id", $userid);
+    if(password_verify($getpass, $password)) {
+        $mysqli = connect_DB();
+        $delete = "DELETE FROM clanms_user_groups WHERE id_user=$userid;
+                    DELETE FROM clanms_user_profile WHERE id_user=$userid;
+                    DELETE FROM clanms_user WHERE id=$userid;";
+        if($mysqli->multi_query($delete)) {
+            echo "success! everything is deleted";
+        } else {
+            echo "error! data could not be deleted";
+        }
+        $mysqli->close();
+    }
+}
+
 function getUserProfile() {
     $userid = $_SESSION['userid'];
     $mysqli = connect_DB();
