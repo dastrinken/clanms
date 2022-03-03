@@ -13,6 +13,6 @@
         <textarea class="form-control" id="infotext" rows="3" name="pinfo"></textarea>
     </div>
     <div class="mb-3">
-        <input name="changeProfile" type="submit" value="Absenden"/>
+        <input class="btn sendbtn" name="changeProfile" type="submit" value="Absenden"/>
     </div>
 </form>

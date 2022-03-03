@@ -77,4 +77,28 @@ function changeContent(id) {
     xhttp.send();
 }
 
+
+function changeModalContent(id) {
+        var xhttp = new XMLHttpRequest();
+        var accountModalBody = document.getElementById("accountModalBody");
+        var accountModalLabel = document.getElementById("accountModalLabel");
+        console.log(xhttp, accountModalBody, accountModalLabel);
+        xhttp.onload = function() {
+            accountModalBody.innerHTML = this.responseText;
+        }
+
+        if(id == "deleteAccount"){
+            xhttp.open("GET", "./system/account/forms/deleteForm.php");
+            accountModalLabel.innerHTML = "Account löschen";
+        } else if(id == "changeEmail"){
+            xhttp.open("GET", "./system/account/forms/emailForm.php");
+            accountModalLabel.innerHTML = "Email ändern";
+        } else if(id == "changePassword"){
+            xhttp.open("GET", "./system/account/forms/passwordForm.php");
+            accountModalLabel.innerHTML = "Passwort ändern";
+        }
+
+        xhttp.send();
+    }
+
 </script>

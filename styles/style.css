@@ -165,7 +165,6 @@ header {
 /* Navigation Profilseite */
 .linktab.active {
   background-color: #C42F3E !important;
-  color: black !important;
   border-color: #212529 !important;
 }
 
@@ -180,19 +179,23 @@ header {
 
 .linktab:hover {
   background-color: #C42F3E;
-  color: black !important;
   border-color: #212529 !important;
   
 }
 
 /* Login / Register Formular */
 .sendbtn {
+  color: white !important;
   background-color: #C42F3E !important;
   border-color: #C42F3E !important;
 }
 
 .sendbtn:focus {
   border-color: #C42F3E !important;
+}
+
+.sendbtn:hover {
+  box-shadow: 1px 1px 2px inset black;
 }
 
 /* Sidebar Buttons */
