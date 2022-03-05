@@ -10,7 +10,7 @@
     </li>
     
     <li class='nav-item'>
-      <a href='#' class='nav-link py-3 border-bottom border-dark nav-darkmode' aria-current='page' title='Calendar' data-bs-toggle='tooltip' data-bs-placement='right' data-bs-original-title='Calendar'>
+      <a href='./?nav=calendar' class='nav-link py-3 border-bottom border-dark nav-darkmode' aria-current='page' title='Calendar' data-bs-toggle='tooltip' data-bs-placement='right' data-bs-original-title='Calendar'>
           <i class="bi-calendar-event sidebar-icon"></i>
       </a>
     </li>

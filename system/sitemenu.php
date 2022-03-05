@@ -8,8 +8,10 @@
         }
     } elseif($_GET['nav'] === 'info') {
         /* include("info.php"); */
-    } elseif ($_GET['nav'] === 'profile') {
+    } elseif($_GET['nav'] === 'profile') {
         include(__DIR__."/../system/account/settings.php");
+    } elseif($_GET['nav'] === 'calendar') {
+        include(__DIR__."/../content/calendar/calendarpage.php");
     } else {
         /* default, vorerst Kalender + Willkommenstext einbinden, später variabel machen */
         include(__DIR__."/../content/eventorganizer/main.php");

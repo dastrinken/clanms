@@ -77,6 +77,11 @@ header {
   background-color: white !important;
 }
 
+.calendar-event:hover {
+  background-color: var(--bs-danger);
+  cursor: pointer;
+}
+
 /* Color ressources */
 
 /* Darkmode (standard skin) */

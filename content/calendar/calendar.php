@@ -1,6 +1,12 @@
-<div class="row">
-	<div class="col d-flex justify-content-center">
-		<h2 id="headline"></h1>
+<div class="p-3 row">
+	<div class="col d-flex flex-shrink-1 justify-content-center">
+		<button type="button" class="btn button-calender" onclick="--dm; calendar(dm, dj, 'calendar');"><i class="bi-arrow-left-circle button-icon"></i></button>
+	</div>
+	<div class="col d-flex flex-grow-1 justify-content-center align-items-end">
+		<h5 id="headline"></h5>
+	</div>
+	<div class="col d-flex flex-shrink-1 justify-content-center ">
+		<button type="button" class="btn button-calender" onclick="++dm; calendar(dm, dj, 'calendar');"><i class="bi-arrow-right-circle button-icon"></i></button>
 	</div>
 </div>
 <div class="row">
@@ -8,26 +14,25 @@
 		<table id="calendar" class="table table-sm text-white"> </table>
 	</div>
 </div>
-<div class="row">
-	<div class="col d-flex justify-content-center">
-		<div class="btn-group" role="group" aria-label="Basic example">
-			<button type="button" class="btn button-icon" onclick="--dm; calendar(dm, dj, 'calendar');"><i class="bi-arrow-left-circle button-icon"></i></button>
-			<button type="button" class="btn button-icon" onclick="++dm; calendar(dm, dj, 'calendar');"><i class="bi-arrow-right-circle button-icon"></i></button>
-		</div>
-	</div>
-</div>
-
-<script>
+<div id="test"></div>
+<script type="text/javascript">
+	/* Kalender */
 	const d = new Date();
 	var dm = d.getMonth() + 1;
 	var dj = d.getYear() + 1900;
+	var monthArray;
+
 	calendar(dm, dj, 'calendar');
 
 	function deleteCalendar() {
 		document.getElementById("calendar").innerHTML = "";
 	}
 
-	function calendar(Monat, Jahr, calendarId) {
+	function calendar(Monat, Jahr, calendarId, eventArray) {
+		/* Platzhalter für Eventteil */
+		getMonthEventArray(Monat, Jahr); // Rückgabe: Alle Events für diesen Monat in einem Array
+		console.log(monthArray);
+
 		deleteCalendar(); 
 		if(Monat < 1) {
 			Monat = 12;
@@ -69,7 +74,6 @@
 		const tabelle = document.getElementById(calendarId);
 		if (!tabelle) return false;
 		// schreibe Tabellenüberschrift
-		//const caption = tabelle.createCaption();
 		const headline = document.getElementById("headline");
 		headline.innerHTML = Monatsname[Monat - 1] + " " + Jahr;
 		// schreibe Tabellenkopf
@@ -97,10 +101,28 @@
 						cell.className = cell.className + ' today';
 					}
 					Tageszahl++;
+
+					/* Variablen verfügbar: Tageszahl, Monat, Jahr */
+					// Vergleiche alle Tageszahlen in diesem Monat mit unserem Array
+					//console.log("Tag: "+Tageszahl+" | Monat: "+Monat+" | Jahr: "+Jahr);
 				}
 			}
 		}
 		return true;
 	}
 
+// Calendar
+function getMonthEventArray(month, year) {
+    var xhttp = new XMLHttpRequest();
+    xhttp.onload = function() {
+		parseData(this.response);
+    }
+    xhttp.open("GET", "./content/calendar/events.php?f=monthArray&m="+month+"&y="+year);
+    xhttp.send();
+}
+
+function parseData(data) {
+	monthArray = JSON.parse(data);
+	console.log(monthArray);
+}
 </script>
