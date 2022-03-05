@@ -9,6 +9,7 @@ if($_POST['registerBtn']){
 } elseif($_POST['loginBtn']) {
     loginAccount();
 }
+/* Daten aus DB auslesen */
 
 /* Settings aus DB auslesen */
 function getSetting($property) {
@@ -23,31 +24,11 @@ function getSetting($property) {
     $mysqli->close();
 }
 
-/* Daten aus DB auslesen */
-
 //GruppenID des Nutzers auslesen
 function getUserGroup($userid) {
     global $dbpre;
     $mysqli = connect_DB();
     $query = "SELECT id_group FROM ".$dbpre."user_groups WHERE id_user=$userid";
-    $select = $mysqli->query($query);
-    while($row = $select->fetch_row()) {
-        return $row[0];
-    }
-    $select->close();
-    $mysqli->close();
-}
-
-//selectOneRow_DB: nur nutzen, wenn erwartete Rückgabe nur eine einzelne Zeile ist
-function selectOneRow_DB($column, $tablename, $condition, $value) {
-    $mysqli = connect_DB();
-
-    $column = mysqli_escape_string($mysqli, $column);
-    $tablename = mysqli_escape_string($mysqli, $tablename);
-    $condition = mysqli_escape_string($mysqli, $condition);
-    $value = mysqli_escape_string($mysqli, $value);
-    
-    $query = "SELECT $column FROM $tablename WHERE $condition=$value";
     $select = $mysqli->query($query);
     while($row = $select->fetch_row()) {
         return $row[0];
@@ -277,9 +258,6 @@ function passwordChange($userid){
         }
     
     }
-
-
-
 }
 
 function getUserProfile() {
@@ -344,7 +322,60 @@ function changeProfile() {
     $mysqli->close();
 }
 
-/* Hilfsfunktionen */
+/* Calendar und alle zugehörige */
+function getClosestEventId() {
+    $mysqli = connect_DB();
+    $select = "SELECT id, MIN(DATEDIFF(start, NOW())) AS diff FROM clanms_event WHERE start > NOW() GROUP BY id ORDER BY diff ASC LIMIT 1;";
+    $result = $mysqli->query($select);
+    while($row = $result->fetch_row()) {
+        $id = $row[0];
+    }
+    $result->close();
+    $mysqli->close();
+    return $id;
+}
+
+function getEventsArray() {
+    $mysqli = connect_DB();
+    $select = "SELECT * FROM clanms_event";
+    $result = $mysqli->query($select, MYSQLI_USE_RESULT);
+    $resultArray = $result->fetch_all(MYSQLI_ASSOC);
+    $result->close();
+    $mysqli->close();
+    return $resultArray;
+}
+
+function getSpecificEventById($id) {
+    $mysqli = connect_DB();
+    $select = "SELECT * FROM clanms_event WHERE id=$id";
+    $result = $mysqli->query($select, MYSQLI_USE_RESULT);
+    $resultArray = $result->fetch_all(MYSQLI_ASSOC);
+    $result->close();
+    $mysqli->close();
+    return $resultArray;
+}
+
+//catId muss aus Eventarray ausgelesen werden, rounded gibt an ob Bild rund sein soll oder Eckig (true/false)
+function getCategoryImage($catId, $size, $rounded) {
+    $mysqli = connect_DB();
+    $select = $mysqli->prepare("SELECT image FROM clanms_event_category WHERE id=?");
+    $select->bind_param("i", $catId);
+    $select->execute();
+    $result = $select->get_result();
+    $data = $result->fetch_assoc();
+    foreach($data as $value) {
+        $content = base64_encode($value);
+    }
+    if($rounded == 0) {
+        $image = '<img src="data:image/png;base64,'.$content.'" width = "'.$size.'px" height= "'.$size.'px" />';
+    } elseif($rounded == 1) {
+        $image = '<img src="data:image/png;base64,'.$content.'" width = "'.$size.'px" height="'.$size.'px" class="rounded-circle" />';
+    }
+    return $image;
+}
+
+
+/* Allgemeine Hilfsfunktionen */
 function debug_to_console($data) {
     $output = $data;
     if (is_array($output))
@@ -353,4 +384,22 @@ function debug_to_console($data) {
     echo "<script>console.log('Debug Objects: " . $output . "' );</script>";
 }
 
+//selectOneRow_DB: nur nutzen, wenn erwartete Rückgabe nur eine einzelne Zeile ist
+function selectOneRow_DB($column, $tablename, $condition, $value) {
+    $mysqli = connect_DB();
+
+    $column = mysqli_escape_string($mysqli, $column);
+    $tablename = mysqli_escape_string($mysqli, $tablename);
+    $condition = mysqli_escape_string($mysqli, $condition);
+    $value = mysqli_escape_string($mysqli, $value);
+    
+    $query = "SELECT $column FROM $tablename WHERE $condition=$value";
+    $select = $mysqli->query($query);
+    while($row = $select->fetch_row()) {
+        $return = $row[0];
+    }
+    $select->close();
+    $mysqli->close();
+    return $return;
+}
 ?>
