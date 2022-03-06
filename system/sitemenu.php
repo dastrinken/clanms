@@ -12,6 +12,8 @@
         include(__DIR__."/../system/account/settings.php");
     } elseif($_GET['nav'] === 'calendar') {
         include(__DIR__."/../content/calendar/calendarpage.php");
+    } elseif($_GET['nav'] === 'gallery') {
+        include(__DIR__."/../content/gallery/gallery.php");
     } else {
         /* default, vorerst Kalender + Willkommenstext einbinden, später variabel machen */
         include(__DIR__."/../content/eventorganizer/main.php");
