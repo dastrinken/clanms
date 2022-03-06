@@ -22,7 +22,7 @@
     </li>
 
     <li class='nav-item'>
-      <a href='#' class='nav-link py-3 border-bottom border-dark nav-darkmode' aria-current='page' title='Camera' data-bs-toggle='tooltip' data-bs-placement='right' data-bs-original-title='Camera'>
+      <a href='./?nav=gallery' class='nav-link py-3 border-bottom border-dark nav-darkmode' aria-current='page' title='Gallery' data-bs-toggle='tooltip' data-bs-placement='right' data-bs-original-title='Gallery'>
           <i class="bi-camera sidebar-icon"></i>
       </a>
     </li>
