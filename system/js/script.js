@@ -36,5 +36,4 @@ function closeToast() {
     var toast = document.getElementById("messageToast");
     toast.classList.remove("showToast");
     toast.classList.add("hideToast");
-    console.log(toast);
 }

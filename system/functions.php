@@ -380,8 +380,8 @@ function getCategoryImage($catId, $size, $rounded) {
 // Shows a small Popup message on the bottom right, use it to display error Messages.
 function showToastMessage($stringMessage) { 
     echo '<div class="position-fixed bottom-0 end-0 p-3" style="z-index: 11">
-            <div id="messageToast" class="showToast" role="alert" aria-live="assertive" aria-atomic="true">
-                <div class="toast-header">
+            <div id="messageToast" class="showToast bg-blackened" role="alert" aria-live="assertive" aria-atomic="true">
+                <div class="toast-header bg-highlighted text-dark">
                 <img src="..." class="rounded me-2" alt="...">
                 <strong class="me-auto">Systemnachricht</strong>
                 <button type="button" class="btn-close" onclick="closeToast();" aria-label="Close"></button>
