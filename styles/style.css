@@ -213,3 +213,13 @@ header {
 .sidebar-icon:focus {
   box-shadow: none;
 }
+
+/* Toastmessage */
+
+.showToast {
+  display: block !important;
+}
+
+.hideToast {
+  display: none !important;
+}

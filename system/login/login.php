@@ -1,5 +1,5 @@
 <?php
-  $login_form = "<form action='./index.php' method='post'>
+  $login_form = "<form action='./' method='post'>
                   <div class='mb-3'>
                     <label for='loginEmail' class='form-label'>Email address</label>
                     <input type='email' class='form-control' id='loginEmail' aria-describedby='emailHelp' name='email'>
