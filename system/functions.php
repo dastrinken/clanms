@@ -19,9 +19,10 @@ function getSetting($property) {
     property = '".$property."';";
     $result = $mysqli->query($query);
     while($row = $result->fetch_row()) {
-        return $row[0];
+        $setting = $row[0];
     }
     $mysqli->close();
+    return $setting;
 }
 
 //GruppenID des Nutzers auslesen
@@ -322,7 +323,7 @@ function changeProfile() {
     $mysqli->close();
 }
 
-/* Calendar und alle zugehörige */
+/* Calendar und alles Zugehörige */
 function getClosestEventId() {
     $mysqli = connect_DB();
     $select = "SELECT id, MIN(DATEDIFF(start, NOW())) AS diff FROM clanms_event WHERE start > NOW() GROUP BY id ORDER BY diff ASC LIMIT 1;";
@@ -374,6 +375,26 @@ function getCategoryImage($catId, $size, $rounded) {
     return $image;
 }
 
+/* Newsblog anzeigen und alles was dazugehört */
+
+function showAllNews() {
+    $mysqli = connect_DB();
+    $select = "SELECT news.headline, news.content, news.color, news.date_published, user.username FROM clanms_news AS news
+    LEFT JOIN clanms_user AS user
+    ON news.id_author = user.id
+    WHERE DATEDIFF(NOW(), news.date_published) <= 0 
+    ORDER BY news.date_published DESC;";
+    $result = $mysqli->query($select);
+    while($row = $result->fetch_assoc()) {
+        $article_headline = $row['headline'];
+        $article_content = $row['content'];
+        $article_name_author = $row['username'];
+        $article_date_published = $row['date_published'];
+        $article_color = $row['color'];
+        include(__DIR__."/../content/newsblog/articles/article_template.php");
+    }
+    $mysqli->close();
+}
 
 /* Allgemeine Hilfsfunktionen */
 

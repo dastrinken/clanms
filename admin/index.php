@@ -1,13 +1,11 @@
 <?php
   session_start();
-  $userid = $_SESSION['userid'];
-  $username = $_SESSION['username'];
 
-  require("../system/dbconnect.php");
-  require("../system/functions.php");
+  require(__DIR__."/../system/dbconnect.php");
+  require(__DIR__."/../system/functions.php");
 
-  if($username && $userid) {
-    if(getUserGroup($userid) <= 2) { // 1 = Admin, 2 = Moderator, alles darüber hat keinen Zugriff. Eventuell bessere (variable) Lösung überlegen!
+  if($_SESSION['username'] && $_SESSION['userid']) {
+    if(getUserGroup($_SESSION['userid']) <= 2) { // 1 = Admin, 2 = Moderator, alles darüber hat keinen Zugriff. Eventuell bessere (variable) Lösung überlegen!
       // Redirect to Dashboard
       header('Location: ./dashboard.php');
       die();

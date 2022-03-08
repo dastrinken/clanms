@@ -3,9 +3,7 @@
     if($_GET['code']) {
         include(__DIR__."/../system/login/activation.php");
     } elseif($_GET['nav'] === 'news') {
-        for($i = 0; $i < 5; $i++) {
-            include(__DIR__."/../content/articles/article_template.php"); 
-        }
+        showAllNews();
     } elseif($_GET['nav'] === 'info') {
         /* include("info.php"); */
     } elseif($_GET['nav'] === 'profile') {
