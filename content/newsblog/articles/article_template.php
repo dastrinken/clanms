@@ -1,20 +1,24 @@
-<!-- TODO: Load content from database, automatically set badges (span) -->
+<?php 
+    /*
+        TODO: 
+            Richtige Textformatierung, sowohl das auslesen der Formatierten eingabe als auch das eingeben eines formatierten Textes beim erstellen.
+            Außerdem: Generelles Aussehen der Artikelblöcke, mal mit margin und padding ein wenig hübsch machen
+            In Zukunft soll es möglich sein, individuell Bilder und andere Dinge die man von herkömmlichen Texteditoren im Web kennt einzufügen.
+
+            Erster Anlauf wäre: Zeilenumbrüche erkennen, darauf aufbauen Absätze erkennen usw. Muss kein perfekter Texteditor sein,
+            hauptsache die News sehen halbwegs passabel aus im ersten Release!
+
+            Außerdem: Kategorien, Tags uvm. einfügen bzw. zuweisen können. Ist im Datenbankmodell "verschriftlicht",
+            ist allerdings kein muss. Je nach dem was zeitlich hinhaut.
+    */
+?>
 <div class="content mb-4 p-3 bg-lightdark">
-    <h3>Article Headline h3! <span class="badge bg-highlighted ml-2">New</span></h3>
-    <hr />
+    <div class="border-bottom border-dark rounded mb-2 p-2 text-center" style="<?php echo "background: ".$article_color; ?>">
+        <h3><?php echo $article_headline; ?><!--<span class="badge bg-highlighted ml-2">New</span>--></h3>
+    </div>
     <p>
-    Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut 
-    labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. 
-    Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, 
-    consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. 
-    At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor 
-    sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna
-    aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren,
-    no sea takimata sanctus est Lorem ipsum dolor sit amet.   
-    Duis autem vel eum iriure dolor in hendrerit in vulputate velit esse molestie consequat, 
-    vel illum dolore eu feugiat nulla facilisis at vero eros et accumsan et iusto odio dignissim qui blandit praesent luptatum 
-    zzril delenit augue duis dolore te feugait nulla facilisi. Lorem ipsum dolor sit amet.
+    <?php echo $article_content; ?>
     </p>
     <hr />
-    <p>Article footer - Author, contact info, etc</p>
+    <p>Article footer - <?php echo "Author: ".$article_name_author." Published: ".$article_date_published; ?>, contact info, tags, categories, etc</p>
 </div>
