@@ -1,0 +1,4 @@
+<?php
+/* Writing news */
+
+?>

@@ -61,18 +61,18 @@ function loginAccount() {
                     $_SESSION['userid'] = $id;
                     $_SESSION['username'] = $username; 
                     //Eventuell neue Tabellenspalte "lastvisited" anlegen und an dieser Stelle Timestamp setzen für Nutzungsstatistiken?
-                    echo "Login erfolgreich!";
+                    showToastMessage("Login erfolgreich");
                 } else {
-                    echo "Bitte aktiviere erst deinen Account!"; //Anbieten Email erneut zu schicken falls nicht angekommen?
+                    showToastMessage("Bitte aktiviere erst deinen Account!"); //Anbieten Email erneut zu schicken falls nicht angekommen?
                 }
             } else {
-                echo "Falsches Passwort!";
+                showToastMessage("Falsches Passwort!");
             }
         } else {
-            echo "Bitte ein Passwort eingeben!";
+            showToastMessage("Bitte ein Passwort eingeben!");
         }
     } else {
-        echo "Bitte Email eingeben.";
+        showToastMessage("Bitte Email eingeben.");
     }
 }
 
@@ -157,7 +157,7 @@ function registerNewAccount() {
                                     $message = "Hallo $getuser!<br/>Du hast dich soeben erfolgreich bei $title registriert.<br/>"; 
                                     $message .= "<a href=\"$site?id=$id&code=$code\">Um deine Registrierung abzuschließen, klicke bitte auf diesen Link</a>";
                                     //var_dump Ausgabe der Email zum Testen, vor Release entfernen:
-                                    var_dump($message);
+                                    showToastMessage($message);
                                     if(mail($getemail, $subject, $message, implode("\r\n", $header))) {
                                         $errormsg = "Registrierung erfolgreich, es wurde eine Email mit Aktivierungslink an die angegebene Adresse verschickt";
                                         $errormsg .= "<br>webmaster mail: $webmaster";
@@ -197,7 +197,7 @@ function registerNewAccount() {
     else {
         $errormsg = "Bitte geben sie einen Benutzernamen ein";
     }
-echo $errormsg; //TODO: display errormsg in own window or as part of the site, not just a printed string
+showToastMessage($errormsg);
 }
 
 function deleteAccount($userid) {
@@ -376,6 +376,24 @@ function getCategoryImage($catId, $size, $rounded) {
 
 
 /* Allgemeine Hilfsfunktionen */
+
+// Shows a small Popup message on the bottom right, use it to display error Messages.
+function showToastMessage($stringMessage) { 
+    echo '<div class="position-fixed bottom-0 end-0 p-3" style="z-index: 11">
+            <div id="messageToast" class="showToast" role="alert" aria-live="assertive" aria-atomic="true">
+                <div class="toast-header">
+                <img src="..." class="rounded me-2" alt="...">
+                <strong class="me-auto">Systemnachricht</strong>
+                <button type="button" class="btn-close" onclick="closeToast();" aria-label="Close"></button>
+                </div>
+                <div id="toastBody" class="toast-body">
+                '.$stringMessage.'
+                </div>
+            </div>
+        </div>';
+}
+
+// Debugs data to javascript console
 function debug_to_console($data) {
     $output = $data;
     if (is_array($output))
@@ -384,7 +402,7 @@ function debug_to_console($data) {
     echo "<script>console.log('Debug Objects: " . $output . "' );</script>";
 }
 
-//selectOneRow_DB: nur nutzen, wenn erwartete Rückgabe nur eine einzelne Zeile ist
+//selectOneRow_DB: use if you expect exactly one result (row). For example looking up a user id (or any other id)
 function selectOneRow_DB($column, $tablename, $condition, $value) {
     $mysqli = connect_DB();
 
