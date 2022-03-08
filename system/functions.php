@@ -382,7 +382,7 @@ function showAllNews() {
     $select = "SELECT news.headline, news.content, news.color, news.date_published, user.username FROM clanms_news AS news
     LEFT JOIN clanms_user AS user
     ON news.id_author = user.id
-    WHERE DATEDIFF(NOW(), news.date_published) <= 0 
+    WHERE DATEDIFF(news.date_published, NOW()) <= 0 
     ORDER BY news.date_published DESC;";
     $result = $mysqli->query($select);
     while($row = $result->fetch_assoc()) {
