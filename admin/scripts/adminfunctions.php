@@ -6,7 +6,8 @@ if($_POST['saveArticle']) {
 function writeArticleToDB() {
     $title = $_POST['title'];
     $color = $_POST['color'];
-    $content = nl2br2($_POST['content']);
+    //$content = nl2br2($_POST['content']);
+    $content = $_POST['content'];
     $author = $_POST['author'];
     $id_author = $_POST['userid'];
     $date = $_POST['date'];
@@ -25,5 +26,6 @@ function writeArticleToDB() {
 function nl2br2($string) {
     $string = str_replace(array("\r\n", "\r", "\n"), "<br />", $string);
     return $string;
-    } 
+    }
+     
 ?>
