@@ -17,11 +17,12 @@
                 deleteAccount($_SESSION['userid']);
                 echo "<script>destroy_session();</script>";
             } else {
-                echo "Zur Sicherheit musst du dein Passwort eingeben";
+                $errormsg = "Zur Sicherheit musst du dein Passwort eingeben";
             }
         } else {
-            echo "Bitte bestätige, dass du den Account wirklich löschen willst!";
+            $errormsg = "Bitte bestätige, dass du den Account wirklich löschen willst!";
         }
+        showToastMessage($errormsg);
     }
     
     if($_POST['confirmEmail']){
@@ -29,11 +30,12 @@
             if($_POST['passwordEmail']){
                 emailChange($_SESSION['userid']);
             }else{
-                echo "Passwort inkorrekt!";
+                $errormsg = "Passwort inkorrekt!";
             }
         }else{
-            echo "Geben sie eine korrekte Email ein!";
+            $errormsg = "Geben sie eine korrekte Email ein!";
         }
+        showToastMessage($errormsg);
     }
 
     if($_POST['confirmPass']){
@@ -42,14 +44,15 @@
                 if($_POST['newPassRe']){
                     passwordChange($_SESSION['userid']);
                 }else{
-                    echo "Geben sie das Passwort erneut ein!!";
+                    $errormsg = "Geben sie das Passwort erneut ein!!";
                 }
             }else{
-                echo "Geben sie ein neues Passwort ein!";
+                $errormsg = "Geben sie ein neues Passwort ein!";
             }
         }else{
-            echo "Geben sie ihr altes Passwort ein!";
+            $errormsg = "Geben sie ihr altes Passwort ein!";
         }
+        showToastMessage($errormsg);
     }
 ?>
 
