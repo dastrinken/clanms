@@ -36,7 +36,6 @@ function writeArticle() {
   xhttp.onload = function() {
     container.innerHTML = this.responseText;
     var simplemde = new SimpleMDE({ element: document.getElementById("newsContent") });
-    simplemde.value("hier den Newsbeitrag formulieren");
   }
   xhttp.open("GET", "./newsblog/writeArticle.php?author="+username+"&userid="+userid);
   
