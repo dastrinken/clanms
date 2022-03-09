@@ -11,12 +11,16 @@
     <meta name="description" content="">
     <meta name="author" content="Armin Prinz">
     <title>ClanMS - Admin Dashboard</title>    
-
+    
+    <!-- Markdown Editor -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/simplemde/latest/simplemde.min.css">
     <!-- Bootstrap core CSS and icons -->
     <link href="../bootstrap/css/bootstrap.css" rel="stylesheet">
     <link href="../bootstrap/icons/bootstrap-icons.css" rel="stylesheet" > 
     <!-- Custom styles for this template -->
     <link href="./style/dashboard.css" rel="stylesheet">
+    
+    
 
     <?php 
       require(__DIR__."/../system/dbconnect.php");
@@ -31,7 +35,7 @@
       <div class="navbar-nav">
         <div class="nav-item text-nowrap">
           <a href='../' class='nav-link px-3 border-bottom border-dark' aria-current='page' title='Exit dashboard' data-bs-toggle='tooltip' data-bs-placement='right' data-bs-original-title='Exit dashboard'>
-              <img src='../bootstrap/bootstrap-icons-1.8.0/arrow-left-square.svg' width='24' height='24' alt='Exit dashboard'></img>
+              <a class="link-icon bi-arrow-left-square" alt='Exit dashboard'></a>
           </a>
         </div>
       </div>
@@ -96,5 +100,6 @@
       var username = '<?php echo $username; ?>';
     </script>
     <script src="./scripts/admin.js"></script>
+    <script src="https://cdn.jsdelivr.net/simplemde/latest/simplemde.min.js"></script>
   </body>
 </html>

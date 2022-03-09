@@ -9,7 +9,7 @@
             <input type="color" class="form-control form-control-color" id="exampleColorInput" name="color" value="#dc3545" aria-describedby="ariaLabelTitleColor"  title="Choose your color">
         </div>
     </div>
-    <div class="mb-3">
+    <div id="" class="mb-3">
         <label for="newsContent" class="form-label">Inhalt</label>
         <textarea class="form-control" id="newsContent" name="content" rows="15"></textarea>
     </div>
@@ -34,3 +34,8 @@
         <button id="saveArticle" class="form-control submit w-25" name="saveArticle" value="save">Speichern</button>
     </div>
 </form>
+<script src="https://cdn.jsdelivr.net/simplemde/latest/simplemde.min.js"></script>
+<script>
+    var simplemde = new SimpleMDE({ element: document.getElementById("newsContent") });
+    console.log("Test");
+</script>
