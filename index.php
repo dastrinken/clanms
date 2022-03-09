@@ -13,7 +13,7 @@
     require("./system/dbconnect.php");
     require("./system/functions.php");
     //markdown parser
-    require("./parsedown/Parsedown.php");
+    require("./parsedown/parsedown.php");
 ?>
 <!DOCTYPE html>
 <html lang="de">
