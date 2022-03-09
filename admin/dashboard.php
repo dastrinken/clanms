@@ -35,7 +35,7 @@
       <div class="navbar-nav">
         <div class="nav-item text-nowrap">
           <a href='../' class='nav-link px-3 border-bottom border-dark' aria-current='page' title='Exit dashboard' data-bs-toggle='tooltip' data-bs-placement='right' data-bs-original-title='Exit dashboard'>
-              <a class="link-icon bi-arrow-left-square" alt='Exit dashboard'></a>
+              <i class="link-icon bi-arrow-left-square" alt='Exit dashboard'></i>
           </a>
         </div>
       </div>

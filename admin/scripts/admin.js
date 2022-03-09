@@ -35,6 +35,7 @@ function writeArticle() {
 
   xhttp.onload = function() {
     container.innerHTML = this.responseText;
+
     var simplemde = new SimpleMDE({
       element: document.getElementById("newsContent"),
       autosave: {
