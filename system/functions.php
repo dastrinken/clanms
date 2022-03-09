@@ -378,6 +378,7 @@ function getCategoryImage($catId, $size, $rounded) {
 /* Newsblog anzeigen und alles was dazugehört */
 
 function showAllNews() {
+    $Parsedown = new Parsedown();
     $mysqli = connect_DB();
     $select = "SELECT news.headline, news.content, news.color, news.date_published, user.username FROM clanms_news AS news
     LEFT JOIN clanms_user AS user
@@ -387,7 +388,7 @@ function showAllNews() {
     $result = $mysqli->query($select);
     while($row = $result->fetch_assoc()) {
         $article_headline = $row['headline'];
-        $article_content = $row['content'];
+        $article_content = $Parsedown->text($row['content']);
         $article_name_author = $row['username'];
         $article_date_published = $row['date_published'];
         $article_color = $row['color'];
