@@ -35,8 +35,19 @@ function writeArticle() {
 
   xhttp.onload = function() {
     container.innerHTML = this.responseText;
+<<<<<<< Updated upstream
     var simplemde = new SimpleMDE({ element: document.getElementById("newsContent") });
     simplemde.value("hier den Newsbeitrag formulieren");
+=======
+      var simplemde = new SimpleMDE({
+        element: document.getElementById("newsContent"),
+        autosave: {
+          enabled: true,
+          uniqueId: "MyUniqueID",
+          delay: 1000,
+      } 
+    });
+>>>>>>> Stashed changes
   }
   xhttp.open("GET", "./newsblog/writeArticle.php?author="+username+"&userid="+userid);
   

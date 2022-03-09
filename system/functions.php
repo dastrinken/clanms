@@ -210,12 +210,13 @@ function deleteAccount($userid) {
                     DELETE FROM clanms_user_profile WHERE id_user=$userid;
                     DELETE FROM clanms_user WHERE id=$userid;";
         if($mysqli->multi_query($delete)) {
-            echo "success! everything is deleted";
+            $errormsg = "success! everything is deleted";
         } else {
-            echo "error! data could not be deleted";
+            $errormsg =  "error! data could not be deleted";
         }
         $mysqli->close();
     }
+    showToastMessage($errormsg);
 }
 
 function emailChange($userid){
@@ -379,6 +380,7 @@ function getCategoryImage($catId, $size, $rounded) {
 
 function showAllNews() {
     $Parsedown = new Parsedown();
+    $Parsedown->setSafeMode(true);
     $mysqli = connect_DB();
     $select = "SELECT news.headline, news.content, news.color, news.date_published, user.username FROM clanms_news AS news
     LEFT JOIN clanms_user AS user
