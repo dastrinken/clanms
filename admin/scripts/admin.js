@@ -1,32 +1,48 @@
-function getContentPhp(content) {
+/* General */
+function setActive(buttonID) {
+  var button = document.getElementById(buttonID);
+  var active = document.getElementsByClassName("active");
+  for(let i = 0; i < active.length; i++) {
+    active[i].classList.remove("active");
+  }
+  button.classList.add("active");
+}
+/* Newsblog */
+
+function getNewsBlog(content) {
   var xhttp = new XMLHttpRequest();
   var mainContent = document.getElementById("mainContentWrapper");
+  var headline;
 
   xhttp.onload = function() {
     mainContent.innerHTML = this.responseText;
+    displayHeadline = document.getElementById("headlineDashboardContent");
+    displayHeadline.innerHTML = headline;
   }
-  if(content == "newsblog") {
-      xhttp.open("GET", "./newsblog/contentMenu.php");
-  } 
+  switch(content) {
+    case 'all':
+      xhttp.open("GET", "./newsblog/contentMenu.php?articles=all");
+      headline = "Newsblog - Alle Artikel";
+      break;
+    case 'week':
+      xhttp.open("GET", "./newsblog/contentMenu.php?articles=week");
+      headline = "Newsblog - Diese Woche";
+      break;
+    case 'month':
+      xhttp.open("GET", "./newsblog/contentMenu.php?articles=month");
+      headline = "Newsblog - Dieser Monat";
+      break;
+    case 'commented':
+      xhttp.open("GET", "./newsblog/contentMenu.php?articles=commented");
+      headline = "Newsblog - Kommentierte Artikel";
+      break;
+    default:
+      xhttp.open("GET", "./newsblog/contentMenu.php?articles=all");
+      headline = "Newsblog - Alle Artikel";
+      break;
+  }
 
   xhttp.send();
-}
-
-/* Newsblog */
-
-function newsDisplayOption(buttonId) {
-  var displayHeadline = document.getElementById("displayArticlesHeadline");  
-  if(displayHeadline == null) {
-    getContentPhp("newsblog");
-  }
-
-  if(buttonId == "thisWeeksArticles") {
-    displayHeadline.innerHTML = "Diese Woche";
-  } else if(buttonId == "thisMonthsArticles") {
-    displayHeadline.innerHTML = "Dieser Monat";
-  } else if(buttonId == "articlesComments") {
-    displayHeadline.innerHTML = "Kommentare";
-  }
 }
 
 function writeArticle() {
