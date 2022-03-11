@@ -26,7 +26,7 @@
 
         <div class="input-group w-auto me-2">
             <span class="input-group-text" id="ariaLabelPublish">Veröffentlichung</span>
-            <input class="form-control" type="text" name="publish" value="<?php echo date('Y-m-d H:i:s'); ?>" aria-describedby="ariaLabelPublish">
+            <input class="form-control" type="datetime-local" name="publish" value="<?php echo date('Y-m-d H:i:s'); ?>" aria-describedby="ariaLabelPublish">
         </div>
 
         <input type="hidden" name="userid" value="<?php echo $_GET['userid']; ?>">
