@@ -24,11 +24,18 @@ function writeArticleToDB() {
     $mysqli->close();
 }
 
+// store total no of pages in global for javascript use
+$totalPages;
 function getArticlesFromDB($displayOption) {
+    global $totalPages;
     $Parsedown = new Parsedown();
     $Parsedown->setSafeMode(true);
-    $mysqli = connect_DB();
 
+    $displayAmount = 10;
+    $page = $_GET['page'];
+    $offset = ($page - 1) * $displayAmount;
+
+    $mysqli = connect_DB();
     switch($displayOption) {
         case "all":
             $where = "WHERE 1=1";
@@ -45,24 +52,35 @@ function getArticlesFromDB($displayOption) {
             $where = "WHERE 1=1";
             break;
         default:
+            $where = "WHERE 1=1";
             break;
     }
+    $totalPagesDB = "SELECT * FROM clanms_news AS news $where";
+    $pagesResult = $mysqli->query($totalPagesDB);
+    $rowCount = $pagesResult->num_rows;
+    $totalPages = ceil($rowCount / $displayAmount);
+    $pagesResult->close();
+    
     $select = "SELECT news.headline, news.content, news.color, news.date_published, news.date_created, user.username FROM clanms_news AS news
     LEFT JOIN clanms_user AS user
     ON news.id_author = user.id
-    ".$where."
-    ORDER BY news.date_published DESC;";
+    $where
+    ORDER BY news.date_published DESC
+    LIMIT $offset, $displayAmount;";
 
     /* TODO: paging */
     $result = $mysqli->query($select);
-    echo "<table class='table table-hover'>
+    $table = "<table class='table table-hover'>
             <thead>
             <tr>
                 <th scope='col'>#</th>
                 <th scope='col'>Veröffentlichung</th>
+                <th scope='col'></th>
                 <th scope='col'>Titel</th>
                 <th scope='col'>Author</th>
                 <th scope='col'>Erstellt</th>
+                <th scope='col'></th>
+                <th scope='col'></th>
             </tr>
             </thead>";
     $count = 0;
@@ -74,16 +92,23 @@ function getArticlesFromDB($displayOption) {
         $date_published = $row['date_published'];
         $date_created = $row['date_created'];
         $color = $row['color'];
-        echo '<tr>
-                <th scope="row">'.$count.'</th>
+        $table .= '<tr>
+                <th scope="row">'.($offset+$count).'</th>
                 <td>'.$date_published.'</td>
+                <td style="color: '.$color.';"><i class="bi-body-text"></i></td>
                 <td>'.$headline.'</td>
                 <td>'.$name_author.'</td>
                 <td>'.$date_created.'</td>
+                <td><button class="btn btn-secondary">Bearbeiten</button></td>
+                <td><button class="btn btn-danger">Löschen</button></td>
             </tr>';
     }
-    echo "</table>";
+    $table .= "<tfoot>
+                    <td colspan='8'>Hier entsteht ein weiteres Menü für diese Tabelle. zB. mit Sortieroptionen, Checkboxes und optionen für alle ausgewählten usw.</td>
+                </tfoot>";
+    $table .= "</table>";
     $mysqli->close();
+    return $table;
 }
 
 function nl2br2($string) {

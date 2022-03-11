@@ -119,3 +119,12 @@ body {
 .table-hover tbody {
   cursor: pointer;
 }
+
+#newsTableNav a {
+  color: black;
+}
+
+#newsTableNav a:hover {
+  color: white;
+  background-color: #6c757d;
+}
