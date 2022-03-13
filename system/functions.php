@@ -406,7 +406,7 @@ function showToastMessage($stringMessage) {
     echo '<div class="position-fixed bottom-0 end-0 p-3" style="z-index: 11">
             <div id="messageToast" class="showToast bg-blackened" role="alert" aria-live="assertive" aria-atomic="true">
                 <div class="toast-header bg-highlighted text-dark">
-                <img src="..." class="rounded me-2" alt="...">
+                <img class="bi me-4" src="./ressources/icons/clanms_logo.svg" width="35" height="25" alt="ClanMS"></img>
                 <strong class="me-auto">Systemnachricht</strong>
                 <button type="button" class="btn-close" onclick="closeToast();" aria-label="Close"></button>
                 </div>

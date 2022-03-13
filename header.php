@@ -14,7 +14,7 @@
         <li><a href="#" class="nav-link px-2 link-dark nav-darkmode">FAQ</a></li>
     </ul>
     <?php
-        if(empty($_SESSION['userid']) && empty($_SESSION['username'])) {
+        if(empty($_SESSION['userid']) || empty($_SESSION['username'])) {
             echo '<div class="col-md-2 text-end">
                         <button type="button" id="loginBtn" class="btn btn-darkmode-outline me-2" data-bs-toggle="modal" data-bs-target="#loginRegisterModal" onclick="openLoginRegisterModal(this.id)">Login</button>
                         <button type="button" id="signupBtn" class="btn btn-darkmode" data-bs-toggle="modal" data-bs-target="#loginRegisterModal" onclick="openLoginRegisterModal(this.id)">Sign-up</button>

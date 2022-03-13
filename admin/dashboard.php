@@ -1,5 +1,9 @@
 <?php
   session_start();
+  if(empty($_SESSION['userid']) || empty($_SESSION['username'])) {
+    echo "<a href='../'>You're not logged in!</a>";
+    exit;
+  }
   $userid = $_SESSION['userid'];
   $username = $_SESSION['username'];
 ?>
@@ -26,8 +30,6 @@
       require(__DIR__."/../system/dbconnect.php");
       require(__DIR__."/../system/functions.php");
       require(__DIR__."/scripts/adminfunctions.php");
-      //markdown parser
-      require(__DIR__."/../parsedown/parsedown.php");
     ?>
   </head>
   <body>
@@ -109,7 +111,7 @@
 
         <!-- Main Content -->
         <main id="mainContentWrapper" class="col-md-9 ms-sm-auto col-lg-10 px-md-4">
-          <h2>Willkommen zurück <?php echo $_SESSION['username']; ?>!</h2>
+          <?php include(__DIR__."/scripts/loadContent.php"); ?>
         </main>
 
       </div>
