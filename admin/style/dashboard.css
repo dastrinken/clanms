@@ -128,3 +128,37 @@ body {
   color: white;
   background-color: #6c757d;
 }
+
+/* Styling for multiple forms in one big table (e.g.: article overview) */
+DIV.table {
+    display:table;
+}
+
+DIV.thead {
+  display: table-header-group;
+}
+
+DIV.tbody {
+  display: table-row-group;
+}
+
+DIV.tfoot {
+  display: table-footer-group;
+}
+
+FORM.tr, DIV.tr{
+    display:table-row;
+}
+
+SPAN.td{
+    display:table-cell;
+}
+
+.border-activeTable {
+  border-color:rgba(255, 255, 255, .1);
+}
+
+.activeTable:hover {
+  background:rgb(172, 172, 172);
+  cursor: pointer;
+}
