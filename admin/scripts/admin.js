@@ -32,23 +32,23 @@ function getNewsBlog(content) {
   }
   switch(content) {
     case 'all':
-      xhttp.open("GET", "./newsblog/contentMenu.php?articles=all&page="+page);
+      xhttp.open("GET", "./newsblog/content.php?articles=all&page="+page);
       headline = "Newsblog - Alle Artikel";
       break;
     case 'week':
-      xhttp.open("GET", "./newsblog/contentMenu.php?articles=week&page="+page);
+      xhttp.open("GET", "./newsblog/content.php?articles=week&page="+page);
       headline = "Newsblog - Diese Woche";
       break;
     case 'month':
-      xhttp.open("GET", "./newsblog/contentMenu.php?articles=month&page="+page);
+      xhttp.open("GET", "./newsblog/content.php?articles=month&page="+page);
       headline = "Newsblog - Dieser Monat";
       break;
     case 'commented':
-      xhttp.open("GET", "./newsblog/contentMenu.php?articles=commented&page="+page);
+      xhttp.open("GET", "./newsblog/content.php?articles=commented&page="+page);
       headline = "Newsblog - Kommentierte Artikel";
       break;
     default:
-      xhttp.open("GET", "./newsblog/contentMenu.php?articles=all&page="+page);
+      xhttp.open("GET", "./newsblog/content.php?articles=all&page="+page);
       headline = "Newsblog - Alle Artikel";
       break;
   }

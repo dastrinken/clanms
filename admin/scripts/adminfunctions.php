@@ -4,14 +4,13 @@ if($_POST['saveArticle']) {
     writeArticleToDB($_POST['updateArticle']);
 } 
 
-if($_GET['deleteArticle']) {
-    showToastMessage("Deleting Article with ID: ".$_GET['articleId']);
+if($_GET['deleteArticle'] === 'true') {
+    deleteArticleFromDB($_GET['articleId']);
 }
 
-function writeArticleToDB($newOrUpdate) {
+function writeArticleToDB($editExisting) {
     $title = $_POST['title'];
     $color = $_POST['color'];
-    //$content = nl2br2($_POST['content']);
     $content = $_POST['content'];
     $author = $_POST['author'];
     $id_author = $_POST['userid'];
@@ -19,23 +18,39 @@ function writeArticleToDB($newOrUpdate) {
     $publish = $_POST['publish'];
     
     $mysqli = connect_DB();
-    if($newOrUpdate === 'true') {
-        showToastMessage("edit old");
-        // TODO: make UPDATE statement
-        $stmt = $mysqli->prepare("UPDATE clanms_news");
+    if($editExisting === 'true') {
+        $articleId = $_POST['articleId'];
+        $timestamp = date('Y-m-d H:i:s');
+        $stmt = $mysqli->prepare("UPDATE clanms_news SET headline = ?, color = ?, content = ?, date_published = ?, last_edited = ?, id_editor = ? WHERE id = ?");
+        $stmt->bind_param("sssssii", $title, $color, $content, $publish, $timestamp, $id_author, $articleId);
     } else {
         showToastMessage("create new");
         $stmt = $mysqli->prepare("INSERT INTO clanms_news(headline, color, content, id_author, date_created, date_published) VALUES (?,?,?,?,?,?)");
+        $stmt->bind_param("sssiss", $title, $color, $content, $id_author, $date, $publish);
     }
-    $stmt->bind_param("sssiss", $title, $color, $content, $id_author, $date, $publish);
     $stmt->execute();
     $stmt->close();
     $mysqli->close();
 }
 
+function deleteArticleFromDB($articleId) {
+    $mysqli = connect_DB();
+    $stmt = $mysqli->prepare("DELETE FROM clanms_news WHERE clanms_news.id = ?");
+    $stmt->bind_param("i", $articleId);
+    $stmt->execute();
+    $stmt->close();
+    $mysqli->close();
+}
+
+// TODO: make displayAmount variable (user decides)
+// TODO: sort options
+// TODO: mark upcoming articles (not yet published) for better ux
+// TODO: dates are poorly formatted (from a users point of view)
+
 // store total no of pages in global for javascript use
 $totalPages;
 function getArticlesFromDB($displayOption) {
+    if (session_status() === PHP_SESSION_NONE){session_start();}
     global $totalPages;
     $Parsedown = new Parsedown();
     $Parsedown->setSafeMode(true);
@@ -70,7 +85,7 @@ function getArticlesFromDB($displayOption) {
     $totalPages = ceil($rowCount / $displayAmount);
     $pagesResult->close();
     
-    $select = "SELECT news.id, news.headline, news.content, news.color, news.date_published, news.date_created, news.id_author, user.username FROM clanms_news AS news
+    $select = "SELECT news.id, news.headline, news.content, news.color, news.date_published, news.date_created, news.id_author, user.username, news.last_edited FROM clanms_news AS news
     LEFT JOIN clanms_user AS user
     ON news.id_author = user.id
     $where
@@ -86,7 +101,7 @@ function getArticlesFromDB($displayOption) {
                         <span class='td border-bottom border-dark'></span>
                         <span class='td border-bottom border-dark'>Titel</span>
                         <span class='td border-bottom border-dark'>Author</span>
-                        <span class='td border-bottom border-dark'>Erstellt</span>
+                        <span class='td border-bottom border-dark'>Letzte Änderung</span>
                         <span class='td border-bottom border-dark'></span>
                         <span class='td border-bottom border-dark'></span>
                     </div>
@@ -100,7 +115,7 @@ function getArticlesFromDB($displayOption) {
         $content = $row['content'];
         $name_author = $row['username'];
         $date_published = $row['date_published'];
-        $date_created = $row['date_created'];
+        $date_created = $row['last_edited'] != null ? $row['last_edited'] : $row['date_created'];
         $color = $row['color'];
         $table .= '<form class="tr activeTable">
                     <span class="td border-end border-activeTable">'.($offset+$count).'<input type="hidden" name="articleId" value="'.$news_id.'"></span>
@@ -127,12 +142,14 @@ function getArticlesFromDB($displayOption) {
                     </span>
                     <span class="td border-end border-activeTable">
                         <input type="hidden" name="content" value="'.$content.'">
+                        <input type="hidden" name="userid" value="'.$_SESSION["userid"].'">
                         <button name="editArticle" value="true" class="btn btn-secondary submit">Bearbeiten</button>
                     </span>
-                    <span class="td border-end border-activeTable"><button name="deleteArticle" value="true" class="btn btn-danger submit">Löschen</button></span>
+                    <span class="td border-end border-activeTable"><button name="deleteArticle" value="true" class="btn btn-danger submit" onclick="alert(\'Der Artikel wird aus der Datenbank gelöscht, bist du dir sicher?\');">Löschen</button></span>
                 </form>';
     }
     $table .= "</div>";
+    $result->close();
     $mysqli->close();
     return $table;
 }

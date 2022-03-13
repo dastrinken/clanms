@@ -10,7 +10,7 @@ if($editing) {
     $date_published = $_GET['date_published'];
     echo "<h2 class='text-center mt-2'>Artikel bearbeiten</h2>";
 } else {
-    echo "Neuer Artikel";
+    echo "<h2 class='text-center mt-2'>Neuer Artikel</h2>";
 }
 ?>
 <form action="./dashboard.php" method="post">
@@ -45,10 +45,11 @@ if($editing) {
             <input class="form-control" type="datetime-local" name="publish" value="<?php echo empty($date_published) ? date('Y-m-d H:i:s') : $date_published; ?>" aria-describedby="ariaLabelPublish">
         </div>
 
-        <input type="hidden" name="userid" value="<?php echo empty($author_id) ? $_GET['userid'] : $author_id; ?>">
+        <input type="hidden" name="userid" value="<?php echo $_GET['userid']; ?>">
         <?php 
             if($editing) {
                 echo '<input type="hidden" name="updateArticle" value="true">';
+                echo '<input type="hidden" name="articleId" value="'.$articleId.'">';
                 $editing = false;
             } else {
                 echo '<input type="hidden" name="updateArticle" value="false">';

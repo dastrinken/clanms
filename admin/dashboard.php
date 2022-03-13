@@ -73,6 +73,23 @@
             </ul>
 
             <h6 class="sidebar-heading d-flex justify-content-between align-items-center px-3 mt-4 mb-1 text-muted">
+              <span>Events</span>
+            </h6>
+            <ul class="nav flex-column">
+              <li class="nav-item">
+                <!-- TODO: klasse active per js umsetzen auf den richtigen (angeklickten) Menüpunkt -->
+                <a id="eventLink" class="nav-link" aria-current="page" href="#" onclick="setActive(this.id); return false;">
+                  Eventorganizer
+                </a>
+              </li>
+              <li class="nav-item">
+                <a id="eventSettingsLink" class="nav-link" href="#" onclick="setActive(this.id); return false;">
+                  Einstellungen
+                </a>
+              </li>
+            </ul>
+
+            <h6 class="sidebar-heading d-flex justify-content-between align-items-center px-3 mt-4 mb-1 text-muted">
               <span>Accounts</span>
             </h6>
             <ul class="nav flex-column">

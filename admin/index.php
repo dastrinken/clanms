@@ -13,7 +13,7 @@
       echo "Nur Administratoren und Moderatoren haben hier zugriff,";
     }
   } else {
-    // Display login page TEST
+    // Display login page TEST. Bisher nur ein echo, eine richtige Login-Page für direkten Zugriff auf den Adminbereich wäre schön!
     echo "Bitte logge dich zuerst ein.";
   }
 ?>
