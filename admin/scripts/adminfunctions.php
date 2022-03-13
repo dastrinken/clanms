@@ -24,7 +24,6 @@ function writeArticleToDB($editExisting) {
         $stmt = $mysqli->prepare("UPDATE clanms_news SET headline = ?, color = ?, content = ?, date_published = ?, last_edited = ?, id_editor = ? WHERE id = ?");
         $stmt->bind_param("sssssii", $title, $color, $content, $publish, $timestamp, $id_author, $articleId);
     } else {
-        showToastMessage("create new");
         $stmt = $mysqli->prepare("INSERT INTO clanms_news(headline, color, content, id_author, date_created, date_published) VALUES (?,?,?,?,?,?)");
         $stmt->bind_param("sssiss", $title, $color, $content, $id_author, $date, $publish);
     }
