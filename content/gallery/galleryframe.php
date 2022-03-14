@@ -24,7 +24,7 @@
 <script>
     let galleryImages = document.querySelectorAll(".img-thumbnail");
     let getLatestOpenImg;
-    let windowWith = window.innerWidth;
+    let windowWith = window.innerw;
 
     if(galleryImages) {
         galleryImages.forEach(function(image, index) {
