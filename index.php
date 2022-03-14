@@ -38,12 +38,7 @@
                 <div class="col">
                     <div class="row">
                         <?php require("./header.php"); ?>
-                    </div>
-                    <!-- This extra row is for optional sub-pages. Can be enabled and disabled by admin-backend
-                    <div class="row">
-                        <?php //require("./nav.php"); ?>
-                    </div> 
-                    -->
+                    </div>                    
                     <!-- Content -->
                     <div id="mainContent" class="row p-3 bg-blackened overflow-auto">
                         <?php 

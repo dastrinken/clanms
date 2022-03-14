@@ -9,5 +9,4 @@
        );
     }
     session_destroy();
-    echo 'Session was destroyed';
 ?>
