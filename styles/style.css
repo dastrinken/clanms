@@ -223,3 +223,55 @@ header {
 .hideToast {
   display: none !important;
 }
+
+/* Popup from Gallery */
+
+.img-window {
+  width: 100 vw;
+  height: 100 vh;
+  background-color: #212529;
+  position: fixed;
+  top: 0;
+  left: 0;
+  cursor: pointer;
+  justify-content: center;
+  align-items: center;
+  z-index: 100;
+}
+
+.img-window img {
+  max-height: 80 vh;
+  max-width: 80 vw;
+}
+
+/* Next Image */
+
+.img-btn-next {
+  display: block;
+  padding: 6px 10px;
+  border-radius: 4px;
+  background-color: #111111;
+  position: fixed;
+  top: 48vh;
+  z-index: 500;
+  color: #ffffff;
+  text-transform: uppercase;
+}
+.img-btn-next:hover {
+  opacity: 0,8;
+}
+
+.img-btn-prev {
+  display: block;
+  padding: 6px 10px;
+  border-radius: 4px;
+  background-color: #111111;
+  position: fixed;
+  top: 48vh;
+  z-index: 500;
+  color: #ffffff;
+  text-transform: uppercase;
+}
+.img-btn-prev:hover {
+  opacity: 0,8;
+}

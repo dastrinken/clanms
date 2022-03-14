@@ -9,9 +9,6 @@
 ?>
 <div class="row">
     <div class="col">
-        <?php include(__DIR__."/carousel.php"); ?>
+        <?php include(__DIR__."/galleryframe.php"); ?>
     </div>
-</div>
-<div class="row">
-    <?php include(__DIR__."/galleryframe.php"); ?>
 </div>
