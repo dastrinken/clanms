@@ -95,7 +95,7 @@
 				} else {
 					// normale Zellen werden mit der Tageszahl befüllt und mit der Klasse calendartag markiert
 					cell.innerHTML = Tageszahl;
-					cell.className = 'calendartag'
+					cell.className = 'calendartag';
 						// und der aktuelle Tag (today) wird noch einmal speziell mit der Klasse "today" markiert
 					if (Tageszahl == DieserTag) {
 						cell.className = cell.className + ' today';
