@@ -55,12 +55,12 @@
   <div class="modal-dialog modal-lg text-dark">
     <div class="modal-content">
       <div class="modal-header">
-        <h3 class="modal-title" id="licenceModalLabel">GNU-GPL</h3>
+        <h3 class="modal-title" id="licenceModalLabel">ClanMS - Licence</h3>
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body">
-        <h4>ClanMS - A free Content Management System for gaming communities and everyone else.</h4>
-        <p>Copyright (C) 2022  Armin Prinz, Silas Waldschmidt, Angela Rutkowski, Irina Imranov, Rayan Ahmed Bhatti, Sven Kwiatkowski</p>
+        <p>ClanMS - A free Content Management System for gaming communities and everyone else.<br/>
+        Copyright (C) 2022  Armin Prinz, Silas Waldschmidt, Angela Rutkowski, Irina Imranov, Rayan Ahmed Bhatti, Sven Kwiatkowski</p>
         <h5>This file is part of ClanMS.</h5>
 
         <p>
