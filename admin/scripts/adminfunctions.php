@@ -51,8 +51,6 @@ $totalPages;
 function getArticlesFromDB($displayOption) {
     if (session_status() === PHP_SESSION_NONE){session_start();}
     global $totalPages;
-    $Parsedown = new Parsedown();
-    $Parsedown->setSafeMode(true);
 
     $displayAmount = 10;
     $page = $_GET['page'];
@@ -144,8 +142,109 @@ function getArticlesFromDB($displayOption) {
                         <input type="hidden" name="userid" value="'.$_SESSION["userid"].'">
                         <button name="editArticle" value="true" class="btn btn-secondary submit">Bearbeiten</button>
                     </span>
-                    <span class="td border-end border-activeTable"><button name="deleteArticle" value="true" class="btn btn-danger submit" onclick="alert(\'Der Artikel wird aus der Datenbank gelöscht, bist du dir sicher?\');">Löschen</button></span>
+                    <span class="td border-end border-activeTable"><button name="deleteArticle" value="true" class="btn btn-danger submit" onclick="alert(\'Der Artikel wird endgültig aus der Datenbank gelöscht, bist du dir sicher?\');">Löschen</button></span>
                 </form>';
+    }
+    $table .= "</div>";
+    $result->close();
+    $mysqli->close();
+    return $table;
+}
+
+function getEventsFromDB($displayOption) {
+    if (session_status() === PHP_SESSION_NONE){session_start();}
+    $mysqli = connect_DB();
+    switch($displayOption) {
+        case "all":
+            $where = "WHERE 1=1";
+            break;
+        case "week":
+            $where = "WHERE YEARWEEK(start, 1) = YEARWEEK(CURDATE(), 1)";
+            break;
+        case "month":
+            $where = "WHERE MONTH(start) = MONTH(CURRENT_DATE())
+            AND YEAR(start) = YEAR(CURRENT_DATE())";
+            break;
+        default:
+            $where = "WHERE 1=1";
+            break;
+    }
+    $select = "SELECT *, timediff(end, start) AS diff FROM clanms_event ".$where;
+    $result = $mysqli->query($select, MYSQLI_USE_RESULT);
+    $table = "<div class='table'>
+    <div class='thead'>
+        <div class='tr mb-2'>
+            <span class='td border-bottom border-dark'>#</span>
+            <span class='td border-bottom border-dark'>Datum</span>
+            <span class='td border-bottom border-dark'>Titel</span>
+            <span class='td border-bottom border-dark'>Start</span>
+            <span class='td border-bottom border-dark'>Ende</span>
+            <span class='td border-bottom border-dark'>Dauer</span>
+            <span class='td border-bottom border-dark'>Kategorie</span>
+            <span class='td border-bottom border-dark'>Verantwortlich</span>
+            <span class='td border-bottom border-dark'></span>
+            <span class='td border-bottom border-dark'></span>
+        </div>
+    </div><div class='tbody'>";
+    $count = 0;
+    while($row = $result->fetch_assoc()) {
+    ++$count;
+    $event_id = $row['id'];
+    $event_author = $row['id_user'];
+    $event_title = $row['title'];
+    $event_desc = $row['description'];
+
+    $event_start = $row['start'];
+    $event_start_display = explode(" ", $row['start']);
+    $event_end = $row['end'];
+    $timediff = $row['diff'];
+
+    foreach($event_start_display as $datetime) {
+        $date = $event_start_display[0];
+        $time = $event_start_display[1];
+    }
+
+    $event_cat = $row['event_cat'];
+    $table .= '<form class="tr activeTable">
+                <span class="td border-end border-activeTable">
+                '.(/*$offset+*/$count).'
+                    <input type="hidden" name="eventId" value="'.$event_id.'">
+                </span>
+                <span class="td border-end border-activeTable">
+                    '.$date.'
+                    <input type="hidden" name="eventDate" value="'.$event_start.'">
+                </span>
+                <span class="td border-end border-activeTable">
+                    '.$event_title.'
+                    <input type="hidden" name="eventTitle" value="'.$event_title.'">
+                </span>
+                <span class="td border-end border-activeTable">
+                    '.$time.'
+                    <input type="hidden" name="eventStart" value="'.$event_start.'">
+                </span>
+                <span class="td border-end border-activeTable">
+                    '.$event_end.'
+                    <input type="hidden" name="eventEnd" value="'.$event_end.'">
+                </span>
+                <span class="td border-end border-activeTable">
+                    '.$timediff.'
+                </span>
+                <span class="td border-end border-activeTable">
+                    '.$event_cat.'
+                    <input type="hidden" name="eventCat" value="'.$event_cat.'">
+                </span>
+                <span class="td border-end border-activeTable">
+                    '.$event_author.'
+                    <input type="hidden" name="eventCat" value="'.$event_author.'">
+                </span>
+
+                <span class="td border-end border-activeTable">
+                    <button name="editEvent" value="true" class="btn btn-secondary submit">Bearbeiten</button>
+                </span>
+                <span class="td border-end border-activeTable">
+                    <button name="deleteEvent" value="true" class="btn btn-danger submit" onclick="alert(\'Das Event wird endgültig aus der Datenbank gelöscht, bist du dir sicher?\');">Löschen</button>
+                </span>
+            </form>';
     }
     $table .= "</div>";
     $result->close();

@@ -10,11 +10,13 @@ function setActive(buttonID) {
 /* Newsblog */
 
 //pagination variables
+var saveDisplay;
 var saveContent;
 var page = 1;
 
-function getNewsBlog(content) {
+function getTableView(content, displayOption) {
   saveContent = content;
+  saveDisplay = displayOption;
 
   var xhttp = new XMLHttpRequest();
   var mainContent = document.getElementById("mainContentWrapper");
@@ -28,28 +30,30 @@ function getNewsBlog(content) {
     pageNr.innerHTML = "Seite "+page;
 
     displayHeadline = document.getElementById("headlineDashboardContent");
-    displayHeadline.innerHTML = headline;
+    displayHeadline.innerHTML = headline.charAt(0).toUpperCase() + headline.slice(1);
   }
-  switch(content) {
+
+  switch(displayOption) {
     case 'all':
-      xhttp.open("GET", "./newsblog/content.php?articles=all&page="+page);
-      headline = "Newsblog - Alle Artikel";
+      xhttp.open("GET", "./"+content+"/content.php?displayOption="+displayOption+"&page="+page);
+      headline = saveContent+" - Gesamt";
+      console.log(headline);
       break;
     case 'week':
-      xhttp.open("GET", "./newsblog/content.php?articles=week&page="+page);
-      headline = "Newsblog - Diese Woche";
+      xhttp.open("GET", "./"+content+"/content.php?displayOption="+displayOption+"&page="+page);
+      headline = saveContent+" - Diese Woche";
       break;
     case 'month':
-      xhttp.open("GET", "./newsblog/content.php?articles=month&page="+page);
-      headline = "Newsblog - Dieser Monat";
+      xhttp.open("GET", "./"+content+"/content.php?displayOption="+displayOption+"&page="+page);
+      headline = saveContent+" - Dieser Monat";
       break;
     case 'commented':
-      xhttp.open("GET", "./newsblog/content.php?articles=commented&page="+page);
-      headline = "Newsblog - Kommentierte Artikel";
+      xhttp.open("GET", "./"+content+"/content.php?displayOption="+displayOption+"&page="+page);
+      headline = saveContent+" - Kommentierte Artikel";
       break;
     default:
-      xhttp.open("GET", "./newsblog/content.php?articles=all&page="+page);
-      headline = "Newsblog - Alle Artikel";
+      xhttp.open("GET", "./"+content+"/content.php?displayOption="+displayOption+"&page="+page);
+      headline = saveContent+" - Gesamt";
       break;
   }
 
