@@ -11,7 +11,7 @@
 </div>
 <div class="row">
 	<div class="col d-flex justify-content-center">
-		<table id="calendar" class="table table-sm text-white"> </table>
+		<table id="calendar" class="table text-white border"> </table>
 	</div>
 </div>
 <div id="test"></div>
@@ -97,7 +97,7 @@
 					cell.className = 'calendartag';
 						// und der aktuelle Tag (today) wird noch einmal speziell mit der Klasse "today" markiert
 					if (Tageszahl == DieserTag) {
-						cell.className = cell.className + ' today';
+						cell.className = cell.className + ' today rounded';
 					}
 					Tageszahl++;
 
