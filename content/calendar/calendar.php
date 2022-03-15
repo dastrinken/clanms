@@ -31,7 +31,6 @@
 	function calendar(Monat, Jahr, calendarId, eventArray) {
 		/* Platzhalter für Eventteil */
 		getMonthEventArray(Monat, Jahr); // Rückgabe: Alle Events für diesen Monat in einem Array
-		console.log(monthArray);
 
 		deleteCalendar(); 
 		if(Monat < 1) {
@@ -115,14 +114,22 @@
 function getMonthEventArray(month, year) {
     var xhttp = new XMLHttpRequest();
     xhttp.onload = function() {
-		parseData(this.response);
+		parseToCalendar(JSON.parse(this.response));
     }
     xhttp.open("GET", "./content/calendar/events.php?f=monthArray&m="+month+"&y="+year);
     xhttp.send();
 }
 
-function parseData(data) {
-	monthArray = JSON.parse(data);
-	console.log(monthArray);
+/* Langsame Funktion, da zwei verschachtelte for-Schleifen. Das geht bestimmt besser! */
+function parseToCalendar(monthArray) {
+	getAllDays = document.getElementsByClassName("calendartag");
+	for(let i = 0; i < monthArray.length; i++) {
+			for(let j = 0; j < getAllDays.length; j++) {
+				if(getAllDays[j].textContent == monthArray[i]['eventDay']) {
+					getAllDays[j].classList.add("text-danger");
+					getAllDays[j].style.cursor = "pointer";
+				}
+			}		
+	}
 }
 </script>
