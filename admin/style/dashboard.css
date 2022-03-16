@@ -131,7 +131,7 @@ body {
 
 /* Styling for multiple forms in one big table (e.g.: article overview) */
 DIV.table {
-    display:table;
+  display:table;
 }
 
 DIV.thead {

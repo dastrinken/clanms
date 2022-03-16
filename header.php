@@ -25,21 +25,4 @@
                 </div>';
         }
     ?>
-
-    <!-- Modal triggered by login button 
-            TODO:   change buttons and content via javascript (not fully functional yet)
-    -->
-    <div class="modal fade" id="loginRegisterModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-        <div class="modal-dialog text-dark">
-            <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">Login to your account</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <div id="loginSignupModalBody" class="modal-body">
-                <!-- Login / Register form -->
-            </div>
-            </div>
-        </div>
-    </div>
 </header>

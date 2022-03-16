@@ -4,7 +4,6 @@ if($editing) {
     $content = $_GET['content'];
     $articleId = $_GET['articleId'];
     $color = $_GET['color'];
-    $author_id = $_GET['author_id'];
     $author_name = $_GET['author_name'];
     $date_created = $_GET['date_created'];
     $date_published = $_GET['date_published'];
@@ -25,7 +24,7 @@ if($editing) {
         </div>
 
     </div>
-    <div id="" class="mb-3">
+    <div class="mb-3">
         <label for="newsContent" class="form-label">Inhalt</label>
         <textarea class="form-control" id="newsContent" name="content" rows="15" placeholder="Fange an einen tollen Artikel zu schreiben..."><?php echo $content; ?></textarea>
     </div>
@@ -60,6 +59,5 @@ if($editing) {
 </form>
 <script src="https://cdn.jsdelivr.net/simplemde/latest/simplemde.min.js"></script>
 <script>
-    var simplemde = new SimpleMDE({ element: document.getElementById("newsContent") });
-    console.log("Test");
+    var simplemde = new SimpleMDE();
 </script>

@@ -32,13 +32,13 @@
 		/* Platzhalter für Eventteil */
 		getMonthEventArray(Monat, Jahr); // Rückgabe: Alle Events für diesen Monat in einem Array
 
-		deleteCalendar(); 
-		if(Monat < 1) {
+		deleteCalendar();
+		if (Monat < 1) {
 			Monat = 12;
 			dm = 12;
 			--Jahr;
 			--dj;
-		} else if(Monat > 12) {
+		} else if (Monat > 12) {
 			Monat = 1;
 			dm = 1;
 			++Jahr;
@@ -95,7 +95,7 @@
 					// normale Zellen werden mit der Tageszahl befüllt und mit der Klasse calendartag markiert
 					cell.innerHTML = Tageszahl;
 					cell.className = 'calendartag';
-						// und der aktuelle Tag (today) wird noch einmal speziell mit der Klasse "today" markiert
+					// und der aktuelle Tag (today) wird noch einmal speziell mit der Klasse "today" markiert
 					if (Tageszahl == DieserTag) {
 						cell.className = cell.className + ' today rounded';
 					}
@@ -110,26 +110,67 @@
 		return true;
 	}
 
-// Calendar
-function getMonthEventArray(month, year) {
-    var xhttp = new XMLHttpRequest();
-    xhttp.onload = function() {
-		parseToCalendar(JSON.parse(this.response));
-    }
-    xhttp.open("GET", "./content/calendar/events.php?f=monthArray&m="+month+"&y="+year);
-    xhttp.send();
-}
+	// Calendar
+	function getMonthEventArray(month, year) {
+		var xhttp = new XMLHttpRequest();
+		xhttp.onload = function() {
+			parseToCalendar(JSON.parse(this.response));
+		}
+		xhttp.open("GET", "./content/calendar/events.php?f=monthArray&m=" + month + "&y=" + year);
+		xhttp.send();
+	}
 
-/* Langsame Funktion, da zwei verschachtelte for-Schleifen. Das geht bestimmt besser! */
-function parseToCalendar(monthArray) {
-	getAllDays = document.getElementsByClassName("calendartag");
-	for(let i = 0; i < monthArray.length; i++) {
-			for(let j = 0; j < getAllDays.length; j++) {
-				if(getAllDays[j].textContent == monthArray[i]['eventDay']) {
+	/* Langsame Funktion, da zwei verschachtelte for-Schleifen. Das geht bestimmt besser! */
+	function parseToCalendar(monthArray) {
+		console.log(monthArray);
+		getAllDays = document.getElementsByClassName("calendartag");
+		for (let i = 0; i < monthArray.length; i++) {
+			for (let j = 0; j < getAllDays.length; j++) {
+				if (getAllDays[j].textContent == monthArray[i]['eventDay']) {
 					getAllDays[j].classList.add("text-danger");
+					getAllDays[j].addEventListener("click", function() {
+						eventDisplay = document.getElementById("eventDisplaySwitchable");
+						eventId = monthArray[i]['id'];
+						$.post("./system/functions.php", 
+						{
+							command: "getSpecificEvent",
+							postId: eventId
+						},
+						function(data) {
+							eventDisplay.innerHTML = "";
+							eventArray = JSON.parse(data);
+							showEvent(eventArray);
+						});
+					});
 					getAllDays[j].style.cursor = "pointer";
 				}
-			}		
+			}
+		}
 	}
+
+function showEvent(eventArray) {
+	var eventId = eventArray[0]["id"];
+	var eventTitle = eventArray[0]["title"];
+	var eventDesc = eventArray[0]["description"];
+	var eventStart = eventArray[0]["start"];
+	var eventEnd = eventArray[0]["end"];
+
+	$.post("./system/functions.php", 
+	{
+		command: "getCategoryImage",
+		postId: eventArray[0]["event_cat"]
+	},
+	function(data) {
+		var htmlCode = "<div class='row text-center bg-blackened m-1 p-1 rounded'>";
+		htmlCode += "<h4>"+eventTitle+"</h4>";
+		htmlCode += "</div><div class='row'><div class='col d-flex justify-content-center align-items-center'>";
+		htmlCode += data;
+		htmlCode += "</div><div class='col flex-grow-1'><hr/><div class='row p-2'>";
+		htmlCode +=	"Beginn: "+eventStart;
+		htmlCode += "</div><div class='row p-2'>";
+		htmlCode += eventDesc;
+		htmlCode += "</div></div></div>";
+		$("#eventDisplaySwitchable").append(htmlCode);
+	});
 }
 </script>

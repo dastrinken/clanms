@@ -151,6 +151,58 @@ function getArticlesFromDB($displayOption) {
     return $table;
 }
 
+/* Events */
+if($_POST['saveEvent']) {
+    writeEventToDB($_POST['updateEvent']);
+} 
+
+if($_GET['deleteEvent'] === 'true') {
+    deleteEventFromDB($_GET['eventId']);
+}
+
+function writeEventToDB($editExisting) {
+    $title = $_POST['eventTitle'];
+    $description = $_POST['eventDescription'];
+    $id_author = $_POST['userid'];
+    $date_created = $_POST['date_created'];
+    $date_start = $_POST['date_start'];
+    $date_end = $_POST['date_end'];
+    $event_cat = $_POST['eventCat'];
+    var_dump($title, $description, $id_author, $date_created, $date_start, $date_end, $event_cat);
+    
+    $mysqli = connect_DB();
+    if($editExisting === 'true') {
+        $eventId = $_POST['eventId'];
+        $stmt = $mysqli->prepare("UPDATE clanms_event SET title = ?, description = ?, created = ?, start = ?, end = ?, event_cat = ?, id_user = ? WHERE id = ?");
+        $stmt->bind_param("sssssiii",$title, $description, $date_created, $date_start, $date_end, $event_cat, $id_author, $eventId);
+    } else {
+        $stmt = $mysqli->prepare("INSERT INTO clanms_event(title, description, created, start, end, event_cat, id_user) VALUES (?,?,?,?,?,?,?)");
+        $stmt->bind_param("sssssii", $title, $description, $date_created, $date_start, $date_end, $event_cat, $id_author);
+    }
+    $stmt->execute();
+    $stmt->close();
+    $mysqli->close();
+}
+
+function getEventCatsFromDB() {
+    $mysqli = connect_DB();
+    $select = "SELECT * FROM clanms_event_category";
+    $result = $mysqli->query($select, MYSQLI_USE_RESULT);
+    $resultArray = $result->fetch_all(MYSQLI_ASSOC);
+    $result->close();
+    $mysqli->close();
+    return $resultArray;
+}
+
+function deleteEventFromDB($eventId) {
+    $mysqli = connect_DB();
+    $stmt = $mysqli->prepare("DELETE FROM clanms_event WHERE clanms_event.id = ?");
+    $stmt->bind_param("i", $eventId);
+    $stmt->execute();
+    $stmt->close();
+    $mysqli->close();
+}
+
 function getEventsFromDB($displayOption) {
     if (session_status() === PHP_SESSION_NONE){session_start();}
     $mysqli = connect_DB();
@@ -212,7 +264,7 @@ function getEventsFromDB($displayOption) {
                 </span>
                 <span class="td border-end border-activeTable">
                     '.$date.'
-                    <input type="hidden" name="eventDate" value="'.$event_start.'">
+                    <input type="hidden" name="eventStart" value="'.$event_start.'">
                 </span>
                 <span class="td border-end border-activeTable">
                     '.$event_title.'
@@ -235,9 +287,10 @@ function getEventsFromDB($displayOption) {
                 </span>
                 <span class="td border-end border-activeTable">
                     '.$event_author.'
-                    <input type="hidden" name="eventCat" value="'.$event_author.'">
+                    <input type="hidden" name="author_id" value="'.$event_author.'">
                 </span>
 
+                <input type="hidden" name="description" value="'.$event_desc.'">
                 <span class="td border-end border-activeTable">
                     <button name="editEvent" value="true" class="btn btn-secondary submit">Bearbeiten</button>
                 </span>
@@ -251,5 +304,4 @@ function getEventsFromDB($displayOption) {
     $mysqli->close();
     return $table;
 }
-
 ?>
