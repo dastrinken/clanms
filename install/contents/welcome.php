@@ -14,14 +14,18 @@
     </p>
     <dl>
         <div class="row justify-content-md-center">
+            <dt class="col col-lg-3">Vorraussetzungen</dt>
+            <dd class="col">Webserver (z.B. Apache2) mit eingerichteter Datenbank und <abbr title="Optional, jedoch eindrücklich empfohlen um alle Funktionen nutzen zu können!">Mailserver</abbr></dd>
+        </div>
+        <div class="row justify-content-md-center">
             <dt class="col col-lg-3">Zugangsdaten</dt>
             <dd class="col">Halte bitte deine Zugangsdaten für deine Datenbank bereit (Nutzername, Passwort).</dd>
         </div>
         <div class="row justify-content-md-center">
             <dt class="col col-lg-3">Datenbank</dt>
-            <dd class="col">Alle gängigen Datenbanksystem sollten unser System unterstützen.<br/>
+            <dd class="col">Alle gängigen Datenbanksysteme sollten unser System unterstützen.<br/>
             Dennoch an dieser Stelle als Hinweis:<br/>
-            Das System wurde auf einer MySQL / MariaDB entwickelt.<br/>
+            Das System wurde auf einer <abbr title="Es gibt keine Garantie, dass ClanMS auf anderen Systemen problemfrei läuft.">MySQL / MariaDB</abbr> entwickelt.<br/>
             (10.6.7-MariaDB-1:10.6.7+maria~focal - mariadb.org binary distribution)</dd>
         </div>
         <div class="row justify-content-md-center">
@@ -35,7 +39,7 @@
         <div class="row justify-content-md-center">
             <dt class="col col-lg-3">Probleme</dt>
             <dd class="col">Solltest du einmal nicht weiterkommen oder ein Problem entdecken, kannst du dich jederzeit an uns wenden:
-            <a href='https://github.com/dastrinken/clanms' target='_blank'><img class='bi' src='../bootstrap/bootstrap-icons-1.8.0/github.svg' width='24' height='24'></img>GitHub</a></dd>
+            <a href='https://github.com/dastrinken/clanms' target='_blank'><i class='bi-github' width='24' height='24'></i>GitHub</a></dd>
         </div>
     </dl>
 </div>

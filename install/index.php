@@ -54,6 +54,7 @@ $userpw = $_SESSION['userpw'];
     <link href="../bootstrap/css/bootstrap.css" rel="stylesheet">
     <link rel="stylesheet" href="../styles/style.css"> 
     <script src="../bootstrap/js/bootstrap.bundle.js"></script>
+    <link rel="stylesheet" href="../bootstrap/icons/bootstrap-icons.css"> 
     <script src="../system/js/script.js"></script>
     <title>ClanMS - Installation</title>
 </head>
