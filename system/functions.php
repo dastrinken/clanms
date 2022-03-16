@@ -1,5 +1,5 @@
 <?php
-
+require_once(__DIR__."/dbconnect.php");
 /* Variablen aus DB auslesen */
 $title = getSetting("title");
 
@@ -8,6 +8,19 @@ if($_POST['registerBtn']){
     registerNewAccount();
 } elseif($_POST['loginBtn']) {
     loginAccount();
+}
+
+/* jQuery Anfragen */
+switch ($_POST['command'])
+{
+    case 'getSpecificEvent':
+        getSpecificEventById($_POST['postId'], true);
+        break;
+    case 'getCategoryImage':
+        getCategoryImage($_POST['postId'], 128, 1);
+        break;
+    default:
+        break;
 }
 /* Daten aus DB auslesen */
 
@@ -347,15 +360,20 @@ function getEventsArray() {
     return $resultArray;
 }
 
-function getSpecificEventById($id) {
+function getSpecificEventById($id, $jquery) {
     $mysqli = connect_DB();
     $select = "SELECT * FROM clanms_event WHERE id=$id";
     $result = $mysqli->query($select, MYSQLI_USE_RESULT);
     $resultArray = $result->fetch_all(MYSQLI_ASSOC);
     $result->close();
     $mysqli->close();
-    return $resultArray;
+    if($jquery) {
+        echo json_encode($resultArray);
+    } else {
+        return $resultArray;
+    }
 }
+
 
 //catId muss aus Eventarray ausgelesen werden, rounded gibt an ob Bild rund sein soll oder Eckig (true/false)
 function getCategoryImage($catId, $size, $rounded) {
@@ -373,7 +391,7 @@ function getCategoryImage($catId, $size, $rounded) {
     } elseif($rounded == 1) {
         $image = '<img src="data:image/png;base64,'.$content.'" width = "'.$size.'px" height="'.$size.'px" class="rounded-circle" />';
     }
-    return $image;
+    echo $image;
 }
 
 /* Newsblog anzeigen und alles was dazugehört */

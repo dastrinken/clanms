@@ -60,15 +60,14 @@ function getTableView(content, displayOption) {
   xhttp.send();
 }
 
-function writeArticle() {
+function newEntry(content) {
   var xhttp = new XMLHttpRequest();
-  var container = document.getElementById("newsBlogContainer");
+  var container = document.getElementById("contentWrapper");
 
   xhttp.onload = function() {
     container.innerHTML = this.responseText;
 
     var simplemde = new SimpleMDE({
-      element: document.getElementById("newsContent"),
       autosave: {
         enabled: true,
         uniqueId: "newsContent",
@@ -76,7 +75,16 @@ function writeArticle() {
       } 
     });
   }
-  xhttp.open("GET", "./newsblog/writeArticle.php?author="+username+"&userid="+userid);
+
+  switch(content) {
+    case "newsblog":
+      xhttp.open("GET", "./newsblog/writeArticle.php?author="+username+"&userid="+userid);
+      break;
+    case "event":
+      xhttp.open("GET", "./events/createEvent.php?author="+username+"&userid="+userid);
+      break;
+  }
+
   
   xhttp.send();
   
