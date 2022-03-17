@@ -304,4 +304,104 @@ function getEventsFromDB($displayOption) {
     $mysqli->close();
     return $table;
 }
+
+function getUsersFromDB($displayOption) {
+    if (session_status() === PHP_SESSION_NONE){session_start();}
+    $mysqli = connect_DB();
+    switch($displayOption) {
+        case "all":
+            $where = "";
+            break;
+        case "admin":
+            $where = "WHERE cg.title = 'Admin'";
+            break;
+        case "moderator":
+            $where = "WHERE cg.title = 'Moderator'";
+            break;
+        case "member";
+            $where = "WHERE cg.title = 'Member'";
+            break;
+        case "registered":
+            $where = "WHERE cg.title = 'Registered'";
+            break;
+        default:
+            $where = "";
+            break;
+    }
+    $select = "SELECT * FROM clanms_user cs JOIN clanms_user_groups cug ON cs.id = cug.id_user JOIN clanms_groups cg ON cug.id_group = cg.id ".$where;
+    $result = $mysqli->query($select, MYSQLI_USE_RESULT);
+    $table = "<div class='table'>
+    <div class='thead'>
+        <div class='tr mb-2'>
+            <span class='td border-bottom border-dark'>#</span>
+            <span class='td border-bottom border-dark'>Username</span>
+            <span class='td border-bottom border-dark'>E-mail</span>
+            <span class='td border-bottom border-dark'>Registriert seit</span>
+            <span class='td border-bottom border-dark'>Aktiviert (1 = ja, 0 = nein)</span>
+            <span class='td border-bottom border-dark'>Nutzergruppe</span>
+            <span class='td border-bottom border-dark'></span>
+            <span class='td border-bottom border-dark'></span>
+        </div>
+    </div><div class='tbody'>";
+    $count = 0;
+    while($row = $result->fetch_assoc()) {
+        ++$count;
+        $user_id = $row['id'];
+        $user_name = $row['username'];
+        $user_email = $row['email'];
+        $user_registeredSince = $row['registeredSince'];
+        if($row['activated']==="1"){
+            $user_activated = "aktiviert";
+        }elseif($row['activated']==="0"){
+            $user_activated = "nicht aktiviert";
+        }
+        $group_title = $row['title'];
+        $table .= '<form class="tr activeTable">
+                    <span class="td border-end border-activeTable">
+                    '.(/*$offset+*/$count).'
+                        <input type="hidden" name="eventId" value="'.$user_id.'">
+                    </span>
+                    <span class="td border-end border-activeTable">
+                        '.$user_name.'
+                    </span>
+                    <span class="td border-end border-activeTable">
+                        '.$user_email.'
+                        <input type="hidden" name="eventTitle" value="'.$user_email.'">
+                    </span>
+                    <span class="td border-end border-activeTable">
+                        '.$user_registeredSince.'
+                        <input type="hidden" name="eventStart" value="'.$user_registeredSince.'">
+                    </span>
+                    <span class="td border-end border-activeTable">
+                        <select name="userGroup" class="form-select border-0" aria-label="select user group">
+                            <option selected>'.$user_activated.'</option>
+                            <option value="activated">aktiviert</option>
+                            <option value="not activated">nicht aktiviert</option>
+                        </select>
+                    </span>
+                    <span class="td border-end border-activeTable">
+                        <select name="userGroup" class="form-select border-0" aria-label="select user group">
+                            <option selected>'.$group_title.'</option>
+                            <option value="admin">Admin</option>
+                            <option value="moderator">Moderator</option>
+                            <option value="member">Mitglied</option>
+                            <option value="registered">Registriert</option>
+                        </select>
+                    </span>
+                    <span class="td border-end border-activeTable">
+                        <button name="editEvent" value="true" class="btn btn-secondary submit">Bearbeiten</button>
+                    </span>
+                    <span class="td border-end border-activeTable">
+                        <button name="deleteEvent" value="true" class="btn btn-danger submit" onclick="alert(\'Das Event wird endgültig aus der Datenbank gelöscht, bist du dir sicher?\');">Löschen</button>
+                    </span>
+                </form>';
+    }
+    $table .= "</div>";
+    $result->close();
+    $mysqli->close();
+    return $table;
+}
+foreach($selectOption as $row) {
+                    printf("<option value='%s'>%s</option>", $row['id'], $row['title']);
+                }
 ?>

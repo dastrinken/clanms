@@ -45,7 +45,7 @@
     <ul class="nav flex-column">
         <li class="nav-item">
         <!-- TODO: klasse active per js umsetzen auf den richtigen (angeklickten) Menüpunkt -->
-        <a id="userLink" class="nav-link" aria-current="page" href="#" onclick="setActive(this.id); return false;">
+        <a id="userLink" class="nav-link" aria-current="page" href="#" onclick="getTableView('user', 'all'), setActive(this.id); return false;">
             Benutzer
         </a>
         </li>
