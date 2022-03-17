@@ -1,4 +1,4 @@
-<div class="row p-3">
+<div class="col p-3 bg-lightdark rounded">
     <!-- Headline -->
     <h3>Home</h3>
     <hr/>
