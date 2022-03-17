@@ -161,15 +161,16 @@ function showEvent(eventArray) {
 		postId: eventArray[0]["event_cat"]
 	},
 	function(data) {
-		var htmlCode = "<div class='row text-center bg-blackened m-1 p-1 rounded'>";
+		var htmlCode = "<div class ='col calendar-event mb-2 p-2 bg-lightdark rounded'>";
+		htmlCode += "<div class='row d-flex align-content-center text-center bg-blackened m-1 p-1 rounded'>";
 		htmlCode += "<h4>"+eventTitle+"</h4>";
-		htmlCode += "</div><div class='row'><div class='col d-flex justify-content-center align-items-center'>";
+		htmlCode += "</div><div class='row'><div class='col'>";
 		htmlCode += data;
 		htmlCode += "</div><div class='col flex-grow-1'><hr/><div class='row p-2'>";
 		htmlCode +=	"Beginn: "+eventStart;
 		htmlCode += "</div><div class='row p-2'>";
 		htmlCode += eventDesc;
-		htmlCode += "</div></div></div>";
+		htmlCode += "</div></div></div></div>";
 		$("#eventDisplaySwitchable").append(htmlCode);
 	});
 }
