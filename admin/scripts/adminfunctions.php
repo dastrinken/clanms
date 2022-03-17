@@ -305,6 +305,20 @@ function getEventsFromDB($displayOption) {
     return $table;
 }
 
+function deleteUserFromDB($userid){
+    if (session_status() === PHP_SESSION_NONE){session_start();}
+    $mysqli = connect_DB();
+    $stmt1 = $mysqli->prepare("DELETE FROM clanms_user_group WHERE clanms_user_group.id_user = ?");
+    $stmt1->bind_param("i", $userid);
+    $stmt1->execute();
+    $stmt1->close();
+    $stmt2 = $mysqli->prepare("DELETE FROM clanms_user WHERE clanms_user.id = ?");
+    $stmt2->bind_param("i", $userid);
+    $stmt2->execute();
+    $stmt2->close();
+    $mysqli->close();
+}
+
 function getUsersFromDB($displayOption) {
     if (session_status() === PHP_SESSION_NONE){session_start();}
     $mysqli = connect_DB();
@@ -392,7 +406,7 @@ function getUsersFromDB($displayOption) {
                         <button name="editEvent" value="true" class="btn btn-secondary submit">Bearbeiten</button>
                     </span>
                     <span class="td border-end border-activeTable">
-                        <button name="deleteEvent" value="true" class="btn btn-danger submit" onclick="alert(\'Das Event wird endgültig aus der Datenbank gelöscht, bist du dir sicher?\');">Löschen</button>
+                        <button name="deleteUser" value="true" class="btn btn-danger submit" onclick="alert(\'Der Nutzer wird endgültig aus der Datenbank gelöscht, bist du dir sicher?\');">Löschen</button>
                     </span>
                 </form>';
     }
