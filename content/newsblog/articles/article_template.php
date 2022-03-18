@@ -25,7 +25,7 @@
     </p>
         <ul class="col-md-20 justify-content-end list-unstyled d-flex">
             <li>
-                <a href="#" Title="Kommentare lesen" alt="Kommentare"><i class="bi-chat-dots article-icon"></i></a> | <a href="#" Title="Kommentar schreiben" alt="Kommentar schreiben"><i class="bi-pencil-square article-icon"></i></a> | <a href="#" title="Beitrag löschen" alt="Beitrag löschen"><i class="bi-trash3-fill article-icon"></i></a> | <a href="#" title="anpinnen" alt="Beitrag anpinnen"><i class="bi-pin-angle article-icon"></i></a>
+                <a href="#" Title="Kommentare lesen" alt="Kommentare"><i class="bi-chat-text article-icon"></i></a> | <a href="#" Title="Kommentar schreiben" alt="Kommentar schreiben"><i class="bi-pencil-square article-icon"></i></a> | <a href="#" title="Beitrag löschen" alt="Beitrag löschen"><i class="bi-trash3-fill article-icon"></i></a> | <a href="#" title="anpinnen" alt="Beitrag anpinnen"><i class="bi-pin-angle article-icon"></i></a>
              </li>
         </ul>
 </div>
