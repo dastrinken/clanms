@@ -31,6 +31,14 @@ header {
   background-color: var(--bs-danger);
 }
 
+a {
+  color: #dc3545;
+}
+
+a:hover {
+  color: black;
+}
+
 .sidebar {
   height: 100%;
 }
