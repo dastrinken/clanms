@@ -20,5 +20,15 @@
     <?php echo $article_content; ?>
     </p>
     <hr />
-    <p>Article footer - <?php echo "Author: ".$article_name_author." Published: ".$article_date_published; ?>, contact info, tags, categories, etc</p>
+    <p>
+        Article footer - <?php echo "Author: ".$article_name_author." Published: ".$article_date_published; ?>, contact info, tags, categories, etc
+    </p>
+        <ul class="col-md-20 justify-content-end list-unstyled d-flex">
+            <li>
+<?php  /* dots = vorhandene Kommentare, pencil = Kommentar schreiben, trash = Moderator oder Admin funktion zum löschen oder bearbeiten, pin = Funktion für Admins/Mods um Beiträge ganz oben anzupinnen
+                */
+?>
+                <a href="#" alt="Kommentare"><i class="bi-chat-dots article-icon"></i></a> | <a href="#" alt="Kommentar schreiben"><i class="bi-pencil-square article-icon"></i></a> | <a href="#" alt="Beitrag löschen"><i class="bi-trash3-fill article-icon"></i></a> | <a href="#" alt="Beitrag anpinnen"><i class="bi-pin-angle article-icon"></i></a>
+             </li>
+        </ul>
 </div>

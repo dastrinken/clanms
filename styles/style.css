@@ -135,6 +135,15 @@ header {
   color: #dc3545;
 }
 
+.article-icon {
+  color: #dc3545;
+  font-size: 120%;
+}
+
+.article-icon:hover {
+  color: black;
+}
+
 /* Nav Header */
 .nav-darkmode:hover {
   color: white;
