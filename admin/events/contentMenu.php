@@ -3,7 +3,7 @@
     <!-- Headline elements of specific menu -->
     <div class="btn-toolbar mb-2 mb-md-0">
         <div class="btn-group me-2">
-        <button type="button" class="btn btn-sm btn-outline-secondary" onclick="newEntry('newsblog'); return false;">Neu</button>
+        <button type="button" class="btn btn-sm btn-outline-secondary" onclick="newEntry('event'); return false;">Neu</button>
         <button type="button" class="btn btn-sm btn-outline-secondary">Backup</button>
         </div>
 
@@ -13,10 +13,9 @@
                 Anzeige
             </button>
             <ul class="dropdown-menu" aria-labelledby="displayArticlesDropdown">
-                <li><a id="thisWeeksArticles" class="dropdown-item" href="#" onclick="page = 1; getTableView('newsblog', 'all'); return false;">Alle Artikel</a></li>
-                <li><a id="thisWeeksArticles" class="dropdown-item" href="#" onclick="page = 1; getTableView('newsblog', 'week'); return false;">Diese Woche</a></li>
-                <li><a id="thisMonthsArticles" class="dropdown-item" href="#" onclick="page = 1; getTableView('newsblog', 'month'); return false;">Dieser Monat</a></li>
-                <li><a id="articlesComments" class="dropdown-item" href="#" onclick="page = 1; getTableView('newsblog', 'commented'); return false;">Kommentare</a></li>
+                <li><a id="thisWeeksArticles" class="dropdown-item" href="#" onclick="page = 1; getTableView('events', 'all'); return false;">Alle Events</a></li>
+                <li><a id="thisWeeksArticles" class="dropdown-item" href="#" onclick="page = 1; getTableView('events', 'week'); return false;">Diese Woche</a></li>
+                <li><a id="thisMonthsArticles" class="dropdown-item" href="#" onclick="page = 1; getTableView('events', 'month'); return false;">Dieser Monat</a></li>
             </ul>
         </div>
     </div>

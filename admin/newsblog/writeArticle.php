@@ -4,10 +4,11 @@ if($editing) {
     $content = $_GET['content'];
     $articleId = $_GET['articleId'];
     $color = $_GET['color'];
-    $author_id = $_GET['author_id'];
     $author_name = $_GET['author_name'];
     $date_created = $_GET['date_created'];
     $date_published = $_GET['date_published'];
+    $date_p_array = explode(" ", $date_published);
+    $date_published_w3c = $date_p_array[0]."T".$date_p_array[1];
     echo "<h2 class='text-center mt-2'>Artikel bearbeiten</h2>";
 } else {
     echo "<h2 class='text-center mt-2'>Neuer Artikel</h2>";
@@ -25,7 +26,7 @@ if($editing) {
         </div>
 
     </div>
-    <div id="" class="mb-3">
+    <div class="mb-3">
         <label for="newsContent" class="form-label">Inhalt</label>
         <textarea class="form-control" id="newsContent" name="content" rows="15" placeholder="Fange an einen tollen Artikel zu schreiben..."><?php echo $content; ?></textarea>
     </div>
@@ -42,9 +43,8 @@ if($editing) {
 
         <div class="input-group w-auto me-2">
             <span class="input-group-text" id="ariaLabelPublish">Veröffentlichung</span>
-            <input class="form-control" type="datetime-local" name="publish" value="<?php echo empty($date_published) ? date('Y-m-d H:i:s') : $date_published; ?>" aria-describedby="ariaLabelPublish">
+            <input class="form-control" type="datetime-local" name="publish" value="<?php echo empty($date_published) ? date('Y-m-d\TH:i:s') : $date_published_w3c; ?>" aria-describedby="ariaLabelPublish">
         </div>
-
         <input type="hidden" name="userid" value="<?php echo $_GET['userid']; ?>">
         <?php 
             if($editing) {
@@ -60,6 +60,5 @@ if($editing) {
 </form>
 <script src="https://cdn.jsdelivr.net/simplemde/latest/simplemde.min.js"></script>
 <script>
-    var simplemde = new SimpleMDE({ element: document.getElementById("newsContent") });
-    console.log("Test");
+    var simplemde = new SimpleMDE();
 </script>

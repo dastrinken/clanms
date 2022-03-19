@@ -11,13 +11,13 @@
         </a>
         </li>
         <li class="nav-item">
-        <a id="newsLink" class="nav-link" href="#" onclick="getNewsBlog('all'); setActive(this.id); return false;">
+        <a id="newsLink" class="nav-link" href="#" onclick="getTableView('newsblog', 'all'); setActive(this.id); return false;">
             Newsblog
         </a>
         </li>
         <li class="nav-item">
         <a id="galleryLink" class="nav-link" href="#"  onclick="setActive(this.id); return false;">
-            Gallerie
+            Galerie
         </a>
         </li>
     </ul>
@@ -28,7 +28,7 @@
     <ul class="nav flex-column">
         <li class="nav-item">
         <!-- TODO: klasse active per js umsetzen auf den richtigen (angeklickten) Menüpunkt -->
-        <a id="eventLink" class="nav-link" aria-current="page" href="#" onclick="setActive(this.id); return false;">
+        <a id="eventLink" class="nav-link" aria-current="page" href="#" onclick="getTableView('events', 'all'), setActive(this.id); return false;">
             Eventorganizer
         </a>
         </li>

@@ -1,8 +1,16 @@
 <?php
-    if($_GET['editArticle']) {
+    if($_GET['editArticle'] || $_GET['editEvent']) {
         $editing = true;
-        include(__DIR__."/../newsblog/writeArticle.php");
+        if($_GET['editArticle']) {
+            include(__DIR__."/../newsblog/writeArticle.php");
+        }
+        if($_GET['editEvent']) {
+            include(__DIR__."/../events/createEvent.php");
+        }
     } else {
-        include(__DIR__."/../landingPage.php");
+        include_once(__DIR__."/../landingPage.php");
     }
+
+
+
 ?>

@@ -14,14 +14,11 @@
         case "month":
             $displayOption = "month";
             break;
-        case "commented":
-            $displayOption = "comment";
-            break;
         default:
             $displayOption = "all";
             break;
     }
-    $tableView = getArticlesFromDB($displayOption);
+    $tableView = getEventsFromDB($displayOption);
 
     include(__DIR__."/contentMenu.php");
 ?>
@@ -34,7 +31,7 @@
                 <!-- table view of all articles -->
                 <?php 
                 include(__DIR__."/navTableView.php");
-                echo $tableView; 
+                echo $tableView;
                 ?>
             </div>
         </div>

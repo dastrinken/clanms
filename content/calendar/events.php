@@ -11,7 +11,7 @@ if($f == 'monthArray') {
 
 function getMonthlyEvents($month, $year) {
     $mysqli = connect_DB();
-    $select = $mysqli->prepare("SELECT id, start FROM clanms_event WHERE MONTH(start)=? AND YEAR(start)=?");
+    $select = $mysqli->prepare("SELECT id, DAY(start) AS eventDay FROM clanms_event WHERE MONTH(start)=? AND YEAR(start)=?");
     $select->bind_param("ss",$month,$year);
     $select->execute();
     $result = $select->get_result();

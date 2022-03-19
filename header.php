@@ -5,7 +5,7 @@
         <img class="bi" src="./ressources/icons/clanms_logo.svg" width="70" height="50" alt="Logo"></img>
     </a>
     
-    <!-- Navigation der Seite. Hier GET-Parameter per URL im href-Attribut an index.php übergeben -->
+    <!-- Hauptnavigation (oben) -->
     <ul class="nav justify-content-center">
         <li><a href="./" class="nav-link px-2 link-dark nav-darkmode">Home</a></li>
         <li><a href="./?nav=news" class="nav-link px-2 link-dark nav-darkmode">Blog</a></li>
@@ -25,21 +25,4 @@
                 </div>';
         }
     ?>
-
-    <!-- Modal triggered by login button 
-            TODO:   change buttons and content via javascript (not fully functional yet)
-    -->
-    <div class="modal fade" id="loginRegisterModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-        <div class="modal-dialog text-dark">
-            <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">Login to your account</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <div id="loginSignupModalBody" class="modal-body">
-                <!-- Login / Register form -->
-            </div>
-            </div>
-        </div>
-    </div>
 </header>
