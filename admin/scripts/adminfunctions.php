@@ -142,7 +142,7 @@ function getArticlesFromDB($displayOption) {
                         <input type="hidden" name="userid" value="'.$_SESSION["userid"].'">
                         <button name="editArticle" value="true" class="btn btn-secondary submit">Bearbeiten</button>
                     </span>
-                    <span class="td border-end border-activeTable"><button name="deleteArticle" value="true" class="btn btn-danger submit" onclick="alert(\'Der Artikel wird endgültig aus der Datenbank gelöscht, bist du dir sicher?\');">Löschen</button></span>
+                    <span class="td border-end border-activeTable"><button name="deleteArticle" value="true" class="btn btn-danger submit" onclick="return confirm(\'Der Artikel wird endgültig aus der Datenbank gelöscht, bist du dir sicher?\');">Löschen</button></span>
                 </form>';
     }
     $table .= "</div>";
@@ -295,7 +295,7 @@ function getEventsFromDB($displayOption) {
                     <button name="editEvent" value="true" class="btn btn-secondary submit">Bearbeiten</button>
                 </span>
                 <span class="td border-end border-activeTable">
-                    <button name="deleteEvent" value="true" class="btn btn-danger submit" onclick="alert(\'Das Event wird endgültig aus der Datenbank gelöscht, bist du dir sicher?\');">Löschen</button>
+                    <button name="deleteEvent" value="true" class="btn btn-danger submit" onclick="return confirm(\'Das Event wird endgültig aus der Datenbank gelöscht, bist du dir sicher?\');">Löschen</button>
                 </span>
             </form>';
     }
@@ -418,7 +418,7 @@ function getUsersFromDB($displayOption) {
                         <button name="updateUser" value="true" class="btn btn-secondary submit">Speichern</button>
                     </span>
                     <span class="td border-end border-activeTable">
-                        <button name="deleteUserOverview" type="submit" value="true" class="btn btn-danger submit">Löschen</button>
+                        <button name="deleteUserOverview" type="submit" value="true" class="btn btn-danger submit" onclick="return confirm(\'Der Benutzer wird endgültig aus der Datenbank gelöscht, bist du dir sicher?\');">Löschen</button>
                     </span>
                 </form>';
     }
