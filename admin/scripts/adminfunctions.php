@@ -303,6 +303,7 @@ function getEventsFromDB($displayOption) {
     $result->close();
     $mysqli->close();
     return $table;
+}
 
 /* Benutzerverwaltung */
 if($_GET['deleteUserOverview'] === 'true') {
@@ -376,7 +377,7 @@ function getUsersFromDB($displayOption) {
         $user_registeredSince = $row['registeredSince'];
         if($row['activated']==="1"){
             $user_activated = "aktiviert";
-        }elseif($row['activated']==="0"){
+        } elseif($row['activated']==="0"){
             $user_activated = "nicht aktiviert";
         }
         $group_title = $row['title'];
