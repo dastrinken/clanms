@@ -16,8 +16,4 @@
         /* default, vorerst Kalender + Willkommenstext einbinden, später variabel machen */
         include(__DIR__."/content/eventorganizer/main.php");
     }
-        /* TODO: 
-        **   - autom. include all articles
-        **   - avoid potential security risk when using get
-        */
 ?>
