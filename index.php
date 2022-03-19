@@ -1,18 +1,15 @@
 <?php
-    /* TODO: Include all important files 
-    ** - Start session, set all cookies
-    */
     session_start();
 
+    /* TODO: korrekte Verwendung von Cookies */
     if($_SESSION['userid'] && $_SESSION['username']) {
-        /* setze cookie -> lade seite neu */
         setcookie("login", "true");
     } else {
         setcookie("login", "false");
     }
+
     require("./system/dbconnect.php");
     require("./system/functions.php");
-    //markdown parser
     require("./parsedown/parsedown.php");
 ?>
 <!DOCTYPE html>
