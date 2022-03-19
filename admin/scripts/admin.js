@@ -89,3 +89,7 @@ function newEntry(content) {
   xhttp.send();
   
 } 
+
+function confirmDelete() {
+  return window.confirm("Are you sure you want to delete this record?");
+}
