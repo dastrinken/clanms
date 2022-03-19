@@ -16,8 +16,8 @@
         </a>
         </li>
         <li class="nav-item">
-        <a id="galleryLink" class="nav-link" href="#"  onclick="setActive(this.id); return false;">
-            Galerie
+        <a id="galleryLink" class="nav-link" href="#"  onclick="getTableView('gallery', 'all'); setActive(this.id); return false;">
+            Gallerie
         </a>
         </li>
     </ul>

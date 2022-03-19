@@ -40,7 +40,7 @@
                     <!-- Content -->
                     <div id="mainContent" class="row p-3 bg-blackened overflow-auto">
                         <?php 
-                            require("./system/sitemenu.php");
+                            require(__DIR__."/sitemenu.php");
                         ?>
                     </div>
                 </div>
