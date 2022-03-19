@@ -426,10 +426,7 @@ function getUsersFromDB($displayOption) {
     $mysqli->close();
     return $table;
 }
-/*foreach($selectOption as $row) {
-                    printf("<option value='%s'>%s</option>", $row['id'], $row['title']);
-                }
-*/
+
 function getActiveDropdown() {
     $mysqli = connect_DB();
     $stmt1 = $mysqli->prepare("DELETE FROM clanms_user_group WHERE clanms_user_groups.id_user = ?");
@@ -448,12 +445,6 @@ function getUserGroups(){
     $mysqli->close;
     return $resultArray;
 }
-?>
-<script>    
-function confirmDelete() {
-  return window.confirm("Are you sure you want to delete this record?");
-}
-</script>
 
 /* Gallery */
 function getGalleriesFromDB() {
