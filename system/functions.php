@@ -445,14 +445,6 @@ function debug_to_console($data) {
 }
 
 //selectOneRow_DB: use if you expect exactly one result (row). For example looking up a user id (or any other id)
-/**
-     * @param string $column
-     * @param string $tablename
-     * @param string $condition
-     * @param string $value
-     *
-     * @return string
-     */
 function selectOneRow_DB($column, $tablename, $condition, $value) {
     $mysqli = connect_DB();
 

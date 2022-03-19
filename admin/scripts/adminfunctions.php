@@ -304,7 +304,7 @@ function getEventsFromDB($displayOption) {
     $mysqli->close();
     return $table;
 }
-
+/* Benutzerverwaltung */
 function deleteUserFromDB($userid){
     if (session_status() === PHP_SESSION_NONE){session_start();}
     $mysqli = connect_DB();
@@ -373,19 +373,20 @@ function getUsersFromDB($displayOption) {
         $table .= '<form class="tr activeTable">
                     <span class="td border-end border-activeTable">
                     '.(/*$offset+*/$count).'
-                        <input type="hidden" name="eventId" value="'.$user_id.'">
+                        <input type="hidden" name="userId" value="'.$user_id.'">
                     </span>
-                    <span class="td border-end border-activeTable">
+                    <span class="td border-end border-activeTable" name="userName">
                         '.$user_name.'
                     </span>
-                    <span class="td border-end border-activeTable">
+                    <span class="td border-end border-activeTable" name="userEmail">
                         '.$user_email.'
                         <input type="hidden" name="eventTitle" value="'.$user_email.'">
                     </span>
-                    <span class="td border-end border-activeTable">
+                    <span class="td border-end border-activeTable" name="userRegistered">
                         '.$user_registeredSince.'
                         <input type="hidden" name="eventStart" value="'.$user_registeredSince.'">
                     </span>
+        
                     <span class="td border-end border-activeTable">
                         <select name="userGroup" class="form-select border-0" aria-label="select user group">
                             <option selected>'.$user_activated.'</option>
@@ -403,7 +404,7 @@ function getUsersFromDB($displayOption) {
                         </select>
                     </span>
                     <span class="td border-end border-activeTable">
-                        <button name="editEvent" value="true" class="btn btn-secondary submit">Bearbeiten</button>
+                        <button name="updateUser" value="true" class="btn btn-secondary submit">Speichern</button>
                     </span>
                     <span class="td border-end border-activeTable">
                         <button name="deleteUser" value="true" class="btn btn-danger submit" onclick="alert(\'Der Nutzer wird endgültig aus der Datenbank gelöscht, bist du dir sicher?\');">Löschen</button>
@@ -418,4 +419,18 @@ function getUsersFromDB($displayOption) {
 foreach($selectOption as $row) {
                     printf("<option value='%s'>%s</option>", $row['id'], $row['title']);
                 }
+
+function getActiveDropdown() {
+    $mysqli = connect_DB();
+    $stmt1 = $mysqli->prepare("DELETE FROM clanms_user_group WHERE clanms_user_group.id_user = ?");
+    $stmt1->bind_param("i", $userid);
+    $stmt1->execute();
+    $stmt1->close();
+    $mysqli->close();
+}
+
+function getGroupDropdown() {
+
+}
+
 ?>
