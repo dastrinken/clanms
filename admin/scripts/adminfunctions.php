@@ -306,8 +306,8 @@ function getEventsFromDB($displayOption) {
 }
 
 /* Benutzerverwaltung */
-if($_GET['deleteUserOverview'] === 'true') {
-    deleteUserFromDB($_GET['userId']);
+if($_POST['deleteUserOverview'] === 'true') {
+    deleteUserFromDB($_POST['userId']);
 }
 if($_POST['updateUser'] === 'true'){
     writeUsersToDB();
