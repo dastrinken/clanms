@@ -308,6 +308,9 @@ function getEventsFromDB($displayOption) {
 if($_GET['deleteUserOverview'] === 'true') {
     deleteUserFromDB($_GET['userId']);
 }
+if($_POST['updateUser' === 'true']){
+    writeUsersToDB();
+}
 
 function deleteUserFromDB($userid){
     if (session_status() === PHP_SESSION_NONE){session_start();}
@@ -368,12 +371,13 @@ function getUsersFromDB($displayOption) {
     </div><div class='tbody'>";
     $count = 0;
     while($row = $result->fetch_assoc()) {
-        var_dump($groups);
+        var_dump($row);
         ++$count;
         $user_id = $row['userid'];
         $user_name = $row['username'];
         $user_email = $row['email'];
         $user_registeredSince = $row['registeredSince'];
+        $activatedInt = $row['activated'];
         if($row['activated']==="1"){
             $user_activated = "aktiviert";
         }elseif($row['activated']==="0"){
@@ -381,7 +385,7 @@ function getUsersFromDB($displayOption) {
         }
         $group_title = $row['title'];
         $group_id = $row['groupId'];
-        $table .= '<form class="tr activeTable" onsubmit="confirmDelete()">
+        $table .= '<form class="tr activeTable" >
                     <span class="td border-end border-activeTable">
                     '.(/*$offset+*/$count).'
                         <input type="hidden" name="userId" value="'.$user_id.'">
@@ -391,25 +395,25 @@ function getUsersFromDB($displayOption) {
                     </span>
                     <span class="td border-end border-activeTable" name="userEmail">
                         '.$user_email.'
-                        <input type="hidden" name="eventTitle" value="'.$user_email.'">
+                        <input type="hidden" name="userMail" value="'.$user_email.'">
                     </span>
                     <span class="td border-end border-activeTable" name="userRegistered">
                         '.$user_registeredSince.'
-                        <input type="hidden" name="eventStart" value="'.$user_registeredSince.'">
+                        <input type="hidden" name="userRegisteredSince" value="'.$user_registeredSince.'">
                     </span>
         
                     <span class="td border-end border-activeTable">
-                        <select name="userActivated" class="form-select border-0" aria-label="select user group">
-                            <option selected>'.$user_activated.'</option>
-                            <option value="activated">aktiviert</option>
-                            <option value="not activated">nicht aktiviert</option>
+                        <select name="activated" class="form-select border-0" aria-label="select activated status">
+                            <option value="'.$activatedInt.'">'.$user_activated.'</option>
+                            <option value="1">aktiviert</option>
+                            <option value="0">nicht aktiviert</option>
                         </select>
                     </span>
                     <span class="td border-end border-activeTable">
                         <select name="userGroup" class="form-select border-0" aria-label="select user group">
-                            <option selected>'.$group_title.'</option>';
+                            <option value='.$group_id.'>'.$group_title.'</option>';
                             foreach($groups as $row) {
-                                $table .="<option value=".$row['id'].">".$row['title']."</option>";
+                                $table .="<option value=".$row['groupId'].">".$row['title']."</option>";
                             }
                     $table .='</select>
                     </span>
@@ -426,10 +430,6 @@ function getUsersFromDB($displayOption) {
     $mysqli->close();
     return $table;
 }
-/*foreach($selectOption as $row) {
-                    printf("<option value='%s'>%s</option>", $row['id'], $row['title']);
-                }
-*/
 function getActiveDropdown() {
     $mysqli = connect_DB();
     $stmt1 = $mysqli->prepare("DELETE FROM clanms_user_group WHERE clanms_user_groups.id_user = ?");
@@ -448,9 +448,76 @@ function getUserGroups(){
     $mysqli->close;
     return $resultArray;
 }
-?>
-<script>    
-function confirmDelete() {
-  return window.confirm("Are you sure you want to delete this record?");
+
+
+function writeUsersToDB() {
+    $userid = $_POST['userId'];
+    $useractivated = $_POST['activated'];
+    $usergroup = $_POST['userGroup'];
+    var_dump($userid, $useractivated, $usergroup);
+    
+    $mysqli = connect_DB();
+    $stmt = $mysqli->prepare("UPDATE clanms_user SET clanms_user.activated = ? WHERE clanms_user.id = ?");
+    $stmt->bind_param("ii",$useractivated, $userid);
+    $stmt->execute();
+    $stmt->close();
+    $stmt2 = $mysqli->prepare("UPDATE clanms_user_groups SET clanms_user_groups.id_group = ? WHERE clanms_user_groups.id_user = ?");
+    $stmt2->bind_param("ii", $usergroup, $userid);
+    $stmt2->execute();
+    $stmt2->close();
+    $mysqli->close();
 }
-</script>
+
+/* Gallery */
+function getGalleriesFromDB() {
+    if (session_status() === PHP_SESSION_NONE){session_start();}
+    $mysqli = connect_DB();
+    $query = "SELECT * FROM clanms_galleries";
+    $select = $mysqli->query($query);
+    while($row = $select->fetch_assoc()) {
+        $card = '<div class="col m-2">
+            <div class="card" style="width: 18rem;">
+                <img class="card-img-top" src="'.$row['path_thumbnail'].'" alt="'.$row['title'].'" thumbnail">
+                <div class="card-body">
+                <h5 class="card-title">'.$row['title'].'</h5>
+                <p class="card-text">'.$row['description'].'</p>
+                <a href="#" class="btn btn-primary">Bearbeiten</a>
+                <a href="#" class="btn btn-danger">Löschen</a>
+                </div>
+            </div>
+            </div>';
+        echo $card;
+    }
+    $select->close();
+    $mysqli->close();
+}
+
+function uploadImage() {
+    $errors= array();
+    $year = date('Y');
+    $file_name = $_FILES['image']['name'];
+    $file_size =$_FILES['image']['size'];
+    $file_tmp =$_FILES['image']['tmp_name'];
+    $file_type=$_FILES['image']['type'];
+    $file_ext=strtolower(end(explode('.',$_FILES['image']['name'])));
+    
+    $extensions= array("jpeg","jpg","png");
+    
+    if(in_array($file_ext,$extensions)=== false){
+       $errors[]="extension not allowed, please choose a JPEG or PNG file.";
+    }
+    
+    if($file_size > 2097152){
+       $errors[]='File size must be excately 2 MB';
+    }
+    
+    if(empty($errors)==true){
+        showToastMessage("Datei wurde hochgeladen...");
+       if(move_uploaded_file($file_tmp, __DIR__."/../gallery/images/".$file_name)) {
+           showToastMessage("Success!");
+       }
+    } else {
+       print_r($errors);
+    }
+}
+?>
