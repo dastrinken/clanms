@@ -309,6 +309,9 @@ function getEventsFromDB($displayOption) {
 if($_GET['deleteUserOverview'] === 'true') {
     deleteUserFromDB($_GET['userId']);
 }
+if($_POST['updateUser'] === 'true'){
+    writeUsersToDB();
+}
 
 function deleteUserFromDB($userid){
     if (session_status() === PHP_SESSION_NONE){session_start();}
@@ -369,12 +372,12 @@ function getUsersFromDB($displayOption) {
     </div><div class='tbody'>";
     $count = 0;
     while($row = $result->fetch_assoc()) {
-        var_dump($groups);
         ++$count;
         $user_id = $row['userid'];
         $user_name = $row['username'];
         $user_email = $row['email'];
         $user_registeredSince = $row['registeredSince'];
+        $activatedInt = $row['activated'];
         if($row['activated']==="1"){
             $user_activated = "aktiviert";
         } elseif($row['activated']==="0"){
@@ -382,7 +385,7 @@ function getUsersFromDB($displayOption) {
         }
         $group_title = $row['title'];
         $group_id = $row['groupId'];
-        $table .= '<form class="tr activeTable" onsubmit="confirmDelete()">
+        $table .= '<form method="post" class="tr activeTable" >
                     <span class="td border-end border-activeTable">
                     '.(/*$offset+*/$count).'
                         <input type="hidden" name="userId" value="'.$user_id.'">
@@ -392,25 +395,25 @@ function getUsersFromDB($displayOption) {
                     </span>
                     <span class="td border-end border-activeTable" name="userEmail">
                         '.$user_email.'
-                        <input type="hidden" name="eventTitle" value="'.$user_email.'">
+                        <input type="hidden" name="userMail" value="'.$user_email.'">
                     </span>
                     <span class="td border-end border-activeTable" name="userRegistered">
                         '.$user_registeredSince.'
-                        <input type="hidden" name="eventStart" value="'.$user_registeredSince.'">
+                        <input type="hidden" name="userRegisteredSince" value="'.$user_registeredSince.'">
                     </span>
         
                     <span class="td border-end border-activeTable">
-                        <select name="userActivated" class="form-select border-0" aria-label="select user group">
-                            <option selected>'.$user_activated.'</option>
-                            <option value="activated">aktiviert</option>
-                            <option value="not activated">nicht aktiviert</option>
+                        <select name="activated" class="form-select border-0" aria-label="select activated status">
+                            <option value="'.$activatedInt.'">'.$user_activated.'</option>
+                            <option value="1">aktiviert</option>
+                            <option value="0">nicht aktiviert</option>
                         </select>
                     </span>
                     <span class="td border-end border-activeTable">
                         <select name="userGroup" class="form-select border-0" aria-label="select user group">
-                            <option selected>'.$group_title.'</option>';
+                            <option value='.$group_id.'>'.$group_title.'</option>';
                             foreach($groups as $row) {
-                                $table .="<option value=".$row['id'].">".$row['title']."</option>";
+                                $table .="<option value=".$row['groupId'].">".$row['title']."</option>";
                             }
                     $table .='</select>
                     </span>
@@ -445,6 +448,23 @@ function getUserGroups(){
     $query->close;
     $mysqli->close;
     return $resultArray;
+}
+
+function writeUsersToDB() {
+    $userid = $_POST['userId'];
+    $useractivated = $_POST['activated'];
+    $usergroup = $_POST['userGroup'];
+    
+    $mysqli = connect_DB();
+    $stmt = $mysqli->prepare("UPDATE clanms_user SET clanms_user.activated = ? WHERE clanms_user.id = ?");
+    $stmt->bind_param("ii",$useractivated, $userid);
+    $stmt->execute();
+    $stmt->close();
+    $stmt2 = $mysqli->prepare("UPDATE clanms_user_groups SET clanms_user_groups.id_group = ? WHERE clanms_user_groups.id_user = ?");
+    $stmt2->bind_param("ii", $usergroup, $userid);
+    $stmt2->execute();
+    $stmt2->close();
+    $mysqli->close();
 }
 
 /* Gallery */

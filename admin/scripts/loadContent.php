@@ -13,7 +13,6 @@
     } else {
         include_once(__DIR__."/../landingPage.php");
     }
-
     if($_POST['uploadImage']){
         var_dump($_FILES);
         uploadImage();
