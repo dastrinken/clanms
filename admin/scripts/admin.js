@@ -37,7 +37,6 @@ function getTableView(content, displayOption) {
     case 'all':
       xhttp.open("GET", "./"+content+"/content.php?displayOption="+displayOption+"&page="+page);
       headline = saveContent+" - Gesamt";
-      console.log(headline);
       break;
     case 'week':
       xhttp.open("GET", "./"+content+"/content.php?displayOption="+displayOption+"&page="+page);
