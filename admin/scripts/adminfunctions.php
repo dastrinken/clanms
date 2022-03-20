@@ -308,7 +308,7 @@ function getEventsFromDB($displayOption) {
 if($_GET['deleteUserOverview'] === 'true') {
     deleteUserFromDB($_GET['userId']);
 }
-if($_POST['updateUser' === 'true']){
+if($_POST['updateUser'] === 'true'){
     writeUsersToDB();
 }
 
@@ -371,7 +371,6 @@ function getUsersFromDB($displayOption) {
     </div><div class='tbody'>";
     $count = 0;
     while($row = $result->fetch_assoc()) {
-        var_dump($row);
         ++$count;
         $user_id = $row['userid'];
         $user_name = $row['username'];
@@ -385,7 +384,7 @@ function getUsersFromDB($displayOption) {
         }
         $group_title = $row['title'];
         $group_id = $row['groupId'];
-        $table .= '<form class="tr activeTable" >
+        $table .= '<form method="post" class="tr activeTable" >
                     <span class="td border-end border-activeTable">
                     '.(/*$offset+*/$count).'
                         <input type="hidden" name="userId" value="'.$user_id.'">
@@ -454,7 +453,6 @@ function writeUsersToDB() {
     $userid = $_POST['userId'];
     $useractivated = $_POST['activated'];
     $usergroup = $_POST['userGroup'];
-    var_dump($userid, $useractivated, $usergroup);
     
     $mysqli = connect_DB();
     $stmt = $mysqli->prepare("UPDATE clanms_user SET clanms_user.activated = ? WHERE clanms_user.id = ?");

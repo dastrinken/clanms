@@ -11,6 +11,4 @@
         include_once(__DIR__."/../landingPage.php");
     }
 
-
-
 ?>
