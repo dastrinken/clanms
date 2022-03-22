@@ -12,8 +12,6 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="description" content="">
-    <meta name="author" content="Armin Prinz">
     <title>ClanMS - Admin Dashboard</title>    
     
     <!-- Markdown Editor -->
@@ -24,8 +22,9 @@
     <!-- Custom styles for this template -->
     <link href="./style/dashboard.css" rel="stylesheet">
     <?php 
-      require(__DIR__."/../system/dbconnect.php");
-      require(__DIR__."/../system/functions.php");
+      require(__DIR__."/../system/db_functions.php");
+      require(__DIR__."/../system/helper_functions.php");
+      require(__DIR__."/../system/account/account_functions.php");
       require(__DIR__."/scripts/adminfunctions.php");
     ?>
   </head>

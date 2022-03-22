@@ -1,5 +1,5 @@
 <?php 
-require_once(__DIR__."/../../system/dbconnect.php");
+require_once(__DIR__."/../../system/db_functions.php");
 require_once(__DIR__."/../../system/functions.php");
 require_once(__DIR__."/../scripts/adminfunctions.php");
 $selectOption = getEventCatsFromDB();

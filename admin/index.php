@@ -1,8 +1,8 @@
 <?php
   session_start();
-
-  require(__DIR__."/../system/dbconnect.php");
-  require(__DIR__."/../system/functions.php");
+  require(__DIR__."/../system/db_functions.php");
+  require(__DIR__."/../system/helper_functions.php");
+  require(__DIR__."/../system/account/account_functions.php");
 
   if($_SESSION['username'] && $_SESSION['userid']) {
     if(getUserGroup($_SESSION['userid']) <= 2) { // 1 = Admin, 2 = Moderator, alles darüber hat keinen Zugriff. Eventuell bessere (variable) Lösung überlegen!

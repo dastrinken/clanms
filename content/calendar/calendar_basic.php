@@ -112,12 +112,15 @@
 
 	// Calendar
 	function getMonthEventArray(month, year) {
-		var xhttp = new XMLHttpRequest();
-		xhttp.onload = function() {
-			parseToCalendar(JSON.parse(this.response));
-		}
-		xhttp.open("GET", "./content/calendar/events.php?f=monthArray&m=" + month + "&y=" + year);
-		xhttp.send();
+		$.post("./content/calendar/calendar_functions.php",
+		{
+			command: "getMonthArray",
+			postMonth: month,
+			postYear: year
+		},
+		function(data) {
+			parseToCalendar(JSON.parse(data));
+		});
 	}
 
 	/* Langsame Funktion, da zwei verschachtelte for-Schleifen. Das geht bestimmt besser! */
@@ -131,7 +134,7 @@
 					getAllDays[j].addEventListener("click", function() {
 						eventDisplay = document.getElementById("eventDisplaySwitchable");
 						eventId = monthArray[i]['id'];
-						$.post("./system/functions.php", 
+						$.post("./content/calendar/calendar_functions.php", 
 						{
 							command: "getSpecificEvent",
 							postId: eventId
@@ -155,7 +158,7 @@ function showEvent(eventArray) {
 	var eventStart = eventArray[0]["start"];
 	var eventEnd = eventArray[0]["end"];
 
-	$.post("./system/functions.php", 
+	$.post("./content/calendar/calendar_functions.php", 
 	{
 		command: "getCategoryImage",
 		postId: eventArray[0]["event_cat"]

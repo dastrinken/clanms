@@ -25,9 +25,9 @@ function openLoginRegisterModal(buttonId) {
         modalFormBody.innerHTML = this.responseText;
     }
     if(buttonId == "loginBtn") {
-        xhttp.open("GET", "./system/login/login.php");
+        xhttp.open("GET", "./system/account/login/login.php");
     } else if(buttonId == "signupBtn") {
-        xhttp.open("GET", "./system/login/register.php");
+        xhttp.open("GET", "./system/account/login/register.php");
     }
     xhttp.send();
 }

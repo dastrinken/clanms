@@ -1,6 +1,6 @@
 <?php
-    require(__DIR__."/../../system/dbconnect.php");
-    require(__DIR__."/../../system/functions.php");
+    require(__DIR__."/../../system/db_functions.php");
+    require(__DIR__."/../../system/helper_functions.php");
     require(__DIR__."/../scripts/adminfunctions.php");
     require(__DIR__."/../../parsedown/parsedown.php");
 
