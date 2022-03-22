@@ -8,8 +8,9 @@
         setcookie("login", "false");
     }
 
-    require("./system/dbconnect.php");
-    require("./system/functions.php");
+    require("./system/db_functions.php");
+    require("./system/helper_functions.php");
+    require("./system/account/account_functions.php");
     require("./parsedown/parsedown.php");
 ?>
 <!DOCTYPE html>

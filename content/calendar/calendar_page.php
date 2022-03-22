@@ -1,17 +1,17 @@
 <?php
-$events = getEventsArray();
-$closestEvent = getSpecificEventById(getClosestEventId(), false);
+    $events = getEventsArray();
+    $closestEvent = getSpecificEventById(getClosestEventId(), false);
 ?>
 <div class='row mb-3'>
     <div class='col bg-blackened'>
-        <?php include(__DIR__ . "/calendar.php"); ?>
+        <?php include(__DIR__ . "/calendar_basic.php"); ?>
     </div>
     <div id='eventDisplaySwitchable' class='col d-flex'>
         <!-- Inhalt wird durch klick auf ein Event ausgetauscht (default-wert: nächstes anstehendes Event) -->
         <?php
         $optionalText = "Upcoming: ";
         foreach ($closestEvent as $row) {
-            include(__DIR__."/displayEvent.php");
+            include(__DIR__."/eventorganizer/displayEvent.php");
         }
         ?>
     </div>
@@ -22,7 +22,7 @@ $closestEvent = getSpecificEventById(getClosestEventId(), false);
     <?php
     $optionalText = "";
     foreach ($events as $row) {
-        include(__DIR__."/displayEvent.php");
+        include(__DIR__."/eventorganizer/displayEvent.php");
     }
     ?>
 </div>
