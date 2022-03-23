@@ -1,4 +1,5 @@
 <?php 
+    //TODO: Es sollte nicht möglich sein den ursprünglichen Admin-Account zu löschen oder zu verändern (außer vllt email und passwort)!
     function deleteUserFromDB($userid){
         if (session_status() === PHP_SESSION_NONE){session_start();}
         $mysqli = connect_DB();
