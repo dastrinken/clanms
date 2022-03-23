@@ -31,7 +31,7 @@
     <!-- Sidebar Menu -->
     <div class="container-fluid">
       <div class="row">
-        <?php include(__DIR__."/sidebarMenu.php"); ?>
+        <?php include(__DIR__."/sidebar.php"); ?>
 
         <!-- Main Content -->
         <main id="mainContentWrapper" class="col-md-9 ms-sm-auto col-lg-10 px-md-4">
@@ -48,6 +48,7 @@
       var username = '<?php echo $username; ?>';
     </script>
     <script src="./scripts/admin.js"></script>
+    <script src="../system/js/jquery.js"></script>
     <script src="https://cdn.jsdelivr.net/simplemde/latest/simplemde.min.js"></script>
   </body>
 </html>

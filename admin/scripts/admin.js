@@ -7,6 +7,20 @@ function setActive(buttonID) {
   }
   button.classList.add("active");
 }
+
+/* Dashboard */
+
+function showDashboard(buttonId) {
+  var mainContent = document.getElementById("mainContentWrapper");
+  $.post("./dashboard/clanms_settings.php",
+  {
+    command: buttonId
+  }, 
+  function(data) {
+    mainContent.innerHTML = data;
+  });
+}
+
 /* Newsblog */
 
 //pagination variables

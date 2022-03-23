@@ -9,7 +9,7 @@
 
         <div class="dropdown">
             <button class="btn btn-secondary dropdown-toggle" type="button" id="displayArticlesDropdown" data-bs-toggle="dropdown" aria-expanded="false">
-                <i class="bi-card-text"></i>
+                <i class="bi-receipt"></i>
                 Anzeige
             </button>
             <ul class="dropdown-menu" aria-labelledby="displayArticlesDropdown">

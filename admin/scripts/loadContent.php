@@ -12,7 +12,7 @@
             include(__DIR__."/../gallery/editGallery.php");
         }
     } else {
-        include_once(__DIR__."/../landingPage.php");
+        include_once(__DIR__."/../dashboard/landingPage.php");
     }
 
     /* Gallery */
