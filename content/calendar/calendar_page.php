@@ -1,6 +1,8 @@
 <?php
     $events = getEventsArray();
-    $closestEvent = getSpecificEventById(getClosestEventId(), false);
+    if(!empty($events)){
+        $closestEvent = getSpecificEventById(getClosestEventId(), false);
+    }
 ?>
 <div class='row mb-3'>
     <div class='col bg-blackened'>
@@ -9,10 +11,14 @@
     <div id='eventDisplaySwitchable' class='col d-flex'>
         <!-- Inhalt wird durch klick auf ein Event ausgetauscht (default-wert: nächstes anstehendes Event) -->
         <?php
-        $optionalText = "Upcoming: ";
-        foreach ($closestEvent as $row) {
-            include(__DIR__."/eventorganizer/displayEvent.php");
-        }
+            if(empty($events)) {
+                include(__DIR__."/eventorganizer/emptyDisplay.php");
+            } else {
+                $optionalText = "Upcoming: ";
+                foreach ($closestEvent as $row) {
+                    include(__DIR__."/eventorganizer/displayEvent.php");
+                }
+            }
         ?>
     </div>
 </div>

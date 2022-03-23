@@ -22,9 +22,6 @@
     <!-- Custom styles for this template -->
     <link href="./style/dashboard.css" rel="stylesheet">
     <?php 
-      require(__DIR__."/../system/db_functions.php");
-      require(__DIR__."/../system/helper_functions.php");
-      require(__DIR__."/../system/account/account_functions.php");
       require(__DIR__."/scripts/adminfunctions.php");
     ?>
   </head>

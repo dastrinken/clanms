@@ -1,4 +1,5 @@
 <?php
+    /* Load Content */
     if($_GET['editArticle'] || $_GET['editEvent'] || $_GET['editGallery']) {
         $editing = true;
         if($_GET['editArticle']) {
@@ -13,9 +14,11 @@
     } else {
         include_once(__DIR__."/../landingPage.php");
     }
+
+    /* Gallery */
     if($_POST['uploadImage']){
         var_dump($_FILES);
         uploadImage();
-     }
-
+        }
+    
 ?>

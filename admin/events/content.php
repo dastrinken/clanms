@@ -1,8 +1,5 @@
 <?php
-    require(__DIR__."/../../system/db_functions.php");
-    require(__DIR__."/../../system/helper_functions.php");
     require(__DIR__."/../scripts/adminfunctions.php");
-    require(__DIR__."/../../parsedown/parsedown.php");
 
     switch($_GET['displayOption']) {
         case "all":
@@ -30,8 +27,8 @@
             <div id="newsTable" class="col">
                 <!-- table view of all articles -->
                 <?php 
-                include(__DIR__."/navTableView.php");
-                echo $tableView;
+                    include(__DIR__."/navTableView.php");
+                    echo $tableView;
                 ?>
             </div>
         </div>

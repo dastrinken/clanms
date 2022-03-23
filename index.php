@@ -52,9 +52,7 @@
         </div>
     </main>
 
-    <!-- Modal triggered by login button 
-            TODO:   change buttons and content via javascript (not fully functional yet)
-    -->
+    <!-- Modal triggered by login button -->
     <div class="modal fade" id="loginRegisterModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog text-dark">
             <div class="modal-content">
@@ -89,5 +87,5 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
 
- -->
+-->
 </html>

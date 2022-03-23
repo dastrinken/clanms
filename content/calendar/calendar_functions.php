@@ -67,6 +67,9 @@
     }
 
     //catId muss aus Eventarray ausgelesen werden, rounded gibt an ob Bild rund sein soll oder Eckig (true/false)
+    //TODO: Annotations.
+    // $rounded:
+    // 0 = not rounded, 1 = rounded, 2 = circle, 3 = pill
     function getCategoryImage($catId, $size, $rounded) {
         $mysqli = connect_DB();
         $select = $mysqli->prepare("SELECT image FROM clanms_event_category WHERE id=?");
@@ -80,7 +83,11 @@
         if($rounded == 0) {
             $image = '<img src="data:image/png;base64,'.$content.'" width = "'.$size.'px" height= "'.$size.'px" />';
         } elseif($rounded == 1) {
+            $image = '<img src="data:image/png;base64,'.$content.'" width = "'.$size.'px" height="'.$size.'px" class="rounded" />';
+        } elseif($rounded == 2) {
             $image = '<img src="data:image/png;base64,'.$content.'" width = "'.$size.'px" height="'.$size.'px" class="rounded-circle" />';
+        } elseif($rounded == 3) {
+            $image = '<img src="data:image/png;base64,'.$content.'" width = "'.$size.'px" height="'.$size.'px" class="rounded-pill" />';
         }
         echo $image;
     }
