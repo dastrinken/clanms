@@ -13,6 +13,7 @@
     function showSettings() {
         $mysqli = connect_DB();
         echo "Erfolg! Datenbankverbindung klappt...";
+        //TODO: 1. read all settings from db, 2. echo them in a form, 3. do form stuff and magic, 4. ???, 5. profit!
         $mysqli->close();
     }
 ?>
