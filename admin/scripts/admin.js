@@ -39,9 +39,12 @@ function getTableView(content, displayOption) {
 
   xhttp.onload = function() {
     mainContent.innerHTML = this.responseText;
-
     pageNr = document.getElementById("showPageNr");
-    pageNr.innerHTML = "Seite "+page;
+    if(pageNr != null) {
+      pageNr.innerHTML = "Seite "+page;
+    } else {
+      console.log("variable pageNr is null, if everything is fine: ignore this message");
+    }
 
     displayHeadline = document.getElementById("headlineDashboardContent");
     displayHeadline.innerHTML = headline.charAt(0).toUpperCase() + headline.slice(1);
