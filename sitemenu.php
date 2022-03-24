@@ -14,6 +14,9 @@
         include(__DIR__."/content/calendar/calendar_page.php");
     } elseif($_GET['nav'] === 'gallery') {
         include(__DIR__."/content/gallery/gallery.php");
+    } elseif($_GET['nav'] === 'faq'){
+        include(__DIR__."/content/faq/faq_functions.php");
+        include(__DIR__."/content/faq/faq.php");
     } else {
         /* default, vorerst Kalender + Willkommenstext einbinden, später variabel machen */
         include(__DIR__."/content/calendar/calendar_functions.php");

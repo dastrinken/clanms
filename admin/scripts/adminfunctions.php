@@ -36,4 +36,12 @@
     if($_POST['updateUser'] === 'true'){
         writeUsersToDB();
     }
+
+    /*Gallery */
+    if($_POST['saveGallery']) {
+        writeGalleryToDB($_POST['updateGallery']);
+    }
+    if($_GET['deleteGallery'] === 'true') {
+        deleteGalleryFromDB($_GET['galleryId']);
+    }
 ?>

@@ -8,7 +8,6 @@ function writeEventToDB($editExisting) {
     $date_end = $_POST['date_end'];
     $event_cat = $_POST['eventCat'];
     $gameId = $_POST['game'];
-    var_dump($title, $description, $id_author, $date_created, $date_start, $date_end, $event_cat);
     
     $mysqli = connect_DB();
     if($editExisting === 'true') {
@@ -52,8 +51,16 @@ function deleteEventFromDB($eventId) {
     $mysqli->close();
 }
 
+// store total no of pages in global for javascript use
+$totalPages;
 function getEventsFromDB($displayOption) {
     if (session_status() === PHP_SESSION_NONE){session_start();}
+    global $totalPages;
+
+    $displayAmount = 10;
+    $page = $_GET['page'];
+    $offset = ($page - 1) * $displayAmount;
+
     $mysqli = connect_DB();
     switch($displayOption) {
         case "all":
@@ -70,6 +77,12 @@ function getEventsFromDB($displayOption) {
             $where = "WHERE 1=1";
             break;
     }
+    $totalPagesDB = "SELECT * FROM clanms_event AS events $where";
+    $pagesResult = $mysqli->query($totalPagesDB);
+    $rowCount = $pagesResult->num_rows;
+    $totalPages = ceil($rowCount / $displayAmount);
+    $pagesResult->close();
+
     $select = "SELECT ce.id AS eventId, 
                 ce.id_user AS userId,
                 ce.title AS eventTitle, 
@@ -83,7 +96,9 @@ function getEventsFromDB($displayOption) {
                 timediff(end, start) AS diff
                 FROM clanms_event ce
                 JOIN clanms_event_category cec ON ce.event_cat = cec.id
-                JOIN clanms_game cg ON ce.id_game = cg.id ".$where;
+                JOIN clanms_game cg ON ce.id_game = cg.id ".$where." 
+                LIMIT $offset, $displayAmount;";
+
     $result = $mysqli->query($select, MYSQLI_USE_RESULT);
     $table = "<div class='table'>
     <div class='thead'>

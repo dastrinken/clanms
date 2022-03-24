@@ -142,5 +142,14 @@ function getArticlesFromDB($displayOption) {
     return $table;
 }
 
+function getNewsCatsFromDB() {
+    $mysqli = connect_DB();
+    $select = "SELECT * FROM clanms_news_categories";
+    $result = $mysqli->query($select, MYSQLI_USE_RESULT);
+    $resultArray = $result->fetch_all(MYSQLI_ASSOC);
+    $result->close();
+    $mysqli->close();
+    return $resultArray;
+}
 
 ?>

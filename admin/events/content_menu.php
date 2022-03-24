@@ -13,9 +13,9 @@
                 Anzeige
             </button>
             <ul class="dropdown-menu" aria-labelledby="displayArticlesDropdown">
-                <li><a id="thisWeeksArticles" class="dropdown-item" href="#" onclick="page = 1; getTableView('events', 'all'); return false;">Alle Events</a></li>
-                <li><a id="thisWeeksArticles" class="dropdown-item" href="#" onclick="page = 1; getTableView('events', 'week'); return false;">Diese Woche</a></li>
-                <li><a id="thisMonthsArticles" class="dropdown-item" href="#" onclick="page = 1; getTableView('events', 'month'); return false;">Dieser Monat</a></li>
+                <li><a id="thisWeeksArticles" class="dropdown-item" href="#" onclick="page = 1; getTableView(saveFolder, saveFile, 'all'); return false;">Alle Events</a></li>
+                <li><a id="thisWeeksArticles" class="dropdown-item" href="#" onclick="page = 1; getTableView(saveFolder, saveFile, 'week'); return false;">Diese Woche</a></li>
+                <li><a id="thisMonthsArticles" class="dropdown-item" href="#" onclick="page = 1; getTableView(saveFolder, saveFile, 'month'); return false;">Dieser Monat</a></li>
             </ul>
         </div>
     </div>
