@@ -18,8 +18,15 @@
         $mysqli->close();
     }
 
+    $totalPages;
     function getUsersFromDB($displayOption) {
         if (session_status() === PHP_SESSION_NONE){session_start();}
+        global $totalPages;
+
+        $displayAmount = 10;
+        $page = $_GET['page'];
+        $offset = ($page - 1) * $displayAmount;
+
         $groups = getUserGroups();
         $mysqli = connect_DB();
         switch($displayOption) {
@@ -42,7 +49,23 @@
                 $where = "";
                 break;
         }
-        $select = "SELECT cs.id AS userid, cs.username, cs.email, cs.registeredSince, cs.activated, cg.title, cg.id AS groupId FROM clanms_user cs JOIN clanms_user_groups cug ON cs.id = cug.id_user JOIN clanms_groups cg ON cug.id_group = cg.id ".$where;
+
+        $totalPagesDB = "SELECT * FROM clanms_user AS user $where";
+        $pagesResult = $mysqli->query($totalPagesDB);
+        $rowCount = $pagesResult->num_rows;
+        $totalPages = ceil($rowCount / $displayAmount);
+        $pagesResult->close();
+
+        $select = "SELECT cs.id AS userid, 
+                    cs.username, cs.email, 
+                    cs.registeredSince, 
+                    cs.activated, cg.title, 
+                    cg.id AS groupId 
+                    FROM clanms_user cs 
+                    JOIN clanms_user_groups cug ON cs.id = cug.id_user 
+                    JOIN clanms_groups cg ON cug.id_group = cg.id 
+                    ".$where."
+                    LIMIT $offset, $displayAmount;";
         $result = $mysqli->query($select, MYSQLI_USE_RESULT);
         $table = "<div class='table'>
         <div class='thead'>
@@ -160,51 +183,55 @@
         $getpass = $_POST['userPassword'];
         $getpassverify = $_POST['userPasswordVerify'];
         $getusergroup = $_POST['userGroup'];
-        $getActivated = $_POST['activated'];
+        
+        if(isset($_POST['activated'])) {
+            $getActivated = 1;
+        } else {
+            $getActivated = 0;
+        }
+        
         if($getuser){
             if($getmail){
                 if($getpass){
                     if($getpassverify){
                         if($getusergroup){
-                            if($getActivated){
-                                if($getpass===$getpassverify){
-                                    $mysqli = connect_DB();
-                                    $result = $mysqli->query("SELECT id FROM clanms_user WHERE username='$getuser'");
+                            if($getpass===$getpassverify){
+                                $mysqli = connect_DB();
+                                $result = $mysqli->query("SELECT id FROM clanms_user WHERE username='$getuser'");
+                                $rowcount = $result->num_rows;
+                                $result->close();
+                                if($rowcount == 0) {
+                                    $result = $mysqli->query("SELECT id FROM clanms_user WHERE email='$getmail'");
                                     $rowcount = $result->num_rows;
                                     $result->close();
                                     if($rowcount == 0) {
-                                        $result = $mysqli->query("SELECT id FROM clanms_user WHERE email='$getmail'");
+                                        $password = password_hash($getpass, PASSWORD_DEFAULT);
+                                        $date = date("y-m-d");
+                                        $code = md5(rand());
+                                        $stmt = $mysqli->prepare("INSERT INTO `clanms_user` (`username`, `password`, `email`, `registeredSince`, `activated`, `activationCode`) VALUES (?,?,?,?,?,?)");
+                                        $stmt->bind_param("ssssis", $getuser, $password, $getmail, $date, $getActivated, $code);
+                                        $stmt->execute();
+                                        $stmt->close();
+                                        $result = $mysqli->query("SELECT id FROM clanms_user WHERE username='$getuser'");
                                         $rowcount = $result->num_rows;
+                                        while($row = $result->fetch_row()) {
+                                            $id = $row[0];
+                                        }
                                         $result->close();
-                                        if($rowcount == 0) {
-                                            $password = password_hash($getpass, PASSWORD_DEFAULT);
-                                            $date = date("y-m-d");
-                                            $code = md5(rand());
-                                            $stmt = $mysqli->prepare("INSERT INTO `clanms_user` (`username`, `password`, `email`, `registeredSince`, `activated`, `activationCode`) VALUES (?,?,?,?,?,?)");
-                                            $stmt->bind_param("ssssis", $getuser, $password, $getmail, $date, $getActivated, $code);
+                                        if($rowcount == 1) {
+                                            /* Setze Rechte für neu erstelltes Benutzerprofil */
+                                            $comment = $getuser." - new User";
+                                            $stmt = $mysqli->prepare("INSERT INTO clanms_user_groups (id_user, id_group, comment) VALUES (?,?,?)");
+                                            $stmt->bind_param("iis", $id, $getusergroup, $comment);
                                             $stmt->execute();
                                             $stmt->close();
-                                            $result = $mysqli->query("SELECT id FROM clanms_user WHERE username='$getuser'");
-                                            $rowcount = $result->num_rows;
-                                            while($row = $result->fetch_row()) {
-                                                $id = $row[0];
-                                            }
-                                            $result->close();
-                                            if($rowcount == 1) {
-                                                /* Setze Rechte für neu erstelltes Benutzerprofil */
-                                                $comment = $getuser." - new User";
-                                                $stmt = $mysqli->prepare("INSERT INTO clanms_user_groups (id_user, id_group, comment) VALUES (?,?,?)");
-                                                $stmt->bind_param("iis", $id, $getusergroup, $comment);
-                                                $stmt->execute();
-                                                $stmt->close();
-                                                /* Erstelle Benutzerprofil in der Datenbank */
-                                                $avatar = file_get_contents(__DIR__."/../ressources/images/standard_avatar.jpg");
-                                                $info = "Willkommen auf meinem öffentlichen Profil!";
-                                                $stmt = $mysqli->prepare("INSERT INTO clanms_user_profile (id_user, name, avatar, info) VALUES (?,?,?,?)");
-                                                $stmt->bind_param("isss", $id, $getuser, $avatar, $info);
-                                                $stmt->execute();
-                                                $stmt->close();
-                                            }
+                                            /* Erstelle Benutzerprofil in der Datenbank */
+                                            $avatar = file_get_contents(__DIR__."/../ressources/images/standard_avatar.jpg");
+                                            $info = "Willkommen auf meinem öffentlichen Profil!";
+                                            $stmt = $mysqli->prepare("INSERT INTO clanms_user_profile (id_user, name, avatar, info) VALUES (?,?,?,?)");
+                                            $stmt->bind_param("isss", $id, $getuser, $avatar, $info);
+                                            $stmt->execute();
+                                            $stmt->close();
                                         }
                                     }
                                 }

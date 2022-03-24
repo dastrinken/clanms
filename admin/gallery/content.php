@@ -3,7 +3,7 @@
 
     //TODO: richtige Anzeigeoptionen für Gallerien überlegen und einfügen
 
-    include(__DIR__."/contentMenu.php");
+    include(__DIR__."/content_menu.php");
 ?>
 
 <div id="mainContent" class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">

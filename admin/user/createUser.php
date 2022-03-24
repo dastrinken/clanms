@@ -19,7 +19,7 @@ $groupOption = getUserGroups();
     <div class="d-flex mb-3">
         <div class="input-group me-2">
             <span class="input-group-text" id="ariaLabelPassword">Passwort</span>
-            <input id="createPassword" class="form-control" type="password" aria-describedby="ariaLabelPassword" name="userPassword" placeholder="Bitte Passwort eingebem">
+            <input id="createPassword" class="form-control" type="password" aria-describedby="ariaLabelPassword" name="userPassword" placeholder="Bitte Passwort eingeben">
         </div>
     </div>
     <div class="d-flex mb-3">
@@ -39,11 +39,8 @@ $groupOption = getUserGroups();
         </select>
     </div>
     <div class="d-flex mb-3">
-        <div class="form-check ">
-            <input type="hidden" name="activated" value="0">
-            <input class="form-check-input align-items-center" type="checkbox" id="activated" name="activated" value="1">
-            <label for="activated">Aktiviert</label>
-        </div>
+        <input class="form-check-input align-items-center" type="checkbox" id="activated" name="activated">
+        <label for="activated">Aktiviert</label>
     </div>
     <div class="d-flex mb-3">
         <button id="createUser" class="form-control submit w-25" name="createUser" value="save">Erstellen</button>

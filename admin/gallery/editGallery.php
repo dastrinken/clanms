@@ -24,13 +24,11 @@
         <form action="./dashboard.php" method="post" enctype="multipart/form-data">
             <div class="mb-3">
                 <label for="galleryTitle" class="form-label">Titel</label>
-                <input type="text" class="form-control" id="galleryTitle" name="galleryTitle" rows="2" value="<?php echo $galleryTitle; ?>"placeholder="Titel der Gallerie...">
+                <input type="text" class="form-control" id="galleryTitle" name="galleryTitle" value="<?php echo $galleryTitle; ?>"placeholder="Titel der Gallerie...">
             </div>
             <div class="mb-3">
                 <label for="galleryDescription" class="form-label">Beschreibung</label>
-                <textarea class="form-control" id="galleryDescription" name="galleryDescription" rows="2" placeholder="Beschreibe die Gallerie...">
-                    <?php echo $galleryDescription; ?>
-                </textarea>
+                <textarea class="form-control" id="galleryDescription" name="galleryDescription" placeholder="Beschreibe die Gallerie..."><?php echo $galleryDescription; ?></textarea>
             </div>
             <div class="input-group mb-3">
                 <input type="file" class="form-control" name="image" placeholder="Datei Hochladen hier...">
