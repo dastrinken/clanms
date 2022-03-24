@@ -13,11 +13,11 @@
                 Anzeige
             </button>
             <ul class="dropdown-menu" aria-labelledby="displayArticlesDropdown">
-                <li><a id="allUsers" class="dropdown-item" href="#" onclick="page = 1; getTableView('user', 'all'); return false;">Alle Nutzer</a></li>
-                <li><a id="adminUsers" class="dropdown-item" href="#" onclick="page = 1; getTableView('user', 'admin'); return false;">Admins</a></li>
-                <li><a id="modUsers" class="dropdown-item" href="#" onclick="page = 1; getTableView('user', 'moderator'); return false;">Moderatoren</a></li>
-                <li><a id="memberUsers" class="dropdown-item" href="#" onclick="page = 1; getTableView('user', 'member'); return false;">Mitglieder</a></li>
-                <li><a id="registeredUsers" class="dropdown-item" href="#" onclick="page = 1; getTableView('user', 'registered'); return false;">Registrierte Nutzer</a></li>
+                <li><a id="allUsers" class="dropdown-item" href="#" onclick="page = 1; getTableView(saveFolder, saveFile, 'all'); return false;">Alle Nutzer</a></li>
+                <li><a id="adminUsers" class="dropdown-item" href="#" onclick="page = 1; getTableView(saveFolder, saveFile, 'admin'); return false;">Admins</a></li>
+                <li><a id="modUsers" class="dropdown-item" href="#" onclick="page = 1; getTableView(saveFolder, saveFile, 'moderator'); return false;">Moderatoren</a></li>
+                <li><a id="memberUsers" class="dropdown-item" href="#" onclick="page = 1; getTableView(saveFolder, saveFile, 'member'); return false;">Mitglieder</a></li>
+                <li><a id="registeredUsers" class="dropdown-item" href="#" onclick="page = 1; getTableView(saveFolder, saveFile, 'registered'); return false;">Registrierte Nutzer</a></li>
             </ul>
         </div>
     </div>

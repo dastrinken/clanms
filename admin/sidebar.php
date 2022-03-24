@@ -40,12 +40,12 @@
                     <div class="accordion-body">
                         <ul class="nav flex-column">
                             <li class="nav-item">
-                                <a id="newsLink" class="nav-link" href="#" onclick="getTableView('newsblog', 'all'); setActive(this.id); return false;">
+                                <a id="newsLink" class="nav-link" href="#" onclick="getTableView('newsblog', 'content', 'all'); setActive(this.id); return false;">
                                     Übersicht
                                 </a>
                             </li>
                             <li class="nav-item">
-                                <a id="newsCatLink" class="nav-link" aria-current="page" href="" onclick="setActive(this.id); return false;">
+                                <a id="newsCatLink" class="nav-link" aria-current="page" href="" onclick="getTableView('newsblog', 'categories', 'all'); setActive(this.id); return false;">
                                     Kategorien
                                 </a>
                             </li>
@@ -72,12 +72,12 @@
                     <div class="accordion-body">
                         <ul class="nav flex-column">
                             <li class="nav-item">
-                                <a id="eventLink" class="nav-link" aria-current="page" href="#" onclick="getTableView('events', 'all'), setActive(this.id); return false;">
+                                <a id="eventLink" class="nav-link" aria-current="page" href="#" onclick="getTableView('events', 'content', 'all'); setActive(this.id); return false;">
                                     Übersicht
                                 </a>
                             </li>
                             <li class="nav-item">
-                                <a id="eventCatLink" class="nav-link" aria-current="page" href="" onclick="setActive(this.id); return false;">
+                                <a id="eventCatLink" class="nav-link" aria-current="page" href="" onclick="getTableView('events', 'categories', 'all'); setActive(this.id); return false;">
                                     Kategorien
                                 </a>
                             </li>
@@ -104,7 +104,7 @@
                     <div class="accordion-body">
                         <ul class="nav flex-column">
                             <li class="nav-item">
-                                <a id="gallLink" class="nav-link" href="#" onclick="getTableView('gallery', 'all'); setActive(this.id); return false;">
+                                <a id="gallLink" class="nav-link" href="#" onclick="getTableView('gallery', 'content', 'all'); setActive(this.id); return false;">
                                     Übersicht
                                 </a>
                             </li>
@@ -131,7 +131,7 @@
                     <div class="accordion-body">
                         <ul class="nav flex-column">
                             <li class="nav-item">
-                                <a id="userLink" class="nav-link" aria-current="page" href="#" onclick="getTableView('user', 'all'), setActive(this.id); return false;">
+                                <a id="userLink" class="nav-link" aria-current="page" href="#" onclick="getTableView('user', 'content', 'all'), setActive(this.id); return false;">
                                     Benutzer
                                 </a>
                             </li>

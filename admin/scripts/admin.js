@@ -25,11 +25,13 @@ function showDashboard(buttonId) {
 
 //pagination variables
 var saveDisplay;
-var saveContent;
+var saveFolder;
+var saveFile;
 var page = 1;
 
-function getTableView(content, displayOption) {
-  saveContent = content;
+function getTableView(folder, file, displayOption) {
+  saveFolder = folder;
+  saveFile = file;
   saveDisplay = displayOption;
 
   var xhttp = new XMLHttpRequest();
@@ -52,24 +54,24 @@ function getTableView(content, displayOption) {
 
   switch(displayOption) {
     case 'all':
-      xhttp.open("GET", "./"+content+"/content.php?displayOption="+displayOption+"&page="+page);
-      headline = saveContent+" - Gesamt";
+      xhttp.open("GET", "./"+folder+"/"+file+".php?displayOption="+displayOption+"&page="+page);
+      headline = saveFolder+" - Gesamt";
       break;
     case 'week':
-      xhttp.open("GET", "./"+content+"/content.php?displayOption="+displayOption+"&page="+page);
-      headline = saveContent+" - Diese Woche";
+      xhttp.open("GET", "./"+folder+"/"+file+".php?displayOption="+displayOption+"&page="+page);
+      headline = saveFolder+" - Diese Woche";
       break;
     case 'month':
-      xhttp.open("GET", "./"+content+"/content.php?displayOption="+displayOption+"&page="+page);
-      headline = saveContent+" - Dieser Monat";
+      xhttp.open("GET", "./"+folder+"/"+file+".php?displayOption="+displayOption+"&page="+page);
+      headline = saveFolder+" - Dieser Monat";
       break;
     case 'commented':
-      xhttp.open("GET", "./"+content+"/content.php?displayOption="+displayOption+"&page="+page);
-      headline = saveContent+" - Kommentierte Artikel";
+      xhttp.open("GET", "./"+folder+"/"+file+".php?displayOption="+displayOption+"&page="+page);
+      headline = saveFolder+" - Kommentierte Artikel";
       break;
     default:
-      xhttp.open("GET", "./"+content+"/content.php?displayOption="+displayOption+"&page="+page);
-      headline = saveContent+" - Gesamt";
+      xhttp.open("GET", "./"+folder+"/"+file+".php?displayOption="+displayOption+"&page="+page);
+      headline = saveFolder+" - Gesamt";
       break;
   }
 
@@ -99,6 +101,12 @@ function newEntry(content) {
     case "event":
       xhttp.open("GET", "./events/createEvent.php?author="+username+"&userid="+userid);
       break;
+    case "gallery":
+      xhttp.open("GET", "./gallery/editGallery.php?author="+username+"&userid="+userid);
+      break;
+    case "user":
+      xhttp.open("GET", "./user/createUser.php?author="+username+"&userid="+userid);
+      break;
   }
 
   
@@ -108,4 +116,11 @@ function newEntry(content) {
 
 function confirmDelete() {
   return window.confirm("Are you sure you want to delete this record?");
+}
+
+function reloadContent()
+{
+     getElement("image-preview").oUp.reload();
+
+     return true;
 }

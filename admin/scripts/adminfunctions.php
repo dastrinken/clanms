@@ -30,7 +30,18 @@
     if($_POST['deleteUserOverview'] === 'true') {
         deleteUserFromDB($_POST['userId']);
     }
+    if($_POST['createUser'] === 'true') {
+        createNewUser();
+    }
     if($_POST['updateUser'] === 'true'){
         writeUsersToDB();
+    }
+
+    /*Gallery */
+    if($_POST['saveGallery']) {
+        writeGalleryToDB($_POST['updateGallery']);
+    }
+    if($_GET['deleteGallery'] === 'true') {
+        deleteGalleryFromDB($_GET['galleryId']);
     }
 ?>

@@ -1,25 +1,9 @@
-<?php
+<?php 
     require(__DIR__."/../scripts/adminfunctions.php");
 
-    switch($_GET['displayOption']) {
-        case "all":
-            $displayOption = "all";
-            break;
-        case "week":
-            $displayOption = "week";
-            break;
-        case "month":
-            $displayOption = "month";
-            break;
-        default:
-            $displayOption = "all";
-            break;
-    }
-    $tableView = getEventsFromDB($displayOption);
-
-    include(__DIR__."/content_menu.php");
+    include(__DIR__."/categories_menu.php");
+    $tableView = getNewsCatsFromDB();
 ?>
-
 <div id="mainContent" class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
     <!-- Adminview: Newsblog -->
     <div id="contentWrapper" class="container">
@@ -28,7 +12,7 @@
                 <!-- table view of all articles -->
                 <?php 
                     include(__DIR__."/navTableView.php");
-                    echo $tableView;
+                    var_dump($tableView);
                 ?>
             </div>
         </div>

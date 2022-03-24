@@ -11,7 +11,7 @@
         <li><a href="./?nav=news" class="nav-link px-2 link-dark nav-darkmode">Blog</a></li>
         <li><a href="./?nav=info" class="nav-link px-2 link-dark nav-darkmode">About us</a></li>
         <li><a href="./?nav=calendar" class="nav-link px-2 link-dark nav-darkmode">Events</a></li>
-        <li><a href="#" class="nav-link px-2 link-dark nav-darkmode">FAQ</a></li>
+        <li><a href="./?nav=faq" class="nav-link px-2 link-dark nav-darkmode">FAQ</a></li>
     </ul>
     <?php
         if(empty($_SESSION['userid']) || empty($_SESSION['username'])) {
