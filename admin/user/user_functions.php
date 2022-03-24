@@ -153,4 +153,66 @@
         $stmt2->close();
         $mysqli->close();
     }
+
+    function createNewUser(){
+        $getuser = $_POST['userName'];
+        $getmail = $_POST['userMail'];
+        $getpass = $_POST['userPassword'];
+        $getpassverify = $_POST['userPasswordVerify'];
+        $getusergroup = $_POST['userGroup'];
+        $getActivated = $_POST['activated'];
+        if($getuser){
+            if($getmail){
+                if($getpass){
+                    if($getpassverify){
+                        if($getusergroup){
+                            if($getActivated){
+                                if($getpass===$getpassverify){
+                                    $mysqli = connect_DB();
+                                    $result = $mysqli->query("SELECT id FROM clanms_user WHERE username='$getuser'");
+                                    $rowcount = $result->num_rows;
+                                    $result->close();
+                                    if($rowcount == 0) {
+                                        $result = $mysqli->query("SELECT id FROM clanms_user WHERE email='$getmail'");
+                                        $rowcount = $result->num_rows;
+                                        $result->close();
+                                        if($rowcount == 0) {
+                                            $password = password_hash($getpass, PASSWORD_DEFAULT);
+                                            $date = date("y-m-d");
+                                            $code = md5(rand());
+                                            $stmt = $mysqli->prepare("INSERT INTO `clanms_user` (`username`, `password`, `email`, `registeredSince`, `activated`, `activationCode`) VALUES (?,?,?,?,?,?)");
+                                            $stmt->bind_param("ssssis", $getuser, $password, $getmail, $date, $getActivated, $code);
+                                            $stmt->execute();
+                                            $stmt->close();
+                                            $result = $mysqli->query("SELECT id FROM clanms_user WHERE username='$getuser'");
+                                            $rowcount = $result->num_rows;
+                                            while($row = $result->fetch_row()) {
+                                                $id = $row[0];
+                                            }
+                                            $result->close();
+                                            if($rowcount == 1) {
+                                                /* Setze Rechte für neu erstelltes Benutzerprofil */
+                                                $comment = $getuser." - new User";
+                                                $stmt = $mysqli->prepare("INSERT INTO clanms_user_groups (id_user, id_group, comment) VALUES (?,?,?)");
+                                                $stmt->bind_param("iis", $id, $getusergroup, $comment);
+                                                $stmt->execute();
+                                                $stmt->close();
+                                                /* Erstelle Benutzerprofil in der Datenbank */
+                                                $avatar = file_get_contents(__DIR__."/../ressources/images/standard_avatar.jpg");
+                                                $info = "Willkommen auf meinem öffentlichen Profil!";
+                                                $stmt = $mysqli->prepare("INSERT INTO clanms_user_profile (id_user, name, avatar, info) VALUES (?,?,?,?)");
+                                                $stmt->bind_param("isss", $id, $getuser, $avatar, $info);
+                                                $stmt->execute();
+                                                $stmt->close();
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }  
+                    }
+                }
+            }
+        }
+    }
 ?>

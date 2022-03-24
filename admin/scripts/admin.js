@@ -99,6 +99,9 @@ function newEntry(content) {
     case "event":
       xhttp.open("GET", "./events/createEvent.php?author="+username+"&userid="+userid);
       break;
+    case "user":
+      xhttp.open("GET", "./user/createUser.php?author="+username+"&userid="+userid);
+      break;
   }
 
   
