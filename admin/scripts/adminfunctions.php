@@ -27,6 +27,9 @@
     }
 
     /* Benutzerverwaltung */
+    if($_POST['createUser']) {
+        createNewUser();
+    }
     if($_POST['deleteUserOverview'] === 'true') {
         deleteUserFromDB($_POST['userId']);
     }
