@@ -104,9 +104,6 @@ function newEntry(content) {
     case "gallery":
       xhttp.open("GET", "./gallery/editGallery.php?author="+username+"&userid="+userid);
       break;
-    case "user":
-      xhttp.open("GET", "./user/createUser.php?author="+username+"&userid="+userid);
-      break;
   }
 
   
