@@ -6,6 +6,7 @@
   }
   $userid = $_SESSION['userid'];
   $username = $_SESSION['username'];
+  var_dump($_POST);
 ?>
 <!DOCTYPE html>
 <html lang="de">
