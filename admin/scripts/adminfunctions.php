@@ -30,9 +30,6 @@
     if($_POST['deleteUserOverview'] === 'true') {
         deleteUserFromDB($_POST['userId']);
     }
-    if($_POST['createUser'] === 'true') {
-        createNewUser();
-    }
     if($_POST['updateUser'] === 'true'){
         writeUsersToDB();
     }
