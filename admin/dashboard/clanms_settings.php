@@ -14,6 +14,7 @@
         $mysqli = connect_DB();
         //TODO: 1. read all settings from db, 2. echo them in a form, 3. do form stuff and magic, 4. ???, 5. profit!
         include(__DIR__."/settings_form.php");
+        include(__DIR__."/social_media_form.php");
         $mysqli->close();
     }
 ?>

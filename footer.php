@@ -5,13 +5,17 @@
       </a>
       <span class="text-muted">&copy; 2022 ClanMS</span>
     </div>
+    <div class="col d-flex justify-content-center"><a href="./?nav=imp" class="text-muted text-decoration-none lh-1"><i class="bi-bookmarks me-2"></i>Impressum</a></div>
     <!-- Social media links TODO: load from database-->
     <ul class="nav col-md-4 justify-content-end list-unstyled d-flex">
-      <li class="ms-3"><a class="text-muted" href="https://twitter.com" target="_blank"><i class="bi-twitter footer-icon"></i></a></li>
-      <li class="ms-3"><a class="text-muted" href="https://www.youtube.com" target="_blank"><i class="bi-youtube footer-icon"></i></a></li>
-      <li class="ms-3"><a class="text-muted" href="https://www.instagram.com" target="_blank"><i class="bi-instagram footer-icon"></i></a></li>
-      <li class="ms-3"><a class="text-muted" href="https://www.facebook.com"target="_blank"><i class="bi-facebook footer-icon"></i></a></li>
-      <li class="ms-3"><a class="text-muted" href="https://www.github.com" target="_blank"><i class="bi-github footer-icon"></i></a></li>
-      <li class="ms-3"><a class="text-muted" href="https://www.twitch.com" target="_blank"><i class="bi-twitch footer-icon"></i></a></li>
+      <?php
+        $mysqli = connect_DB();
+        $select = "SELECT * FROM clanms_social_media WHERE 1=1;";
+        $query = $mysqli->query($select);
+        while($row = $query->fetch_assoc()) {
+          echo '<li class="ms-3"><a class="text-muted" href="'.$row["url"].'" target="_blank"><i class="'.$row["icon"].' footer-icon"></i></a></li>';
+        }
+        $mysqli->close();
+      ?>
     </ul>
 </footer>
