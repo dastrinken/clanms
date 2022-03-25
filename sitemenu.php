@@ -17,6 +17,9 @@
     } elseif($_GET['nav'] === 'faq'){
         include(__DIR__."/content/faq/faq_functions.php");
         include(__DIR__."/content/faq/faq.php");
+    } elseif($_GET['nav'] === 'imp') {
+        include(__DIR__."/content/impressum/impressum_funtions.php");
+        include(__DIR__."/content/impressum/impressum.php");
     } else {
         /* default, vorerst Kalender + Willkommenstext einbinden, später variabel machen */
         include(__DIR__."/content/calendar/calendar_functions.php");

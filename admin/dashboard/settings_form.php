@@ -45,8 +45,5 @@
             </div>
         </form>
     </div>
-    <div class="col">
-            <p>Weitere Ideen: Social Media des Seitenbetreibers / Verlinkung andere Website</p>
-    </div>
     <hr />
 </div>
