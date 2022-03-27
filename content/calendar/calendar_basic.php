@@ -97,13 +97,9 @@
 					cell.className = 'calendartag';
 					// und der aktuelle Tag (today) wird noch einmal speziell mit der Klasse "today" markiert
 					if (Tageszahl == DieserTag) {
-						cell.className = cell.className + ' today rounded';
+						cell.className = cell.className + ' today';
 					}
 					Tageszahl++;
-
-					/* Variablen verfügbar: Tageszahl, Monat, Jahr */
-					// Vergleiche alle Tageszahlen in diesem Monat mit unserem Array
-					//console.log("Tag: "+Tageszahl+" | Monat: "+Monat+" | Jahr: "+Jahr);
 				}
 			}
 		}
@@ -145,7 +141,7 @@
 							showEvent(eventArray);
 						});
 					});
-					getAllDays[j].style.cursor = "pointer";
+					getAllDays[j].classList.add("eventday");
 				}
 			}
 		}

@@ -75,13 +75,20 @@ a:hover {
   text-align: center;
 }
 
-#calendar tr td {
-  
-}
-
 .today {
   color: #222222;
-  background-color: white !important;
+  background-color: #ffffffa6 !important;
+  box-shadow: 2px 2px 2px inset black !important;
+}
+
+.eventday {
+  cursor: pointer;
+}
+
+.eventday:hover {
+  color: #222222 !important;
+  background-color: var(--bs-danger);
+  box-shadow: 2px 2px 2px inset black !important;
 }
 
 .calendar-event:hover {
