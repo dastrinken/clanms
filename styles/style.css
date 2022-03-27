@@ -26,6 +26,9 @@ main > .container {
   cursor: pointer;
 }
 
+.btn:focus, .btn-close:focus {
+  box-shadow: 0 0 1.5px 0.15rem #DEDEDE6B !important;
+}
 
 /* navbar and sidebar */
 
@@ -165,11 +168,6 @@ a:hover {
 .nav-darkmode:hover {
   color: white;
 }
-
-.btn:focus, .btn-close:focus {
-  box-shadow: 0 0 1.5px 0.15rem #DEDEDE !important;
-}
-
 
 .btn-darkmode {
   background-color: #F98692;

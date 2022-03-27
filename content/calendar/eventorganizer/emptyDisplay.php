@@ -1,4 +1,4 @@
-<div class ='col calendar-event mb-2 p-2 bg-lightdark rounded'>
+<div class ='col mb-2 p-2 bg-lightdark rounded'>
     <!-- HEAD -->
     <div class='row d-flex align-content-center text-center bg-blackened m-1 p-1 rounded'>
         <h4>Nichts geplant...</h4>
@@ -11,7 +11,7 @@
         <div class='col flex-grow-1'>
             <hr/>
             <div class='row p-2'>
-                <?php echo date("d.m.Y"); ?>
+                <pre><?php echo date("d.m.Y"); ?></pre>
             </div>
             <div class='row p-2'>
                 <?php 

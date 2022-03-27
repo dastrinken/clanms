@@ -10,8 +10,10 @@
     } else {
         $eventId = $row['id'];
     }
+    $displayDate = date_create_from_format("Y-m-d H:i:s", $row['start'])->format("d.m.Y");
+    $displayTime = date_create_from_format("Y-m-d H:i:s", $row['start'])->format("H:i");
 ?>
-<div class ='col calendar-event mb-2 p-2 bg-lightdark rounded'>
+<div class ='col mb-2 p-2 bg-lightdark rounded'>
     <!-- HEAD -->
     <div class='row d-flex align-content-center text-center bg-blackened m-1 p-1 rounded'>
         <h4><?php echo $optionalText, $row['title']; ?></h4>
@@ -23,11 +25,11 @@
         </div>
         <div class='col flex-grow-1'>
             <hr/>
-            <div class='row p-2'>
-                <?php echo $row['start']; ?>
+            <div class='row p-1'>
+                <pre>Datum: <?php echo $displayDate; ?> | Uhrzeit: <?php echo $displayTime; ?></pre>
             </div>
-            <div class='row p-2'>
-                <?php echo $row['description']; ?>
+            <div class='row p-1'>
+                <p><?php echo $row['description']; ?></p>
             </div>
         </div>
     </div>
