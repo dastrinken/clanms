@@ -121,7 +121,6 @@
 
 	/* Langsame Funktion, da zwei verschachtelte for-Schleifen. Das geht bestimmt besser! */
 	function parseToCalendar(monthArray) {
-		console.log(monthArray);
 		getAllDays = document.getElementsByClassName("calendartag");
 		for (let i = 0; i < monthArray.length; i++) {
 			for (let j = 0; j < getAllDays.length; j++) {
