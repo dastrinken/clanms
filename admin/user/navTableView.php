@@ -1,4 +1,4 @@
-<ul id="usersTableNav" class="nav d-flex justify-content-between mb-3">
+<ul id="tableNav" class="nav d-flex justify-content-between mb-3">
     <li class="d-flex nav-item justify-content-center align-items-center border border-secondary rounded-start">
         <a href="#" class="nav-link rounded-start" onclick="page > 1 ? --page : page = 1; getTableView(saveFolder, saveFile, saveDisplay); return false;">
             <i class="bi-arrow-left"></i>

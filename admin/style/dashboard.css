@@ -124,11 +124,13 @@ body {
   cursor: pointer;
 }
 
-#newsTableNav a {
+
+/* All Paginations Adminpanel */
+#tableNav a {
   color: black;
 }
 
-#newsTableNav a:hover {
+#tableNav a:hover {
   color: white;
   background-color: #6c757d;
 }

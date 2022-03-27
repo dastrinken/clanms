@@ -93,10 +93,12 @@ function getEventsFromDB($displayOption) {
                 cec.title AS catTitle,
                 ce.id_game AS gameId,
                 cg.title AS gameTitle,
-                timediff(end, start) AS diff
+                timediff(end, start) AS diff,
+                cu.username AS username
                 FROM clanms_event ce
                 JOIN clanms_event_category cec ON ce.event_cat = cec.id
-                JOIN clanms_game cg ON ce.id_game = cg.id ".$where." 
+                JOIN clanms_game cg ON ce.id_game = cg.id 
+                JOIN clanms_user cu ON ce.id_user = cu.id ".$where." 
                 LIMIT $offset, $displayAmount;";
 
     $result = $mysqli->query($select, MYSQLI_USE_RESULT);
@@ -121,6 +123,7 @@ function getEventsFromDB($displayOption) {
     ++$count;
     $event_id = $row['eventId'];
     $event_author = $row['userId'];
+    $event_author_name = $row['username'];
     $event_title = $row['eventTitle'];
     $event_desc = $row['eventDesc'];
 
@@ -171,7 +174,7 @@ function getEventsFromDB($displayOption) {
                     <input type="hidden" name="gameId" value="'.$game_id.'">
                 </span>
                 <span class="td border-end border-activeTable">
-                    '.$event_author.'
+                    '.$event_author_name.'
                     <input type="hidden" name="author_id" value="'.$event_author.'">
                 </span>
 

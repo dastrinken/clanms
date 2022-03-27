@@ -1,13 +1,11 @@
 <?php
+    if (session_status() === PHP_SESSION_NONE){session_start();}
     require_once(__DIR__."/../../system/db_functions.php");
     /* jQuery Anfragen */
     switch ($_POST['command'])
     {
         case 'getSpecificEvent':
             getSpecificEventById($_POST['postId'], true);
-            break;
-        case 'getCategoryImage':
-            getCategoryImage($_POST['postId'], 128, 1);
             break;
         case 'getMonthArray':
             getMonthlyEvents($_POST['postMonth'], $_POST['postYear']);
