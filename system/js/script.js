@@ -20,13 +20,18 @@ function openLoginRegisterModal(buttonId) {
     var xhttp = new XMLHttpRequest();
 
     var modalFormBody = document.getElementById("loginSignupModalBody");
+    var modalFormLabel = document.getElementById("loginRegisterModalLabel");
+    var header;
 
     xhttp.onload = function() {
+        modalFormLabel.innerHTML = header;
         modalFormBody.innerHTML = this.responseText;
     }
     if(buttonId == "loginBtn") {
+        header = "Log in";
         xhttp.open("GET", "./system/account/login/login.php");
     } else if(buttonId == "signupBtn") {
+        header = "Register";
         xhttp.open("GET", "./system/account/login/register.php");
     }
     xhttp.send();

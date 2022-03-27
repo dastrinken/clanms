@@ -12,6 +12,7 @@
             ist allerdings kein muss. Je nach dem was zeitlich hinhaut.
     */
 ?>
+<link rel="stylesheet" href="./content/newsblog/newsblog_style.css">
 <div class="content mb-4 p-3 bg-lightdark">
     <div class="border-bottom border-dark rounded mb-2 p-2 text-center" style="<?php echo "background: ".$article_color; ?>">
         <h3><?php echo $article_headline; ?><!--<span class="badge bg-highlighted ml-2">New</span>--></h3>

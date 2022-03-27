@@ -29,9 +29,10 @@
 
         $groups = getUserGroups();
         $mysqli = connect_DB();
+        
         switch($displayOption) {
             case "all":
-                $where = "";
+                $where = "WHERE 1=1";
                 break;
             case "admin":
                 $where = "WHERE cg.title = 'Admin'";
@@ -46,11 +47,11 @@
                 $where = "WHERE cg.title = 'Registered'";
                 break;
             default:
-                $where = "";
+                $where = "WHERE 1=1";
                 break;
         }
 
-        $totalPagesDB = "SELECT * FROM clanms_user AS user $where";
+        $totalPagesDB = "SELECT * FROM clanms_user AS user";
         $pagesResult = $mysqli->query($totalPagesDB);
         $rowCount = $pagesResult->num_rows;
         $totalPages = ceil($rowCount / $displayAmount);
@@ -59,7 +60,8 @@
         $select = "SELECT cs.id AS userid, 
                     cs.username, cs.email, 
                     cs.registeredSince, 
-                    cs.activated, cg.title, 
+                    cs.activated, 
+                    cg.title, 
                     cg.id AS groupId 
                     FROM clanms_user cs 
                     JOIN clanms_user_groups cug ON cs.id = cug.id_user 

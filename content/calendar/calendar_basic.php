@@ -148,28 +148,9 @@
 
 function showEvent(eventArray) {
 	var eventId = eventArray[0]["id"];
-	var eventTitle = eventArray[0]["title"];
-	var eventDesc = eventArray[0]["description"];
-	var eventStart = eventArray[0]["start"];
-	var eventEnd = eventArray[0]["end"];
 
-	$.post("./content/calendar/calendar_functions.php", 
-	{
-		command: "getCategoryImage",
-		postId: eventArray[0]["event_cat"]
-	},
-	function(data) {
-		var htmlCode = "<div class ='col calendar-event mb-2 p-2 bg-lightdark rounded'>";
-		htmlCode += "<div class='row d-flex align-content-center text-center bg-blackened m-1 p-1 rounded'>";
-		htmlCode += "<h4>"+eventTitle+"</h4>";
-		htmlCode += "</div><div class='row'><div class='col'>";
-		htmlCode += data;
-		htmlCode += "</div><div class='col flex-grow-1'><hr/><div class='row p-2'>";
-		htmlCode +=	"Beginn: "+eventStart;
-		htmlCode += "</div><div class='row p-2'>";
-		htmlCode += eventDesc;
-		htmlCode += "</div></div></div></div>";
-		$("#eventDisplaySwitchable").append(htmlCode);
-	});
+	displayEvent = "./content/calendar/eventorganizer/displayEvent.php?eventId="+eventId;
+	$("#eventDisplaySwitchable").load(displayEvent);
+
 }
 </script>
