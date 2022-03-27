@@ -16,11 +16,11 @@
 <div class ='col mb-2 p-2 bg-lightdark rounded'>
     <!-- HEAD -->
     <div class='row d-flex align-content-center text-center bg-blackened m-1 p-1 rounded'>
-        <h4><?php echo $optionalText, $row['title']; ?></h4>
+        <h4 class='m-1'><?php echo $optionalText, $row['title']; ?></h4>
     </div>
     <!-- CONTENT -->
     <div class='row'>
-        <div class='col d-flex justify-content-center align-items-center'>
+        <div class='col d-flex justify-content-center align-items-center p-1'>
             <?php getCategoryImage($row['event_cat'], 128, 2); ?>
         </div>
         <div class='col flex-grow-1'>
