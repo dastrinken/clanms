@@ -82,9 +82,6 @@
             <li class="nav-item">
                 <a class="nav-link linktab" aria-current="page" id="preferencesTab" href="#" onclick="changeContent(this.id);">Preferences</a>
             </li>
-            <li class="nav-item">
-                <a class="nav-link linktab disabled" aria-current="page" id="" href="#">Placeholder</a>
-            </li>
         </ul>
     </div>
     <div class="row bg-lightdark p-4">
