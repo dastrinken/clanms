@@ -33,7 +33,7 @@
                 echo "<p>Es ist etwas schief gelaufen, versuche es bitte erneut.</p>";
             }
         }else{
-            echo "<p><strong>SIE HABEN NICHT DAS RECHT!!</strong></p>";
+            echo "<p>Dir fehlt hierfür die nötige Berechtigung!</p>";
         }
         $mysqli->close();
     }
