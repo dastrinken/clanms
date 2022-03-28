@@ -127,6 +127,12 @@
 				if (getAllDays[j].textContent == monthArray[i]['eventDay']) {
 					getAllDays[j].classList.add("text-danger");
 					getAllDays[j].addEventListener("click", function() {
+						/* Suche Element mit ID -> lösche ID -> setze ID auf das angeklickte Element */
+						var oldSelected = document.getElementById("selected");
+						if(oldSelected != null) {
+							oldSelected.id = "";
+						}
+						getAllDays[j].id = "selected";
 						eventDisplay = document.getElementById("eventDisplaySwitchable");
 						eventId = monthArray[i]['id'];
 						$.post("./content/calendar/calendar_functions.php", 
@@ -151,6 +157,5 @@ function showEvent(eventArray) {
 
 	displayEvent = "./content/calendar/eventorganizer/displayEvent.php?eventId="+eventId;
 	$("#eventDisplaySwitchable").load(displayEvent);
-
 }
 </script>

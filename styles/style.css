@@ -101,6 +101,12 @@ a:hover {
   cursor: pointer;
 }
 
+#selected{
+  color: #222222 !important;
+  background-color: var(--bs-danger);
+  box-shadow: 2px 2px 2px inset black !important;
+}
+
 /* Color ressources */
 
 /* Darkmode (standard skin) */

@@ -27,10 +27,13 @@
             <hr/>
             <div class='row p-1'>
                 <pre>Datum: <?php echo $displayDate; ?> | Uhrzeit: <?php echo $displayTime; ?></pre>
+                <pre>Anmeldungen: <?php echo getEnrollCount(); ?></pre>
             </div>
             <div class='row p-1'>
                 <p><?php echo $row['description']; ?></p>
             </div>
+        </div>
+        <div class='col'>
         </div>
     </div>
     <hr />

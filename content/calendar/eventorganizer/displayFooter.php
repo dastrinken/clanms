@@ -5,25 +5,25 @@
 </div>
 <div class="collapse" id="enrollCollapse<?php echo $row['id']; ?>">
     <div class="col rounded p-2 bg-blackened">
-        <p>Anmeldungen: -</p>
         <div class="col d-flex justify-content-evenly">
-            <button id="<?php echo $eventId; ?>" type="button" class="btn btn-darkmode-outline text-white flex-grow-1 rounded-0 rounded-start" data-bs-toggle="modal" data-bs-target="#loginRegisterModal" onclick="enrollEvent(this.id);">Anmelden</button>
-            <button class="btn btn-darkmode-outline text-white flex-grow-1 rounded-0" data-bs-toggle="modal" data-bs-target="#loginRegisterModal" onclick="showEntryList();">Teilnehmerliste</button>
+            <button type="button" class="btn btn-darkmode-outline text-white flex-grow-1 rounded-0 rounded-start" data-bs-toggle="modal" data-bs-target="#loginRegisterModal" onclick="enrollEvent(<?php echo $eventId; ?>);">Anmelden</button>
+            <button class="btn btn-darkmode-outline text-white flex-grow-1 rounded-0" data-bs-toggle="modal" data-bs-target="#loginRegisterModal" onclick="showEntryList(<?php echo $eventId; ?>);">Teilnehmerliste</button>
             <button class="btn btn-darkmode-outline text-white flex-grow-1 rounded-0 rounded-end">Info</button>
         </div>
     </div>
 </div>
 
 <script>
-    function enrollEvent(buttonId) {
+    function enrollEvent(eventId) {
         $("#loginRegisterModalLabel").html("Anmelden");
         $("#loginSignupModalBody").html("Hier kann man sich in Zukunft für Events anmelden...");
-        $("#loginSignupModalBody").load("./content/calendar/eventorganizer/enrollForm.php?eventId="+buttonId);
+        $("#loginSignupModalBody").load("./content/calendar/eventorganizer/enrollEvent.php?eventId="+eventId);
     }
 
-    function showEntryList() {
+    function showEntryList(eventId) {
         $("#loginRegisterModalLabel").html("Teilnehmer");
         $("#loginSignupModalBody").html("Hier kann man in Zukunft Teilnehmerlisten einsehen...");
+        $("#loginSignupModalBody").load("./content/calendar/eventorganizer/list.php?eventId="+eventId);
     }
 
 </script>

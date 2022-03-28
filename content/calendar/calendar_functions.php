@@ -14,6 +14,14 @@
             break;
     }
 
+    function getEnrollCount(){
+        global $eventId;
+        $mysqli = connect_DB();
+        $select = "SELECT * FROM clanms_event_enrolls WHERE id_event =$eventId";
+        $result = $mysqli->query($select);
+        return $result->num_rows;
+    }
+
     function getMonthlyEvents($month, $year) {
         $mysqli = connect_DB();
         $select = $mysqli->prepare("SELECT id, DAY(start) AS eventDay FROM clanms_event WHERE MONTH(start)=? AND YEAR(start)=?");
