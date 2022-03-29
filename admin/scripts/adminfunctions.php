@@ -48,6 +48,13 @@
     if($_GET['deleteGallery'] === 'true') {
         deleteGalleryFromDB($_GET['galleryId']);
     }
+    
+    /*Game */
+    if($_POST['deleteGame'] === 'true'){
+        var_dump($_POST);
+        deleteGameFromDB($_POST['gameId']);
+    }
+
 
     /* Groups & Rights */
     /**

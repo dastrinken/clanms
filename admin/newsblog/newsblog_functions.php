@@ -152,4 +152,39 @@ function getNewsCatsFromDB() {
     return $resultArray;
 }
 
+function showNewsCats(){
+    $cats = getNewsCatsFromDB();
+    $table = "<div class='table'>
+                <div class='thead'>
+                    <div class='tr mb-2'>
+                        <span class='td border-bottom border-dark'>#</span>
+                        <span class='td border-bottom border-dark'>Titel</span>
+                        <span class='td border-bottom border-dark'>Beschreibung</span>
+                        <span class='td border-bottom border-dark'>Bild</span>
+                        <span class='td border-bottom border-dark'></span>
+                        <span class='td border-bottom border-dark'></span>
+                    </div>
+                </div><div class='tbody'>";
+    $count = 0;
+    foreach($cats as $row){
+        ++$count;
+        $catId = $row['id'];
+        $catTitle = $row['title'];
+        $catDesc = $row['description'];
+        $table .= '<form class="tr activeTable">
+                        <span class="td border-end border-activeTable">'.$count.'<input type="hidden" name="newsCatId" value="'.$catId.'"></span>
+                        <span class="td border-end border-activeTable">
+                            '.$catTitle.'
+                        </span>
+                        <span class="td border-end border-activeTable">
+                            '.$catDesc.'
+                        </span>
+                        <span class="td border-end border-activeTable">
+                            <button name="editNewsCat" value="true" class="btn btn-secondary submit">Bearbeiten</button>
+                        </span>
+                        <span class="td border-end border-activeTable"><button name="deleteNewsCat" value="true" class="btn btn-danger submit" onclick="return confirm(\'Die Eventkategorie wird endgültig aus der Datenbank gelöscht, bist du dir sicher?\');">Löschen</button></span>
+                    </form>';
+        }
+        return $table;
+    }
 ?>
