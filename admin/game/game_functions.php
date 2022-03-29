@@ -76,4 +76,5 @@
     function writeGameToDB(){
 
     }
+    
 ?>
