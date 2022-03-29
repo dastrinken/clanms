@@ -12,7 +12,7 @@
                 <!-- table view of all articles -->
                 <?php 
                     include(__DIR__."/navTableView.php");
-                    var_dump($tableView);
+                    echo $tableView;
                 ?>
             </div>
         </div>

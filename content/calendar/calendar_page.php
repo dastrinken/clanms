@@ -3,7 +3,6 @@
     $nextEvent = getClosestEventId();
     if(!empty($allEvents) && !empty($nextEvent)){
         $upcomingEvent = getSpecificEventById($nextEvent, false);
-        var_dump($upcomingEvent);
     }
 ?>
 <div class='row mb-3'>

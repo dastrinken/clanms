@@ -51,7 +51,6 @@
     
     /*Game */
     if($_POST['deleteGame'] === 'true'){
-        var_dump($_POST);
         deleteGameFromDB($_POST['gameId']);
     }
 

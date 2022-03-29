@@ -64,7 +64,6 @@
 
     function deleteGameFromDB($gameId){
         if (session_status() === PHP_SESSION_NONE){session_start();}
-        echo "hier";
         $mysqli = connect_DB();
         $stmt = $mysqli->prepare("DELETE FROM clanms_game WHERE clanms_game.id = ?");
         $stmt->bind_param("i", $gameId);
