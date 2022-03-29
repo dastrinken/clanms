@@ -134,5 +134,18 @@ function reloadContent()
 
 function manageGroupRights() {
   var checkboxArray = document.getElementsByClassName("form-check-input");
-  console.log(checkboxArray);
+  var checked;
+  for(let i = 0; i < checkboxArray.length; i++) {
+    checkboxArray[i].addEventListener("click", function() {
+      if($(this).is(':checked')) {
+        checked = "true";
+      } else {
+        checked = "false";
+      }
+      $.post("./groups/groups_functions.php", { id: this.id, command: "saveGroupRights", active: checked})
+        .done(function(data) {
+          console.log("Antwort: "+data);
+        });
+    })
+  }
 }
