@@ -32,8 +32,8 @@ function getUserProfile() {
     return $data;
 }
 
-function getProfilePic($size, $rounded) {
-    $userid = $_SESSION['userid'];
+function getProfilePic($size, $rounded, ?int $userid = 0) {
+    $userid = $userid == 0 ? $_SESSION['userid'] : $userid;
     $mysqli = connect_DB();
     $select = $mysqli->prepare("SELECT avatar FROM clanms_user_profile WHERE id_user=?");
     $select->bind_param("i", $userid);

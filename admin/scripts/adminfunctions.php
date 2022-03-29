@@ -10,6 +10,7 @@
     include_once(__DIR__."/../user/user_functions.php");
     include_once(__DIR__."/../gallery/gallery_functions.php");
     include_once(__DIR__."/../groups/groups_functions.php");
+    include_once(__DIR__."/../game/game_functions.php");
 
     /* Newsblog */
     if($_POST['saveArticle']) {

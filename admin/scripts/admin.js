@@ -41,6 +41,9 @@ function getTableView(folder, file, displayOption) {
 
   xhttp.onload = function() {
     mainContent.innerHTML = this.responseText;
+    if(folder == "groups") {
+      manageGroupRights();
+    }
     pageNr = document.getElementById("showPageNr");
     if(pageNr != null) {
       pageNr.innerHTML = "Seite "+page;
@@ -107,6 +110,8 @@ function newEntry(content) {
     case "user":
       xhttp.open("GET", "./user/createUser.php?author="+username+"&userid="+userid);
       break;
+    case "game":
+      xhttp.open("GET", "./game/createGame.php?author="+username+"&userid="+userid);
   }
 
   
@@ -123,4 +128,11 @@ function reloadContent()
      getElement("image-preview").oUp.reload();
 
      return true;
+}
+
+/* Rechteverwaltung */
+
+function manageGroupRights() {
+  var checkboxArray = document.getElementsByClassName("form-check-input");
+  console.log(checkboxArray);
 }

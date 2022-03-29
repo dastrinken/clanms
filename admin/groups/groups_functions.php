@@ -47,8 +47,8 @@
                 $disabled = "";
             }
             
-            $table .= "<span class='td border-end'><div class='form-check'><input class='form-check-input' type='checkbox' ".$checkedOwn.$disabled."></div></span>
-                        <span class='td'><div class='form-check'><input class='form-check-input' type='checkbox' ".$checkedAll.$disabled."></div></span>
+            $table .= "<span class='td border-end'><div class='form-check'><input id='".$row['groupId']."_".$row['rightId']."_25' class='form-check-input' type='checkbox' ".$checkedOwn.$disabled."></div></span>
+                        <span class='td'><div class='form-check'><input id='".$row['groupId']."_".$row['rightId']."_50' class='form-check-input' type='checkbox' ".$checkedAll.$disabled."></div></span>
                     </div>";
         }
         $table .= "</div>
@@ -72,4 +72,3 @@
         JOIN clanms_rights cr ON cghr.id_right = cr.id"
         */
 ?>
-
