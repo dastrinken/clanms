@@ -77,49 +77,7 @@ function showEventCats(){
     }
     $table .= "</div>";
     return $table;
-    }
-    /*$table = "<div class='table'>
-                <div class='thead'>
-                    <div class='tr mb-2'>
-                        <span class='td border-bottom border-dark'>#</span>
-                        <span class='td border-bottom border-dark'>Titel</span>
-                        <span class='td border-bottom border-dark'>Beschreibung</span>
-                        <span class='td border-bottom border-dark'>Bild</span>
-                        <span class='td border-bottom border-dark'></span>
-                        <span class='td border-bottom border-dark'></span>
-                    </div>
-                </div><div class='tbody'>";
-    $count = 0;
-    while($row = $cats){
-        $catId = $row['id'];
-        $catTitle = $row['title'];
-        $catDesc = $row['description'];
-        $catImg = base64_encode($row['image']);
-        $table .= '<form class="tr activeTable">
-                    <span class="td border-end border-activeTable">
-                    '.($count).'
-                        <input type="hidden" name="eventId" value="'.$catId.'">
-                    </span>
-                    <span class="td border-end border-activeTable">
-                        '.$catTitle.'
-                    </span>
-                    <span class="td border-end border-activeTable">
-                        '.$catDesc.'
-                    </span>
-                    <span class="td border-end border-activeTable">
-                        <img src="data:image/png;base64,'.$catImg.'" width = "480px" height= "480px" class="rounded" />
-                    </span>
-                    <span class="td border-end border-activeTable">
-                        <button name="editEvent" value="true" class="btn btn-secondary submit">Bearbeiten</button>
-                    </span>
-                    <span class="td border-end border-activeTable">
-                        <button name="deleteEvent" value="true" class="btn btn-danger submit" onclick="return confirm(\'Das Event wird endgültig aus der Datenbank gelöscht, bist du dir sicher?\');">Löschen</button>
-                    </span>
-                </form>';
-    }
-    $table .= "</div>";
-    return $table;
-    */
+}
 
 function getGameFromDB(){
     $mysqli = connect_DB();
