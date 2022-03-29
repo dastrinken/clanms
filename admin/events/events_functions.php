@@ -32,6 +32,7 @@ function getEventCatsFromDB() {
     $mysqli->close();
     return $resultArray;
 }
+
 function getGameFromDB(){
     $mysqli = connect_DB();
     $select = "SELECT * FROM clanms_game";

@@ -82,7 +82,7 @@
                                 </a>
                             </li>
                             <li class="nav-item">
-                                <a id="gamesLink" class="nav-link" aria-current="page" href="" onclick="setActive(this.id); return false;">
+                                <a id="gamesLink" class="nav-link" aria-current="page" href="" onclick="getTableView('game', 'content','all');setActive(this.id); return false;">
                                     Spiele
                                 </a>
                             </li>
