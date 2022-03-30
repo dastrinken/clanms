@@ -87,17 +87,22 @@
             case "enrollEvents":
                 $rightsId = 5;
                 break;
+            case "eventCategory":
+                $rightsId = 6;
+                break;
         }
         $rightsValue = checkUserRights($_SESSION['userid'], $rightsId);
-        if($rightsValue >= 25 && $rightsValue < 75) {
-            //25 is the minimal value, 75 means you have permission to edit all content in this area
-            if($checkSameUser) {
-                $permission = checkSameUser($creatorId);
+        if($rightsValue > 0) {
+            if($rightsValue >= 25 && $rightsValue < 75) {
+                //25 is the minimal value, 75 means you have permission to edit all content in this area
+                if($checkSameUser) {
+                    $permission = checkSameUser($creatorId);
+                } else {
+                    $permission = true;
+                }
             } else {
                 $permission = true;
             }
-        } else {
-            $permission = true;
         }
         return $permission;
     }

@@ -54,9 +54,15 @@
                 $disabled = "";
             }
             
-            $table .= "<span class='td border-end'><div class='form-check'><input id='".$row['groupId']."_".$row['rightId']."_25' class='form-check-input' type='checkbox' ".$checkedOwn.$disabled."></div></span>
-                        <span class='td'><div class='form-check'><input id='".$row['groupId']."_".$row['rightId']."_75' class='form-check-input' type='checkbox' ".$checkedAll.$disabled."></div></span>
-                    </div>";
+            $table .= "<span class='td border-end'><div class='form-check'><input id='".$row['groupId']."_".$row['rightId']."_25' class='form-check-input' type='checkbox' ".$checkedOwn.$disabled."></div></span>";
+            //some rights only have on value
+            if($row['rightId'] != 6) {
+                $table .= "<span class='td'><div class='form-check'><input id='".$row['groupId']."_".$row['rightId']."_75' class='form-check-input' type='checkbox' ".$checkedAll.$disabled."></div></span>";
+            } else {
+                $table .= "<span class='td'></span>";
+            }
+            
+            $table .= "</div>";
         }
         $table .= "</div>
                 </div>";
