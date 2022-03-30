@@ -39,6 +39,10 @@ function getEventCatsFromDB() {
     $mysqli->close();
     return $resultArray;
 }
+
+/**
+ * @param String $editExisting String representation of boolean value (true = edit existing, false = new entry)
+ */
 function writeEventCatToDB($editExisting){
     $eventCatId = $_POST['eventCatId'];
     $eventCatTitle = $_POST['eventCatTitle'];

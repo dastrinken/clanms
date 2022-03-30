@@ -148,10 +148,7 @@ function manageGroupRights() {
       } else {
         checked = "false";
       }
-      $.post("./groups/groups_functions.php", { id: this.id, command: "saveGroupRights", active: checked})
-        .done(function(data) {
-          console.log("Antwort: "+data);
-        });
+      $.post("./groups/groups_functions.php", { id: this.id, command: "saveGroupRights", active: checked});
     })
   }
 }
