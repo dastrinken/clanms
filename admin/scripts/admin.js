@@ -119,11 +119,8 @@ function newEntry(content) {
       xhttp.open("GET", "./events/createEventCategory.php?author="+username+"&userid="+userid);
       break;
   }
-
-  
   xhttp.send();
-  
-} 
+}
 
 function confirmDelete() {
   return window.confirm("Are you sure you want to delete this record?");

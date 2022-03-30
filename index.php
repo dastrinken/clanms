@@ -1,17 +1,10 @@
 <?php
     session_start();
-
-    /* TODO: korrekte Verwendung von Cookies */
-    if($_SESSION['userid'] && $_SESSION['username']) {
-        setcookie("login", "true");
-    } else {
-        setcookie("login", "false");
-    }
-
-    require("./system/db_functions.php");
-    require("./system/helper_functions.php");
-    require("./system/account/account_functions.php");
-    require("./parsedown/parsedown.php");
+    require(__DIR__."/admin/scripts/rights_system.php");
+    require(__DIR__."/system/db_functions.php");
+    require(__DIR__."/system/helper_functions.php");
+    require(__DIR__."/system/account/account_functions.php");
+    require(__DIR__."/parsedown/parsedown.php");
 ?>
 <!DOCTYPE html>
 <html lang="de">
