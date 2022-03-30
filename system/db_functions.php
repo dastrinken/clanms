@@ -1,6 +1,9 @@
 <?php
     require(__DIR__."/db_settings.php");
-    /* Datenbankverbindung */
+    
+    /** Establish a database-connection and return the mysqli-object
+     * @return Object The mysqli-object
+     */
     function connect_DB() {
         global $dbhost, $dbuser, $dbpw, $db;
         $mysqli = new mysqli($dbhost, $dbuser, $dbpw, $db);
@@ -14,7 +17,10 @@
     /* Daten aus DB auslesen */
     $title = getSetting("title");
     
-    /* Settings aus DB auslesen */
+    /** Reads a single setting from the db
+     * @param String $property The name of the property you want to select
+     * @return String The value of selected property
+     */
     function getSetting($property) {
         global $dbpre;
         $mysqli = connect_DB();
@@ -27,7 +33,14 @@
         $mysqli->close();
         return $setting;
     }
-    //selectOneRow_DB: use if you expect exactly one result (row). For example looking up a user id (or any other id)
+
+    /** Selects something from the db. Only use if you just expect one single result!
+     * @param String $column The single column you want to select
+     * @param String $tablename The name of the table you want to select FROM
+     * @param String $condition Left side of the WHERE-statement
+     * @param String $value right side of the WHERE-statement
+     * @return String The selected result from the database
+     */
     function selectOneRow_DB($column, $tablename, $condition, $value) {
         $mysqli = connect_DB();
 

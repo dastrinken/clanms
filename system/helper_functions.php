@@ -1,7 +1,9 @@
 <?php
 /* Allgemeine Hilfsfunktionen */
 
-// Shows a small Popup message on the bottom right, use it to display error Messages.
+/** Shows a small toast on the bottom right of the document, displaying the given text.
+ * @param String $stringMessage The message to be displayed in the toast
+ */
 function showToastMessage($stringMessage) { 
     echo '<div class="position-fixed bottom-0 end-0 p-3" style="z-index: 11">
             <div id="messageToast" class="showToast bg-blackened" role="alert" aria-live="assertive" aria-atomic="true">
@@ -17,7 +19,9 @@ function showToastMessage($stringMessage) {
         </div>';
 }
 
-// Debugs data to javascript console
+/** Displays a php-String as a JavaScript console.log for debugging purposes
+ * @param mixed $data Most likely to be used with a String, this data will be echoed
+ */
 function debug_to_console($data) {
     $output = $data;
     if (is_array($output))

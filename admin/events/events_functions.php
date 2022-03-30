@@ -1,4 +1,8 @@
 <?php
+/**
+ * Connects with database and creates or updates an event entry
+ * @param String $editExisting decides between new entry (false) or update existing one (true)
+ */
 function writeEventToDB($editExisting) {
     $title = $_POST['eventTitle'];
     $description = $_POST['eventDescription'];
@@ -23,6 +27,9 @@ function writeEventToDB($editExisting) {
     $mysqli->close();
 }
 
+/**
+ * Selects all event categories from the database
+ */
 function getEventCatsFromDB() {
     $mysqli = connect_DB();
     $select = "SELECT * FROM clanms_event_category";
@@ -33,6 +40,10 @@ function getEventCatsFromDB() {
     return $resultArray;
 }
 
+/**
+ * Packs all event categories in an html table and returns it.
+ * @return String The whole categories-table
+ */
 function showEventCats(){
     $cats = getEventCatsFromDB();
     $table = "<div class='table'>
@@ -79,6 +90,10 @@ function showEventCats(){
     return $table;
 }
 
+/**
+ * Selects all games from the database
+ * @return Array Returns an mysqli associative array
+ */
 function getGameFromDB(){
     $mysqli = connect_DB();
     $select = "SELECT * FROM clanms_game";
@@ -89,6 +104,9 @@ function getGameFromDB(){
     return $resultArray;
 }
 
+/**
+ * Deletes an existing event from the database (cannot be undone!)
+ */
 function deleteEventFromDB($eventId) {
     $mysqli = connect_DB();
     $stmt = $mysqli->prepare("DELETE FROM clanms_event WHERE clanms_event.id = ?");
@@ -100,6 +118,11 @@ function deleteEventFromDB($eventId) {
 
 // store total no of pages in global for javascript use
 $totalPages;
+/**
+ * Creates the whole tableview of all Events with pagination
+ * @param String $displayOption A string representation to decide over the sql-condition to be executed (e.g. "all" => WHERE 1=1)
+ * @return String Returns the whole html event table
+ */
 function getEventsFromDB($displayOption) {
     if (session_status() === PHP_SESSION_NONE){session_start();}
     global $totalPages;

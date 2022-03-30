@@ -1,14 +1,16 @@
 <?php
-//TODO: Annotations
 
-/* Entscheiden was zu tun ist bevor die Seite lädt */
+/* Decide what to do before loading the content */
 if($_POST['registerBtn']){
     registerNewAccount();
 } elseif($_POST['loginBtn']) {
     loginAccount();
 }
 
-//GruppenID des Nutzers auslesen
+/** Reads the group-id from the database, given the users (group-members) id
+ * @param mixed $userid The id of the user which is in a group
+ * @return String Returns the id of the users group
+ */
 function getUserGroup($userid) {
     global $dbpre;
     $mysqli = connect_DB();
@@ -21,8 +23,12 @@ function getUserGroup($userid) {
     $mysqli->close();
 }
 
-function getUserProfile() {
-    $userid = $_SESSION['userid'];
+/** Selects the whole users profile from database
+ * @param ?int $userid Optional parameter, it will be used as the userid to look for, if not set the sessions userid will be used
+ * @return Array An associative mysqli-array with the selected result-set (users profile)
+ */
+function getUserProfile(?int $userid = null) {
+    $userid = $userid == null ? $_SESSION['userid'] : $userid;
     $mysqli = connect_DB();
     $select = $mysqli->prepare("SELECT * FROM clanms_user_profile WHERE id_user=?");
     $select->bind_param("i", $userid);
@@ -32,6 +38,12 @@ function getUserProfile() {
     return $data;
 }
 
+/** Selects the profile pic from the database and echoes it as a html img-tag
+ * @param int $size The size of the picture
+ * @param bool $rounded Decides which css class to display (0 = not rounded, 1 = rounded-circle)
+ * @param ?int $userid Optional parameter, it will be used as the userid to look for, if not set the sessions userid will be used
+ * @return String The image tag as an html-string
+ */
 function getProfilePic($size, $rounded, ?int $userid = 0) {
     $userid = $userid == 0 ? $_SESSION['userid'] : $userid;
     $mysqli = connect_DB();
@@ -52,6 +64,10 @@ function getProfilePic($size, $rounded, ?int $userid = 0) {
 }
 
 /* Profilseite */
+
+/** Changes the users profile given the data from the change profile form
+ * 
+ */
 function changeProfile() {
     if(empty($_POST['pname'])) {
         $pname = selectOneRow_DB("name", "clanms_user_profile", "id_user", $_SESSION['userid']);
@@ -83,6 +99,9 @@ function changeProfile() {
     $mysqli->close();
 }
 
+/** Deletes the users Account from db given the users db-id (warning: can not be undone)
+ * @param int $userid The "to be deleted" users id
+ */
 function deleteAccount($userid) {
     $getpass = $_POST['passwordDelete'];
     $password = selectOneRow_DB("password", "clanms_user", "id", $userid);
@@ -101,6 +120,9 @@ function deleteAccount($userid) {
     showToastMessage($errormsg);
 }
 
+/** Changes the users email given the users id
+ * @param int $userid The users id
+ */
 function emailChange($userid){
     $getpass = $_POST['passwordEmail'];
     $getemail = $_POST['newEmail'];
@@ -119,6 +141,9 @@ function emailChange($userid){
     }
 }
 
+/** Changes the users password
+ * @param int $userid The users id
+ */
 function passwordChange($userid){
     $getpass = $_POST['oldPass'];
     $getnewpass = $_POST['newPass'];
@@ -145,6 +170,10 @@ function passwordChange($userid){
 }
 
 /* Login und Registrieren */
+
+/** The login function. Validates and communicates with the database. Sets the session variables.
+ * 
+ */
 function loginAccount() {
     $getemail = $_POST['email'];
     $getpass = $_POST['password'];
@@ -183,18 +212,17 @@ function loginAccount() {
     }
 }
 
-/*
-**  registerNewAccount is performed once when registering as a new user
-**  there are different parts of this function:
-**      1. register new user into database
-**      2. insert user into standard user group
-**      3. create new user_profile with standard avatar
-**      4. send activation email
-**
-**      TODO: create procedure or trigger to automatically detect and delete unused user profiles
+/**
+*  registerNewAccount is performed once when registering as a new user.
+*  there are different parts of this function:
+*      1. register new user into database
+*      2. insert user into standard user group
+*      3. create new user_profile with standard avatar
+*      4. send activation email
+*
+*      TODO: create procedure or trigger to automatically detect and delete unused user profiles
 */
 function registerNewAccount() {
-    // TODO: Mögliche Sicherheitslücke: Variablen aus POST Escapen oder prepared stmt nutzen!
     global $dbpre;
     global $title;
     $getuser = $_POST['username'];
@@ -208,7 +236,8 @@ function registerNewAccount() {
                 if($getpassretype) {
                     if($getpass === $getpassretype) {
                         $mysqli = connect_DB();
-
+                        
+                        //Escaping users input for security reasons
                         $getuser = mysqli_escape_string($mysqli, $getuser);
                         $getemail = mysqli_escape_string($mysqli, $getemail);
                         $getpass = mysqli_escape_string($mysqli, $getpass);

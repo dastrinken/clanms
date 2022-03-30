@@ -1,7 +1,9 @@
 <?php
     require_once(__DIR__."/../../system/db_functions.php");
 
-    /* Newsblog anzeigen und alles was dazugehört */
+    /**
+     * Selects all News articles from database and displays them in article_template.php
+     */
     function showAllNews() {
         $Parsedown = new Parsedown();
         $Parsedown->setSafeMode(true);
