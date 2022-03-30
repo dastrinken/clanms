@@ -32,6 +32,34 @@ function getEventCatsFromDB() {
     $mysqli->close();
     return $resultArray;
 }
+function writeEventCatToDB($editExisting){
+    $eventCatId = $_POST['eventCatId'];
+    $eventCatTitle = $_POST['eventCatTitle'];
+    $eventCatDesc = $_POST['eventCatDescription'];
+
+    $mysqli = connect_DB();
+    if($editExisting === 'true') {
+        if(empty($_FILES['eventCatImg']['tmp_name'])) {
+            $eventCatImg = selectOneRow_DB("image", "clanms_event_category", "id", $eventCatId);
+        } else {
+            $eventCatImg = file_get_contents($_FILES['eventCatImg']['tmp_name']);
+        }
+        $eventCatId = $_POST['eventCatId'];
+        $stmt = $mysqli->prepare("UPDATE clanms_event_category SET title = ?, description = ?,image = ? WHERE id = ?");
+        $stmt->bind_param("sssi",$eventCatTitle, $eventCatDesc, $eventCatImg, $eventCatId);
+    } else {
+        if(empty($_FILES['eventCatImg']['tmp_name'])) {
+            $eventCatImg = selectOneRow_DB("image", "clanms_event_category", "id", 1);
+        } else {
+            $eventCatImg = file_get_contents($_FILES['eventCatImg']['tmp_name']);
+        }
+        $stmt = $mysqli->prepare("INSERT INTO clanms_event_category(title, description, image) VALUES (?,?,?)");
+        $stmt->bind_param("sss", $eventCatTitle, $eventCatDesc, $eventCatImg);
+    }
+    $stmt->execute();
+    $stmt->close();
+    $mysqli->close();
+}
 
 function showEventCats(){
     $cats = getEventCatsFromDB();
@@ -60,18 +88,20 @@ function showEventCats(){
                     </span>
                     <span class="td border-end border-activeTable">
                         '.$catTitle.'
+                        <input type="hidden" name="eventCatTitle" value="'.$catTitle.'">
                     </span>
                     <span class="td border-end border-activeTable">
                         '.$catDesc.'
+                        <input type="hidden" name="eventCatDesc" value="'.$catDesc.'">
                     </span>
                     <span class="td border-end border-activeTable">
                         <img src="data:image/png;base64,'.$catImg.'" width = "64px" height= "64px" class="rounded-circle" />
                     </span>
                     <span class="td border-end border-activeTable">
-                        <button name="editEvent" value="true" class="btn btn-secondary submit">Bearbeiten</button>
+                        <button name="editEventCat" value="true" class="btn btn-secondary submit">Bearbeiten</button>
                     </span>
                     <span class="td border-end border-activeTable">
-                        <button name="deleteEvent" value="true" class="btn btn-danger submit" onclick="return confirm(\'Das Event wird endgültig aus der Datenbank gelöscht, bist du dir sicher?\');">Löschen</button>
+                        <button name="deleteEventCat" value="true" class="btn btn-danger submit" onclick="return confirm(\'Das Event wird endgültig aus der Datenbank gelöscht, bist du dir sicher?\');">Löschen</button>
                     </span>
                 </form>';
     }

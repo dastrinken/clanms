@@ -15,7 +15,6 @@
         if($editExisting === 'true') {
             $galleryId = $_POST['galleryId'];
             if($_FILES['image']['size'] == 0) {
-                var_dump($_FILES);
                 $pathtothumb = selectOneRow_DB("path_thumbnail", "clanms_galleries", "id", $_POST['galleryId']);
             }
             $stmt = $mysqli->prepare("UPDATE clanms_galleries SET title = ?, description = ?, path_thumbnail = ? WHERE id = ?");

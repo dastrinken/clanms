@@ -13,6 +13,8 @@
     include_once(__DIR__."/../gallery/gallery_functions.php");
     include_once(__DIR__."/../groups/groups_functions.php");
     include_once(__DIR__."/../game/game_functions.php");
+    include_once(__DIR__."/../../content/calendar/calendar_functions.php");
+
 
     /* Newsblog */
     if($_POST['saveArticle']) {
@@ -52,6 +54,11 @@
     /*Game */
     if($_POST['deleteGame'] === 'true'){
         deleteGameFromDB($_POST['gameId']);
+    }
+
+    /* Eventkategorie */
+    if($_POST['saveEventCat'] === 'save'){
+        writeEventCatToDB($_POST['updateEventCat']);
     }
 
 
