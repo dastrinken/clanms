@@ -1,16 +1,14 @@
 <?php
   session_start();
-  require(__DIR__."/../system/db_functions.php");
-  require(__DIR__."/../system/helper_functions.php");
-  require(__DIR__."/../system/account/account_functions.php");
+  require_once(__DIR__."/scripts/adminfunctions.php");
 
   if($_SESSION['username'] && $_SESSION['userid']) {
-    if(getUserGroup($_SESSION['userid']) <= 2) { // 1 = Admin, 2 = Moderator, alles darüber hat keinen Zugriff. Eventuell bessere (variable) Lösung überlegen!
+    if(checkPermission("admindashboard", false)) {
       // Redirect to Dashboard
       header('Location: ./dashboard.php');
       die();
     } else {
-      echo "Nur Administratoren und Moderatoren haben hier zugriff,";
+      echo "Du hast hierauf leider keinen Zugriff.";
     }
   } else {
     // Display login page TEST. Bisher nur ein echo, eine richtige Login-Page für direkten Zugriff auf den Adminbereich wäre schön!
