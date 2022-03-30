@@ -1,8 +1,14 @@
 <?php
 session_start();
+require(__DIR__ . "/scripts/adminfunctions.php");
 if (empty($_SESSION['userid']) || empty($_SESSION['username'])) {
   echo "<a href='../'>You're not logged in!</a>";
   exit;
+} else {
+  if(!checkPermission("admindashboard", false)) {
+    echo "<a href='../'>Dir fehlt hierfür die nötige Berechtigung!</a>";
+    exit;
+  }
 }
 $userid = $_SESSION['userid'];
 $username = $_SESSION['username'];
@@ -22,9 +28,6 @@ $username = $_SESSION['username'];
   <link href="../bootstrap/icons/bootstrap-icons.css" rel="stylesheet">
   <!-- Custom styles for this template -->
   <link href="./style/dashboard.css" rel="stylesheet">
-  <?php
-  require(__DIR__ . "/scripts/adminfunctions.php");
-  ?>
 </head>
 
 <body>

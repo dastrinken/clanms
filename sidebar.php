@@ -35,7 +35,7 @@
 <!-- optional Nav-Items for specific user groups -->
     <?php
       if($_SESSION['username'] && $_SESSION['userid']) {
-        if(getUserGroup($_SESSION['userid']) <= 2) { // Admin = 1, Moderator = 2, bessere Lösungs wünschenswert! 
+        if(checkPermission("admindashboard", false)) {
           echo "<li class='nav-item'>
                   <a href='./admin' class='nav-link py-3 border-bottom border-dark nav-darkmode' aria-current='page' title='Admin Dashboard' data-bs-toggle='tooltip' data-bs-placement='right' data-bs-original-title='Admin_Dashboard'>
                       <i class='bi-heart-pulse sidebar-icon'></i>

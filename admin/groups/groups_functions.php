@@ -19,6 +19,9 @@
         return $return;
     }
 
+    /** Displays all db-entries for group-rights in a (accordion-)table
+     * @param int $groupId The id of the users group
+     */
     function showRightsTable($groupId) {
         $mysqli = connect_DB();
         $select = "SELECT cr.id AS rightId, 
@@ -37,8 +40,8 @@
                             <div class='tr'>
                                 <span class='td border-bottom border-end text-center'>#</span>
                                 <span class='td border-bottom border-end'>Bereich</span>
-                                <span class='td border-bottom'>Eigene verwalten</span>
-                                <span class='td border-bottom'>Alle verwalten</span>
+                                <span class='td border-bottom'>Zugriff/Eigene verwalten</span>
+                                <span class='td border-bottom'>Administration</span>
                             </div>
                         </div>
                         <div class='tbody'>";
@@ -47,19 +50,24 @@
                         <span class='td border-end text-center'>".$row['rightId']."</span>
                         <span class='td border-end'>".$row['rightTitle']."</span>";
             $checkedOwn = $row['rightValue'] >= 25 ? "checked" : "";
-            $checkedAll = $row['rightValue'] >= 75 ? "checked" : "";            
-            if($row['groupId'] === '1' && $row['groupTitle'] === 'Admin'){
+            $checkedAll = $row['rightValue'] >= 75 ? "checked" : "";
+            //set checkboxes to disabled if permission is false and generally disable admin-rights checkboxes
+            if(!checkPermission("manageRights", false) || $row['groupId'] === '1' && $row['groupTitle'] === 'Admin'){
                 $disabled = " disabled";
             } else {
                 $disabled = "";
             }
-            
             $table .= "<span class='td border-end'><div class='form-check'><input id='".$row['groupId']."_".$row['rightId']."_25' class='form-check-input' type='checkbox' ".$checkedOwn.$disabled."></div></span>";
-            //some rights only have on value
-            if($row['rightId'] != 6) {
+            //some rights only have one value therefore showing only one checkbox
+            switch($row['rightId']) {
+                case 6:
+                case 7:
+                case 8:
+                    $table .= "<span class='td'></span>";
+                    break;
+                default:
                 $table .= "<span class='td'><div class='form-check'><input id='".$row['groupId']."_".$row['rightId']."_75' class='form-check-input' type='checkbox' ".$checkedAll.$disabled."></div></span>";
-            } else {
-                $table .= "<span class='td'></span>";
+                    break;
             }
             
             $table .= "</div>";
@@ -89,10 +97,10 @@
             $oldValue = $row['value'];
             switch($checked) {
                 case "true":
-                    $newvalue = $row['value'] > $wantedValue ? $row['value'] : $wantedValue;
+                    $newvalue = $row['value'] > $wantedValue ? $oldValue : $wantedValue;
                     break;
                 case "false":
-                    $newvalue = $row['value'] < $wantedValue ? $row['value'] : ($wantedValue - 25);
+                    $newvalue = $row['value'] < $wantedValue ? $oldValue : ($wantedValue - 25);
                     break;
             }
         }
@@ -106,17 +114,5 @@
         $mysqli->close();
         // DEBUG: echo "groupId: ".$groupId." - rightId: ".$rightId." - (checkbox)value: ".$value." - checked: ".$checked." - Old Value: ".$oldValue." - New Value: ".$newvalue;
     }
-    /* TODO: Beim Eintragen einer neuen Gruppe müssen alle Werte mit eingetragen werden (auf 0 gesetzt).
-    
-    Newsblog -> 25 = Eigene News erstellen, 50 = Alle News verwalten dürfen, 75 = alle Newsbeiträge verwalten | 100
-    
-        1 newsblog
-
-        1 1 50
-
-        value(recht) > 50 ? bearbeiten : nicht bearbeiten;
-    
-        JOIN clanms_group_has_rights cghr ON cg.id = cghr.id_group 
-        JOIN clanms_rights cr ON cghr.id_right = cr.id"
-        */
+    /* TODO: Beim Eintragen einer neuen Gruppe müssen alle Werte mit eingetragen werden (auf 0 gesetzt). */
 ?>
