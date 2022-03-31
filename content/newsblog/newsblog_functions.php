@@ -1,6 +1,6 @@
 <?php
     require_once(__DIR__."/../../system/db_functions.php");
-
+    require_once(__DIR__."/../../admin/scripts/rights_system.php");
     /**
      * Selects all News articles from database and displays them in article_template.php
      */
