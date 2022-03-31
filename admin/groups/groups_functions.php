@@ -37,19 +37,21 @@
         $groupTitle = $_POST['groupTitle'];
         $groupDesc = $_POST['groupDesc'];
         $mysqli = connect_DB();
-        $insert = "INSERT INTO clanms_groups (title, description) VALUES ($groupTitle, $groupDesc)";
-        if($result = $mysqli->query($insert)){
-            var_dump($result);
+        $insert = $mysqli->prepare("INSERT INTO clanms_groups (title, description) VALUES (?, ?)");
+        $insert->bind_param("ss",$groupTitle, $groupDesc);
+        if($insert->execute()){
             $groupId = mysqli_insert_id($mysqli);
-            $result->close();
+            $insert->close();
+            $insert = "INSERT INTO clanms_group_has_rights (id_group, id_right, value) VALUES";
             foreach($rights as $row){
-                $insert1 = "INSERT INTO clanms_group_has_rights (id_group, id_right, value) 
-                            VALUES 
-                            ($groupId, $row, 0)";
-                $result = $mysqli->query($insert1);
-                $result->close();
+                if($row < count($rights)){
+                    $insert .= "($groupId, $row, 0),";
+                } else {
+                    $insert .= "($groupId, $row, 0)";
+                }
             }
         }
+        $result = $mysqli->query($insert);
         $mysqli->close();
     }
 
