@@ -112,6 +112,7 @@ function newEntry(content) {
       break;
     case "game":
       xhttp.open("GET", "./game/createGame.php?author="+username+"&userid="+userid);
+      break;
     case "newsCategory":
       xhttp.open("GET", "./newsblog/createNewsCategory.php?author="+username+"&userid="+userid);
       break;

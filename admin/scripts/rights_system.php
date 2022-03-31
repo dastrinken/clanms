@@ -36,6 +36,9 @@
             case "manageRights":
                 $rightsId = 8;
                 break;
+            case "game":
+                $rightsId = 9;
+                break;
         }
         $rightsValue = checkUserRights($_SESSION['userid'], $rightsId);
 

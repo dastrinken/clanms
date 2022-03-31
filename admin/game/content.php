@@ -27,11 +27,11 @@
 ?>
 
 <div id="mainContent" class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
-    <!-- Adminview: Newsblog -->
+    <!-- Adminview: Games -->
     <div id="contentWrapper" class="container">
         <div class="row">
-            <div id="usersTable" class="col">
-                <!-- table view of all articles -->
+            <div id="gameTable" class="col">
+                <!-- table view of all games -->
                 <?php 
                 include(__DIR__."/navTableView.php");
                 echo $tableView; 
