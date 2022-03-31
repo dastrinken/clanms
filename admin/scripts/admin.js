@@ -119,6 +119,8 @@ function newEntry(content) {
     case "eventCategory":
       xhttp.open("GET", "./events/createEventCategory.php?author="+username+"&userid="+userid);
       break;
+    case "group":
+      xhttp.open("GET", "./groups/createGroup.php?author="+username+"&userid="+userid);
   }
   xhttp.send();
 }
