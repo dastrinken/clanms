@@ -1,4 +1,9 @@
 <?php
+    /* define bounding constants */
+    define('VAL_MIN', 25);
+    define('VAL_MOD', 50);
+    define('VAL_ADM', 75);
+
     /**
      * @param String $moduleName String representation of the modules name
      * @param bool $checkSameUser You might want to check if user is the author e.g new article and edit old article
@@ -6,7 +11,6 @@
      * @return bool user permission
      */
     function checkPermission($moduleName, $checkSameUser, ?int $creatorId = null) {
-        $permission = false;
         switch($moduleName) {
             case "newsblog":
                 $rightsId = 1;
@@ -34,19 +38,20 @@
                 break;
         }
         $rightsValue = checkUserRights($_SESSION['userid'], $rightsId);
-        if($rightsValue > 0) {
-            if($rightsValue >= 25 && $rightsValue < 75) {
-                //25 is the minimal value, 75 means you have permission to edit all content in this area
-                if($checkSameUser) {
-                    $permission = checkSameUser($creatorId);
-                } else {
-                    $permission = true;
-                }
+
+        if($rightsValue < VAL_MIN) {
+            return false;
+        } elseif($rightsValue >= VAL_ADM) {
+            return true;
+        } elseif($rightsValue == VAL_MIN) {
+            if($checkSameUser) {
+                return checkSameUser($creatorId);
             } else {
-                $permission = true;
+                return true;
             }
+        } else {
+            return false;
         }
-        return $permission;
     }
 
     function checkSameUser($creatorId) {
