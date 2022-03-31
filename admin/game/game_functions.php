@@ -35,16 +35,18 @@
             $gameTitle = $row["title"];
             $gameDesc = $row["description"];
             $gameId = $row["id"];
-            $table .= '<form method="post" class="tr activeTable">
+            $table .= '<form class="tr activeTable">
                         <span class="td border-end border-activeTable">
                         '.(/*$offset+*/$count).'
                             <input type="hidden" name="gameId" value="'.$gameId.'">
                         </span>
                         <span class="td border-end border-activeTable" name="gameTitle">
                             '.$gameTitle.'
+                            <input type="hidden" name="gameTitle" value="'.$gameTitle.'">
                         </span>
                         <span class="td border-end border-activeTable" name="gameDescription">
                             '.$gameDesc.'
+                            <input type="hidden" name="gameDesc" value="'.$gameDesc.'">
                         </span>
                         <span class="td border-end border-activeTable">
                             <button name="editGame" value="true" class="btn btn-secondary submit">Bearbeiten</button>
@@ -72,8 +74,21 @@
         $mysqli->close();
     }
 
-    function writeGameToDB(){
-
-    }
+    function writeGameToDB($editExisting){
+        $gameTitle = $_POST['gameTitle'];
+        $gameDesc = $_POST['gameDesc'];
+        $mysqli = connect_DB();
+        if($editExisting === 'true'){
+            $gameId = $_POST['gameId'];
+            $stmt = $mysqli->prepare("UPDATE clanms_game SET title = ? description = ? WHERE id = ?");
+            $stmt->bind_param("ssi", $gameTitle, $gameDesc, $gameId);
+        }else{
+            $stmt = $mysqli->prepare("INSERT INTO clanms_game(title, description)VALUES(?,?)");
+            $stmt->bind_param("ss", $gameTitle, $gameDesc);
+        }
+        $stmt->execute();
+        $stmt->close();
+        $mysqli->close();
+    }   
     
 ?>

@@ -53,8 +53,11 @@
     }
     
     /*Game */
-    if($_POST['deleteGame'] === 'true'){
-        deleteGameFromDB($_POST['gameId']);
+    if($_POST['saveGame'] === 'save'){
+        writeGameToDB($_GET['updateGame']);
+    }
+    if($_GET['deleteGame'] === 'true'){
+        deleteGameFromDB($_GET['gameId']);
     }
 
     /* Eventkategorie */
