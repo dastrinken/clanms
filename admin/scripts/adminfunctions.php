@@ -64,4 +64,9 @@
     if($_POST['saveEventCat'] === 'save'){
         writeEventCatToDB($_POST['updateEventCat']);
     }
+
+    /* Groups */
+    if($_POST['saveGroup'] === 'save'){
+        writeGroupToDB();
+    }
 ?>

@@ -19,6 +19,42 @@
         return $return;
     }
 
+    function getRightsFromDB(){
+        $mysqli = connect_DB();
+        $select = "SELECT id FROM clanms_rights";
+        $result = $mysqli->query($select, MYSQLI_USE_RESULT);
+        $return = array();
+        while($row = $result->fetch_assoc()) {
+            $return[] = $row['id'];
+        }
+        $result->close();
+        $mysqli->close();
+        return $return;
+    }
+
+    function writeGroupToDB(){
+        $rights = getRightsFromDB();
+        $groupTitle = $_POST['groupTitle'];
+        $groupDesc = $_POST['groupDesc'];
+        $mysqli = connect_DB();
+        $insert = $mysqli->prepare("INSERT INTO clanms_groups (title, description) VALUES (?, ?)");
+        $insert->bind_param("ss",$groupTitle, $groupDesc);
+        if($insert->execute()){
+            $groupId = mysqli_insert_id($mysqli);
+            $insert->close();
+            $insert = "INSERT INTO clanms_group_has_rights (id_group, id_right, value) VALUES";
+            foreach($rights as $row){
+                if($row < count($rights)){
+                    $insert .= "($groupId, $row, 0),";
+                } else {
+                    $insert .= "($groupId, $row, 0)";
+                }
+            }
+        }
+        $result = $mysqli->query($insert);
+        $mysqli->close();
+    }
+
     /** Displays all db-entries for group-rights in a (accordion-)table
      * @param int $groupId The id of the users group
      */
@@ -64,6 +100,7 @@
                 case 7:
                 case 8:
                 case 9:
+                case 10:
                     $table .= "<span class='td'></span>";
                     break;
                 default:
