@@ -5,7 +5,7 @@
     </div>
     <!-- CONTENT -->
     <div class='row'>
-        <div class='col d-flex justify-content-center align-items-center p-1'>
+        <div class='col d-flex justify-content-center align-items-center p-2'>
             <img src="./ressources/images/empty.png" class="rounded-circle" width="128px" height="128px">
         </div>
         <div class='col flex-grow-1'>

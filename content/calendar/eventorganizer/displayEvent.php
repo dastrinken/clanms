@@ -20,7 +20,7 @@
     </div>
     <!-- CONTENT -->
     <div class='row'>
-        <div class='col d-flex justify-content-center align-items-center p-1'>
+        <div class='col d-flex justify-content-center align-items-center p-2'>
             <?php getCategoryImage($row['event_cat'], 128, 2); ?>
         </div>
         <div class='col flex-grow-1'>
