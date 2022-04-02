@@ -116,15 +116,21 @@
             
                         <span class="td border-end border-activeTable">
                             <select name="activated" class="form-select border-0" aria-label="select activated status">
-                                <option value="'.$activatedInt.'">'.$user_activated.'</option>
-                                <option value="1">aktiviert</option>
-                                <option value="0">nicht aktiviert</option>
-                            </select>
+                            <option value="'.$activatedInt.'">'.$user_activated.'</option>';
+            if($activatedInt == 0) {
+                $table .= '<option value="1">aktiviert</option>';
+            } else {
+                $table .= '<option value="0">nicht aktiviert</option>';
+            }              
+            $table .= '</select>
                         </span>
                         <span class="td border-end border-activeTable">
                             <select name="userGroup" class="form-select border-0" aria-label="select user group">
                                 <option value='.$group_id.'>'.$group_title.'</option>';
                                 foreach($groups as $row) {
+                                    if($row['groupId'] == $group_id) {
+                                        continue;
+                                    }
                                     $table .="<option value=".$row['groupId'].">".$row['title']."</option>";
                                 }
                         $table .='</select>
@@ -141,15 +147,6 @@
         $result->close();
         $mysqli->close();
         return $table;
-    }
-
-    function getActiveDropdown() {
-        $mysqli = connect_DB();
-        $stmt1 = $mysqli->prepare("DELETE FROM clanms_user_group WHERE clanms_user_groups.id_user = ?");
-        $stmt1->bind_param("i", $userid);
-        $stmt1->execute();
-        $stmt1->close();
-        $mysqli->close();
     }
 
     function getUserGroups(){

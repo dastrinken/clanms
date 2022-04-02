@@ -63,8 +63,9 @@
                 ".getProfilePic(24, 1)."
               </a>
               <ul class='dropdown-menu text-small shadow' aria-labelledby='dropdownUser3'>
-                <li><a class='dropdown-item' href='./?nav=profile'>Profile</a></li>
+                <li><a class='dropdown-item' href='./?nav=profile'>Profil</a></li>
                 <li><hr class='dropdown-divider'></li>
+                <li><a class='dropdown-item' href='https://github.com/dastrinken/clanms/issues' target='_blank'>Problem melden</a></li>
                 <li><a class='dropdown-item' href='#' onclick='destroy_session();return false;'>Sign out</a></li>
               </ul>
             </div>";
