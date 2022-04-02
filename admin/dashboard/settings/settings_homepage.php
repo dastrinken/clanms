@@ -5,6 +5,7 @@
     </div>
     <div class="col d-inline-flex">
         <form>
+            <!-- Title -->
             <div class="mb-3">
                 <div class="input-group">
                     <fieldset disabled class="d-flex">
@@ -13,6 +14,11 @@
                     </fieldset>
                     <button id="changeTitle" class="btn rounded"><i class="bi-pencil-square"></i></button>
                 </div>
+            </div>
+            <!-- Landingpage text -->
+            <div class="mb-3">
+                <label for="welcomeText" class="form-label">Inhalt</label>
+                <textarea class="form-control" id="welcomeText" name="content" rows="15" placeholder="Erstelle einen Willkommens-Text für deine Landingpage..."><?php echo getSetting("text_landingpage"); ?></textarea>
             </div>
         </form>
     </div>

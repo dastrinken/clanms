@@ -18,6 +18,13 @@ function showDashboard(buttonId) {
   }, 
   function(data) {
     mainContent.innerHTML = data;
+    var simplemde = new SimpleMDE({
+      autosave: {
+        enabled: true,
+        uniqueId: "welcomeText",
+        delay: 1000,
+      } 
+    });
   });
 }
 
@@ -91,7 +98,6 @@ function newEntry(content) {
     var simplemde = new SimpleMDE({
       autosave: {
         enabled: true,
-        uniqueId: "newsContent",
         delay: 1000,
       } 
     });
