@@ -30,7 +30,13 @@ function getUserGroup($userid) {
 function getUserProfile(?int $userid = null) {
     $userid = $userid == null ? $_SESSION['userid'] : $userid;
     $mysqli = connect_DB();
-    $select = $mysqli->prepare("SELECT * FROM clanms_user_profile WHERE id_user=?");
+    $select = $mysqli->prepare("SELECT cup.name, cup.info, cg.title
+                                FROM clanms_user_profile AS cup 
+                                LEFT JOIN clanms_user_groups AS cug 
+                                ON cup.id_user = cug.id_user 
+                                LEFT JOIN clanms_groups AS cg
+                                ON cug.id_group = cg.id
+                                WHERE cup.id_user=?");
     $select->bind_param("i", $userid);
     $select->execute();
     $result = $select->get_result();

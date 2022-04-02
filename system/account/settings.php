@@ -8,6 +8,7 @@
     foreach($profile as $row) {
         $pname = $row['name'];
         $pinfo = $row['info'];
+        $groupTitle = $row['title'];
     }
 
     if($_POST['confirmDelete']) {
@@ -62,12 +63,17 @@
         <div class="col"><?php echo getProfilePic(256, 1); ?></div>
         <div class="col d-flex flex-column justify-content-around">
             <div class="row">
-                <h3><?php echo $pname; ?></h3>
+                <div class="col">
+                    <h3><?php echo "$pname </h3><p class='fw-light'>($groupTitle)</p>"; ?>
+                </div>
             </div>
             <div class="row">
-                <p class="lead">
-                <?php echo $pinfo; ?>
-                </p>
+                <div class="col">
+                    <p class="lead">Profilinfo:</p>
+                    <p>
+                        <?php echo $pinfo; ?>
+                    </p>
+                </div>
             </div>
         </div>
     </div>
