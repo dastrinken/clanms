@@ -27,7 +27,7 @@
 
         <div class="input-group w-auto me-2">
             <span class="input-group-text" id="ariaLabelPublish">Veröffentlichung</span>
-            <input class="form-control" type="datetime-local" name="publish" value="<?php echo empty($date_published) ? date('Y-m-d\TH:i:s') : $date_published_w3c; ?>" aria-describedby="ariaLabelPublish">
+            <input class="form-control" type="datetime-local" name="publish" value="<?php echo empty($date_published) ? date('Y-m-d\TH:i:s') : $date_published_w3c; ?>" min="<?php echo date('Y-m-d\TH:i:s') ?>" aria-describedby="ariaLabelPublish">
         </div>
         <input type="hidden" name="userid" value="<?php echo $_GET['userid']; ?>">
         <?php 
