@@ -107,11 +107,11 @@
                         '.(/*$offset+*/$count).'
                             <input type="hidden" name="userId" value="'.$user_id.'">
                         </span>
-                        <span class="td border-end border-activeTable">
-                            <img src="data:image/png;base64,'.$ppic.'" width = "64px" height= "64px" class="rounded-circle" />
-                        </span>
                         <span class="td border-end border-activeTable" name="userName">
                             '.$user_name.'
+                        </span>
+                        <span class="td border-end border-activeTable">
+                            <img src="data:image/png;base64,'.$ppic.'" width = "64px" height= "64px" class="rounded-circle" />
                         </span>
                         <span class="td border-end border-activeTable" name="userEmail">
                             '.$user_email.'
