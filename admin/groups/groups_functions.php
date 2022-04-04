@@ -88,7 +88,7 @@
             $checkedOwn = $row['rightValue'] >= 25 ? "checked" : "";
             $checkedAll = $row['rightValue'] >= 75 ? "checked" : "";
             //set checkboxes to disabled if permission is false and generally disable admin-rights checkboxes
-            if(!checkPermission("manageRights", true, false) || $row['groupId'] === '1' && $row['groupTitle'] === 'Admin'){
+            if(!checkPermission("manageRights", true, false) || $row['groupId'] === '1' && $row['groupTitle'] === 'Administrator'){
                 $disabled = " disabled";
             } else {
                 $disabled = "";

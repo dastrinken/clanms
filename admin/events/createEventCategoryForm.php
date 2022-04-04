@@ -20,9 +20,9 @@
         <textarea class="form-control" id="eventCatDescription" name="eventCatDescription" rows="15" placeholder="Beschreibe deine Eventkategorie..."><?php echo $eventCatDesc; ?></textarea>
     </div>
     <div class="mb-3">
-        <label for="eventCatImage" class="form-label">Kategorie Bild</label>
+        <label for="eventCatImage" class="form-label">Kategorie Bild (max 64kB | aktzeptierte Dateien: png, jpeg)</label>
         <input type="hidden" name="MAX_FILE_SIZE" value="64000">
-        <input class="form-control" type="file" id="eventCatImg" name="eventCatImg">
+        <input class="form-control" type="file" id="eventCatImg" accept="image/png, image/jpeg" name="eventCatImg">
     </div>
         <?php 
             if($editing) {
