@@ -19,6 +19,7 @@
     }
 
     $totalPages;
+    // TODO Anzeige der Profilbilder
     function getUsersFromDB($displayOption) {
         if (session_status() === PHP_SESSION_NONE){session_start();}
         global $totalPages;
@@ -62,10 +63,12 @@
                     cs.registeredSince, 
                     cs.activated, 
                     cg.title, 
-                    cg.id AS groupId 
+                    cg.id AS groupId, 
+                    cup.avatar AS ppic
                     FROM clanms_user cs 
                     JOIN clanms_user_groups cug ON cs.id = cug.id_user 
-                    JOIN clanms_groups cg ON cug.id_group = cg.id 
+                    JOIN clanms_groups cg ON cug.id_group = cg.id
+                    JOIN clanms_user_profile cup ON cup.id_user = cs.id 
                     ".$where."
                     LIMIT $offset, $displayAmount;";
         $result = $mysqli->query($select, MYSQLI_USE_RESULT);
@@ -74,6 +77,7 @@
             <div class='tr mb-2'>
                 <span class='td border-bottom border-dark'>#</span>
                 <span class='td border-bottom border-dark'>Username</span>
+                <span class='td border-bottom border-dark'>Profilbild</span>
                 <span class='td border-bottom border-dark'>E-mail</span>
                 <span class='td border-bottom border-dark'>Registriert seit</span>
                 <span class='td border-bottom border-dark'>Aktiviert (1 = ja, 0 = nein)</span>
@@ -90,6 +94,7 @@
             $user_email = $row['email'];
             $user_registeredSince = $row['registeredSince'];
             $activatedInt = $row['activated'];
+            $ppic = base64_encode($row['ppic']);
             if($row['activated']==="1"){
                 $user_activated = "aktiviert";
             } elseif($row['activated']==="0"){
@@ -101,6 +106,9 @@
                         <span class="td border-end border-activeTable">
                         '.(/*$offset+*/$count).'
                             <input type="hidden" name="userId" value="'.$user_id.'">
+                        </span>
+                        <span class="td border-end border-activeTable">
+                            <img src="data:image/png;base64,'.$ppic.'" width = "64px" height= "64px" class="rounded-circle" />
                         </span>
                         <span class="td border-end border-activeTable" name="userName">
                             '.$user_name.'
