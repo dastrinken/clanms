@@ -1,37 +1,20 @@
 function uploadImage() {
-    $.ajax({
-        // Your server script to process the upload
-        url: './gallery/gallery_functions.php',
-        type: 'POST',
-    
-        // Form data
-        data: new FormData($('form')[0]),
-    
-        // Tell jQuery not to process data or worry about content-type
-        // You *must* include these options!
-        cache: false,
-        contentType: false,
-        processData: false,
-    
-        // Custom XMLHttpRequest
-        xhr: function () {
-          var myXhr = $.ajaxSettings.xhr();
-          if (myXhr.upload) {
-            // For handling the progress of the upload
-            myXhr.upload.addEventListener('progress', function (e) {
-              if (e.lengthComputable) {
-                $('progress').attr({
-                  value: e.loaded,
-                  max: e.total,
-                });
-              }
-            }, false);
-          }
-          return myXhr;
-        }
-      });
+    var imageForm = document.getElementById('imageUpload');
+    var fileSelect = document.getElementById('image');
+    var file = fileSelect.files;
+    for(let i = 0; i < file.length; i++) {
+        console.log(file[i]);
+    }
+    formData = new FormData();
+    formData.append('image', file[0]);
+    console.log(file[0]);
+    var xhr = new XMLHttpRequest();
+    xhr.open("POST", "./gallery/upload_image.php", true);
+    xhr.onload = function() {
+        console.log(this.responseText);
+    }
+    xhr.send(formData);
 }
-
   
 function reloadContent()
 {

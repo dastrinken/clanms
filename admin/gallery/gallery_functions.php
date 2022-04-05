@@ -1,8 +1,4 @@
 <?php
-    if($_POST['command'] == 'uploadImage') {
-        var_dump($_POST);
-    }
-
     function writeGalleryToDB($editExisting) {
         $title = $_POST['galleryTitle'];
         $description = $_POST['galleryDescription'];
@@ -30,33 +26,6 @@
         $stmt->close();
         $mysqli->close();
     }
-
-    /* Mögliche Probleme: 2 Dateien haben den exakt gleichen Dateinamen */
-    $nameExt;
-    function addImageToDB() {
-        global $nameExt;
-        $nameExt = md5(rand());
-        $title = $_POST['imageTitle'];
-        $description = $_POST['imageDescription'];
-        if($_FILES['image']['size'] != 0) {
-            $filename =  './gallery/images/'.''.$_FILES['image']['name'];
-            uploadImage();
-        }
-        $mysqli = connect_DB();
-            $ImageId = $_POST['imageId'];
-            $galleryId = $_POST['galleryId'];
-            $stmt = $mysqli->prepare("INSERT INTO clanms_images(title, description, filename) VALUES (?,?,?)");
-            $stmt->bind_param("sss", $title, $description, $filename);
-        $stmt->execute();
-
-            $stmt = $mysqli->prepare("INSERT INTO clanms_gallery_images(id_gallery, id_image) VALUES (?,?)");  /* Bild zugehörigkeit zur Gallerie */
-            $stmt->bind_param("ii", $galleryId, $ImageId);
-            $stmt->execute();
-
-        $stmt->close();
-        $mysqli->close();
-    }
-
 
     function deleteGalleryFromDB($eventId) {
             $mysqli = connect_DB();
