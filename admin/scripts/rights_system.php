@@ -42,6 +42,9 @@
             case "group":
                 $rightsId = 10;
                 break;
+            case "newsblogComment":
+                $rightsId = 11;
+                break;
         }
         $rightsValue = checkUserRights($_SESSION['userid'], $rightsId);
 
