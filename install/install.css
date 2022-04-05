@@ -1,0 +1,9 @@
+/* Systemcheck */
+
+.conform {
+    color: green;
+}
+
+.conflict {
+    color: red;
+}
