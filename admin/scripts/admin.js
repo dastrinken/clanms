@@ -135,13 +135,6 @@ function confirmDelete() {
   return window.confirm("Are you sure you want to delete this record?");
 }
 
-function reloadContent()
-{
-     getElement("image-preview").oUp.reload();
-
-     return true;
-}
-
 /* Rechteverwaltung */
 
 function manageGroupRights() {

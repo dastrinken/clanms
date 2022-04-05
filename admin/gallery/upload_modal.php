@@ -32,29 +32,3 @@
         </div>
     </div>
 </div>
-
-<script>
-    /* TODO: post funktioniert noch nicht, keine Ahnung warum, command wird nicht ausgelöst */
-    function uploadImage() {
-        var fd = new FormData();
-        var files = $('#image')[0].files[0];
-        fd.append('file', files);
-
-        $.ajax({
-            url: './gallery/gallery_functions.php',
-            type: 'post',
-            command: "uploadImage",
-            data: fd,
-            contentType: false,
-            processData: false,
-            success: function(response){
-                if(response != 0){
-                    alert('file uploaded');
-                }
-                else{
-                    alert('file not uploaded');
-                }
-            },
-        });
-    }
-</script>

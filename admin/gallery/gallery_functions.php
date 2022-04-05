@@ -1,4 +1,7 @@
 <?php
+    if($_POST['command'] == 'uploadImage') {
+        var_dump($_POST);
+    }
 
     function writeGalleryToDB($editExisting) {
         $title = $_POST['galleryTitle'];
@@ -40,10 +43,16 @@
             uploadImage();
         }
         $mysqli = connect_DB();
-            $galleryId = $_POST['imageId'];
+            $ImageId = $_POST['imageId'];
+            $galleryId = $_POST['galleryId'];
             $stmt = $mysqli->prepare("INSERT INTO clanms_images(title, description, filename) VALUES (?,?,?)");
             $stmt->bind_param("sss", $title, $description, $filename);
         $stmt->execute();
+
+            $stmt = $mysqli->prepare("INSERT INTO clanms_gallery_images(id_gallery, id_image) VALUES (?,?)");  /* Bild zugehörigkeit zur Gallerie */
+            $stmt->bind_param("ii", $galleryId, $ImageId);
+            $stmt->execute();
+
         $stmt->close();
         $mysqli->close();
     }
@@ -90,38 +99,39 @@
                         </div>';
                 echo $card;
             }
+            $select->close();
         }
-        $select->close();
         $mysqli->close();
     }
 
     function getImagesFromDB() {
-        if (session_status() === PHP_SESSION_NONE){session_start();}
+        if (session_status() === PHP_SESSION_NONE){session_start();}  /* ImagesId's die der der GalleryId matchen */
+        $galleryId = $_POST['galleryId'];
         $mysqli = connect_DB();
-        $query = "SELECT * FROM clanms_images";
+        $query = "SELECT cgi.id_image FROM clanms_gallery_images  AS cgi WHERE cgi.id_gallery = $galleryId";
         $select = $mysqli->query($query);
         if($select->num_rows == NULL) {
             echo "<p>Keine Bilder vorhanden.</p>";
         } else {
-            while($row = $select->fetch_assoc()) {         
-
-                $carousel = '<div class="col m-2">
-                                    <img src="'.$row['filename'].'" class="img-thumbnail" alt="'.$row['title'].'">
-                                    <input type="hidden" name="imageId" value="'.$row['id'].'">
-                                    <input type="hidden" name="imageTitle" value="'.$row['title'].'">
-                                    <input type="hidden" name="imageDescription" value="'.$row['description'].'">
-                                    <input type="hidden" name="imageFilename" value="'.$row['filename'].'">
-                             </div>';
-
-                echo $carousel;
+            while ($row = $select->fetch_assoc()){
+                $query = "SELECT * FROM clanms_images WHERE clanms_images.id = $row[id]" ;
+                $select = $mysqli->query($query);
             }
-        }
-        $select->close();
-        $mysqli->close();
-    }
+                while($row = $select->fetch_assoc()) {         
 
-    if($_POST['command'] == 'uploadImage') {
-        echo "Test";
+                    $carousel = '<div class="col m-2">
+                                        <img src="'.$row['filename'].'" class="img-thumbnail" alt="'.$row['title'].'">
+                                        <input type="hidden" name="imageId" value="'.$row['id'].'">
+                                        <input type="hidden" name="imageTitle" value="'.$row['title'].'">
+                                        <input type="hidden" name="imageDescription" value="'.$row['description'].'">
+                                        <input type="hidden" name="imageFilename" value="'.$row['filename'].'">
+                                </div>';
+
+                    echo $carousel;
+                }
+            $select->close();
+        }
+        $mysqli->close();
     }
 
     function uploadImage() {
