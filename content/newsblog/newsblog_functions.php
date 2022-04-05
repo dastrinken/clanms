@@ -55,7 +55,8 @@
                 cnc.date_written AS date 
                 FROM clanms_news_comments AS cnc
                 JOIN clanms_user_profile AS cup ON cnc.id_author = cup.id_user 
-                WHERE cnc.id_news = $newsid;";
+                WHERE cnc.id_news = $newsid
+                ORDER BY date DESC;";
         $result = $mysqli->query($select);
   
         foreach($result as $row){
