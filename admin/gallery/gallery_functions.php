@@ -75,29 +75,25 @@
 
     function getImagesFromDB() {
         if (session_status() === PHP_SESSION_NONE){session_start();}  /* ImagesId's die der der GalleryId matchen */
-        $galleryId = $_POST['galleryId'];
+        $galleryId = $_GET['galleryId'];
         $mysqli = connect_DB();
-        $query = "SELECT cgi.id_image FROM clanms_gallery_images  AS cgi WHERE cgi.id_gallery = $galleryId";
+        $query = "SELECT cgi.id_image AS imageId, 
+                    ci.title AS imgtitle, 
+                    ci.description AS description, 
+                    ci.filename AS filename 
+                    FROM clanms_gallery_images AS cgi 
+                    LEFT JOIN clanms_images AS ci 
+                    ON cgi.id_image = ci.id 
+                    WHERE cgi.id_gallery = $galleryId";
+
         $select = $mysqli->query($query);
         if($select->num_rows == NULL) {
             echo "<p>Keine Bilder vorhanden.</p>";
         } else {
-            while ($row = $select->fetch_assoc()){
-                $query = "SELECT * FROM clanms_images WHERE clanms_images.id = $row[id]" ;
-                $select = $mysqli->query($query);
+            while($row = $select->fetch_assoc()) {
+                $carousel = '<img src="./gallery/images/'.$row['filename'].'" class="m-3 img-thumbnail" alt="'.$row['imgtitle'].'" style=" width: 15%;">';
+                echo $carousel;
             }
-                while($row = $select->fetch_assoc()) {         
-
-                    $carousel = '<div class="col m-2">
-                                        <img src="'.$row['filename'].'" class="img-thumbnail" alt="'.$row['title'].'">
-                                        <input type="hidden" name="imageId" value="'.$row['id'].'">
-                                        <input type="hidden" name="imageTitle" value="'.$row['title'].'">
-                                        <input type="hidden" name="imageDescription" value="'.$row['description'].'">
-                                        <input type="hidden" name="imageFilename" value="'.$row['filename'].'">
-                                </div>';
-
-                    echo $carousel;
-                }
             $select->close();
         }
         $mysqli->close();

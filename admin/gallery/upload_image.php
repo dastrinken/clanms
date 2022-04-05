@@ -8,77 +8,50 @@
         //TODO: dateinamen "randomisieren"
         $nameExt = md5(rand());
         $errors= array();
-        var_dump($file);
-        var_dump($errors);
 
-        $file_name = $nameExt.$file[0]["name"];
-        $file_type = $file[0]["type"];
-        $file_tmp = $file[0]["tmp_name"];
-        $file_size = $file[0]["size"];
-        $file_ext=strtolower(end(explode('.',$file[0]['name'])));
-        
-        $extensions= array("jpeg","jpg","png");
-        
-        if(in_array($file_ext,$extensions)=== false){
-        $errors[]="extension not allowed, please choose a JPEG or PNG file.";
-        }
-        
-        if($file_size > 10097152){
-        $errors[]='File size must be exactly 2 MB';
-        }
-        if(empty($errors)==true){
-            showToastMessage("Datei wurde hochgeladen...");
-        if(move_uploaded_file($file_tmp, __DIR__."/./images/".$file_name)) {
-            showToastMessage("Success!");
+        $file_name = $nameExt.$file["image"]["name"];
+        $file_type = $file["image"]["type"];
+        $file_tmp = $file["image"]["tmp_name"];
+        $file_size = $file["image"]["size"];
+        $galleryId = $_POST['galleryId'];
+        $description = $_POST['description'];
+        $imgtitle = $_POST['imageTitle'];
+        $file_ext = strtolower(end(explode('.',$file[0]['name'])));
+
+        var_dump($_POST);
+        var_dump($_FILES);
+
+        if(move_uploaded_file($file_tmp, __DIR__."/./images/".$file_name)){
+            if(writeImageToDB($galleryId, $file_name, $description, $imgtitle)) {
+                echo "Success!";
+            }
+        } else {
+            echo "Fail!";
         }
     }
-}
 
-
-/*
+    function writeImageToDB($galleryId, $file_name, $description, $imgtitle) {
+        $success = false;
         $mysqli = connect_DB();
-        $stmt = $mysqli->prepare("INSERT INTO clanms_images(title, description, filename) VALUES (?,?,?)");
-        $stmt->bind_param("sss", $title, $description, $file_name);
-
-        /*
-
-        $file_name = $nameExt.$_FILES['image']['name'];
-        $file_size = $_FILES['image']['size'];
-        $file_tmp = $_FILES['image']['tmp_name'];
-        $file_type = $_FILES['image']['type'];
-
-
-
-        1. Datei aus tmp verschieben in /gallery/images
-            2. datenbankeintrag clanms_images und datenbankeintrag clanms_gallery_images
-        */
-
-    
-    /* Mögliche Probleme: 2 Dateien haben den exakt gleichen Dateinamen 
-    $nameExt;
-    function addImageToDB() {
-        global $nameExt;
-        $nameExt = md5(rand());
-        $title = $_POST['imageTitle'];
-        $description = $_POST['imageDescription'];
-        if($_FILES['image']['size'] != 0) {
-            $filename =  './gallery/images/'.''.$_FILES['image']['name'];
-            uploadImage();
+        $insert = $mysqli->prepare("INSERT INTO clanms_images(title, description, filename) VALUES (?,?,?)");
+        $insert->bind_param("sss", $imgtitle, $description, $file_name);
+        if($insert->execute()) {
+            $success = true;
         }
-        $mysqli = connect_DB();
-            $ImageId = $_POST['imageId'];
-            $galleryId = $_POST['galleryId'];
-            $stmt = $mysqli->prepare("INSERT INTO clanms_images(title, description, filename) VALUES (?,?,?)");
-            $stmt->bind_param("sss", $title, $description, $filename);
-        $stmt->execute();
+        $insert->close();
 
-            $stmt = $mysqli->prepare("INSERT INTO clanms_gallery_images(id_gallery, id_image) VALUES (?,?)");  
-            $stmt->bind_param("ii", $galleryId, $ImageId);
-            $stmt->execute();
+        if($success == true) {
+            $success = false;
+            $imageId = $mysqli->insert_id;
+            $insert= $mysqli->prepare("INSERT INTO clanms_gallery_images(id_gallery, id_image) VALUES (?,?)");
+            if($insert->bind_param("ii", $galleryId, $imageId)) {
+                $success = true;
+            }
+            $insert->execute();
+            $insert->close();
+        }
 
-        $stmt->close();
         $mysqli->close();
+        return $success;
     }
-
-    */
 ?>
