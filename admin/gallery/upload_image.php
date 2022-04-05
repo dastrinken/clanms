@@ -2,21 +2,39 @@
     /* require database connection functions & info in case they don't exist */
     require_once(__DIR__."/../../system/db_functions.php");
 
-    var_dump($_POST);
-    //registerImage($_POST["image"]);
+    registerImage($_FILES);
 
     function registerImage($file) {
         //TODO: dateinamen "randomisieren"
         $nameExt = md5(rand());
+        $errors= array();
         var_dump($file);
+        var_dump($errors);
 
         $file_name = $nameExt.$file[0]["name"];
         $file_type = $file[0]["type"];
         $file_tmp = $file[0]["tmp_name"];
         $file_size = $file[0]["size"];
+        $file_ext=strtolower(end(explode('.',$file[0]['name'])));
+        
+        $extensions= array("jpeg","jpg","png");
+        
+        if(in_array($file_ext,$extensions)=== false){
+        $errors[]="extension not allowed, please choose a JPEG or PNG file.";
+        }
+        
+        if($file_size > 10097152){
+        $errors[]='File size must be exactly 2 MB';
+        }
+        if(empty($errors)==true){
+            showToastMessage("Datei wurde hochgeladen...");
+        if(move_uploaded_file($file_tmp, __DIR__."/./images/".$file_name)) {
+            showToastMessage("Success!");
+        }
+    }
+}
 
 
-        move_uploaded_file($file_tmp, __DIR__."/./images/".$file_name);
 /*
         $mysqli = connect_DB();
         $stmt = $mysqli->prepare("INSERT INTO clanms_images(title, description, filename) VALUES (?,?,?)");
@@ -34,8 +52,6 @@
         1. Datei aus tmp verschieben in /gallery/images
             2. datenbankeintrag clanms_images und datenbankeintrag clanms_gallery_images
         */
-
-    }
 
     
     /* Mögliche Probleme: 2 Dateien haben den exakt gleichen Dateinamen 
