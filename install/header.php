@@ -7,10 +7,29 @@
         <img class="bi" src="../ressources/icons/clanms_logo.svg" width="70" height="50" alt="Logo"></img>
     </a>
     
+    <ol class="nav justify-content-center">
+        <?php
+        $i = 1;
+        foreach ($_SESSION['installer']->steps as $step) {
+            echo "<li class='nav-link px-2 link-dark ";
+            if ($i < $_SESSION['installer']->step) {
+                echo "ready'>";
+            } elseif ($i == $_SESSION['installer']->step) {
+                echo "current'>";
+            } else {
+                echo "wait'>";
+            }
+            echo $step['headline'] . "</li>";
+            $i++;
+        }
+        ?>
+    </ol>
+    <!--
     <ul class="nav justify-content-center">
         <li><a href="./?progress=0" class="nav-link px-2 link-dark">Willkommen</a></li>
         <li><a href="./?progress=1" class="nav-link px-2 link-dark">Datenbank</a></li>
         <li><a href="./?progress=2" class="nav-link px-2 link-dark">Einstellungen</a></li>
         <li><a href="./?progress=3" class="nav-link px-2 link-dark">Abschluss</a></li>
     </ul>
+    -->
 </header>
