@@ -18,21 +18,22 @@
     <link rel="stylesheet" href="./bootstrap/icons/bootstrap-icons.css"> 
     <link rel="stylesheet" href="./styles/style.css"> 
     <script src="./bootstrap/js/bootstrap.bundle.js"></script>
-    <script src="./system/js/script.js"></script>
     <script src="./system/js/jquery.js"></script>
+    <!-- Newsblog -->
+    <script src="./content/newsblog/newsblog.js"></script>
     <?php echo "<title>$title</title>" ?>
 </head>
 <body class="bg-dark text-white">
     <main>
-    <?php require("./sidebar.php"); ?>
+    <?php //require("./sidebar.php"); ?>
         <div class="container">
             <div class="row">
                 <div class="col">
-                    <div class="row sticky-top">
+                    <div id="stickyHeader" class="row">
                         <?php require("./header.php"); ?>
                     </div>                    
                     <!-- Content -->
-                    <div id="mainContent" class="row p-3 bg-blackened overflow-auto">
+                    <div id="mainContent" class="row p-3 bg-blackened shadow overflow-auto">
                         <?php 
                             require(__DIR__."/sitemenu.php");
                         ?>
@@ -59,6 +60,7 @@
             </div>
         </div>
     </div>
+    <script src="./system/js/script.js"></script>
 </body>
 <!--
 

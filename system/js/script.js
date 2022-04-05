@@ -1,5 +1,18 @@
-var cookie = document.cookie;
-console.log("Cookies: "+cookie);
+// Device width, making header sticky
+function makeItSticky(dwidth) {
+    var header = document.getElementById("stickyHeader");
+    if (dwidth.matches) {
+        header.classList.add("sticky-top");
+    } else {
+        if(header.classList.contains("sticky-top")) {
+            header.classList.remove("sticky-top");
+        }
+    }
+}
+
+var dwidth = window.matchMedia("screen and (min-width:768px)");
+makeItSticky(dwidth);
+dwidth.addEventListener("change", makeItSticky);
 
 // General
 function destroy_session() {
