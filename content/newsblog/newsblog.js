@@ -8,3 +8,4 @@ function showComments(articleId) {
             document.getElementById("content"+articleId).innerHTML = data;
         })
 }
+

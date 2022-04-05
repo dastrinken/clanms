@@ -16,7 +16,7 @@
     </p>
     <div class="row">
         <div class="col d-flex justify-content-center">
-            <button id="<?php echo $article_id; ?>" onclick="showComments(this.id);" class="btn w-50 bg-blackened btn-darkmode-outline article-icon fs-6" title="Kommentare lesen" alt="Kommentare"  data-bs-toggle="collapse" data-bs-target="#<?php echo 'collapse'.$article_id; ?>" aria-expanded="false" aria-controls="<?php echo 'content'.$article_id; ?>">X Kommentare</button>
+            <button id="<?php echo $article_id; ?>" onclick="showComments(this.id)" class="btn w-50 bg-blackened btn-darkmode-outline article-icon fs-6" title="Kommentare lesen" alt="Kommentare"  data-bs-toggle="collapse" data-bs-target="#<?php echo 'collapse'.$article_id; ?>" aria-expanded="false" aria-controls="<?php echo 'content'.$article_id; ?>">X Kommentare</button>
         </div>
     </div>
 </div>

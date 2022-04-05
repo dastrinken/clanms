@@ -5,6 +5,9 @@
     require(__DIR__."/system/helper_functions.php");
     require(__DIR__."/system/account/account_functions.php");
     require(__DIR__."/parsedown/parsedown.php");
+    if($_POST){
+        header('Location: ./index.php?nav='.$_POST['nav']);
+    }
 ?>
 <!DOCTYPE html>
 <html lang="de">
