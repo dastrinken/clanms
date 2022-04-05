@@ -1,5 +1,4 @@
 <?php
-
     function writeGalleryToDB($editExisting) {
         $title = $_POST['galleryTitle'];
         $description = $_POST['galleryDescription'];
@@ -27,27 +26,6 @@
         $stmt->close();
         $mysqli->close();
     }
-
-    /* Mögliche Probleme: 2 Dateien haben den exakt gleichen Dateinamen */
-    $nameExt;
-    function addImageToDB() {
-        global $nameExt;
-        $nameExt = md5(rand());
-        $title = $_POST['imageTitle'];
-        $description = $_POST['imageDescription'];
-        if($_FILES['image']['size'] != 0) {
-            $filename =  './gallery/images/'.''.$_FILES['image']['name'];
-            uploadImage();
-        }
-        $mysqli = connect_DB();
-            $galleryId = $_POST['imageId'];
-            $stmt = $mysqli->prepare("INSERT INTO clanms_images(title, description, filename) VALUES (?,?,?)");
-            $stmt->bind_param("sss", $title, $description, $filename);
-        $stmt->execute();
-        $stmt->close();
-        $mysqli->close();
-    }
-
 
     function deleteGalleryFromDB($eventId) {
             $mysqli = connect_DB();
@@ -90,38 +68,35 @@
                         </div>';
                 echo $card;
             }
+            $select->close();
         }
-        $select->close();
         $mysqli->close();
     }
 
     function getImagesFromDB() {
-        if (session_status() === PHP_SESSION_NONE){session_start();}
+        if (session_status() === PHP_SESSION_NONE){session_start();}  /* ImagesId's die der der GalleryId matchen */
+        $galleryId = $_GET['galleryId'];
         $mysqli = connect_DB();
-        $query = "SELECT * FROM clanms_images";
+        $query = "SELECT cgi.id_image AS imageId, 
+                    ci.title AS imgtitle, 
+                    ci.description AS description, 
+                    ci.filename AS filename 
+                    FROM clanms_gallery_images AS cgi 
+                    LEFT JOIN clanms_images AS ci 
+                    ON cgi.id_image = ci.id 
+                    WHERE cgi.id_gallery = $galleryId";
+
         $select = $mysqli->query($query);
         if($select->num_rows == NULL) {
             echo "<p>Keine Bilder vorhanden.</p>";
         } else {
-            while($row = $select->fetch_assoc()) {         
-
-                $carousel = '<div class="col m-2">
-                                    <img src="'.$row['filename'].'" class="img-thumbnail" alt="'.$row['title'].'">
-                                    <input type="hidden" name="imageId" value="'.$row['id'].'">
-                                    <input type="hidden" name="imageTitle" value="'.$row['title'].'">
-                                    <input type="hidden" name="imageDescription" value="'.$row['description'].'">
-                                    <input type="hidden" name="imageFilename" value="'.$row['filename'].'">
-                             </div>';
-
+            while($row = $select->fetch_assoc()) {
+                $carousel = '<img src="./gallery/images/'.$row['filename'].'" class="m-3 img-thumbnail" alt="'.$row['imgtitle'].'" style=" width: 15%;">';
                 echo $carousel;
             }
+            $select->close();
         }
-        $select->close();
         $mysqli->close();
-    }
-
-    if($_POST['command'] == 'uploadImage') {
-        echo "Test";
     }
 
     function uploadImage() {

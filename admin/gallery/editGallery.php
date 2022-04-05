@@ -46,7 +46,7 @@
         </form>
     </div>
     <hr />
-    <div class="col" id="image-preview">
+    <div class="col d-flex flex-wrap" id="image-preview">
         <button class="btn" data-bs-toggle="modal" data-bs-target="#uploadModal">
             <h4>
             <i class="bi-plus-square">
@@ -56,11 +56,3 @@
         <?php getImagesFromDB(); ?>
     </div>
 </div>
-
-<script>
-        function reloadContent() {
-        getElement("image-preview").oUp.reload();
-
-        return true;
-    }
-</script>

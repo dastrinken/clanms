@@ -28,6 +28,9 @@ $username = $_SESSION['username'];
   <link href="../bootstrap/icons/bootstrap-icons.css" rel="stylesheet">
   <!-- Custom styles for this template -->
   <link href="./style/dashboard.css" rel="stylesheet">
+  <!-- jQuery -->
+  <script src="../system/js/jquery.js"></script>
+  <script src="./gallery/gallery.js"></script>
 </head>
 
 <body>
@@ -54,7 +57,6 @@ $username = $_SESSION['username'];
     var username = '<?php echo $username; ?>';
   </script>
   <script src="./scripts/admin.js"></script>
-  <script src="../system/js/jquery.js"></script>
   <script src="https://cdn.jsdelivr.net/simplemde/latest/simplemde.min.js"></script>
 </body>
 
