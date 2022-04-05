@@ -1,14 +1,26 @@
 <?php
+    if (session_status() === PHP_SESSION_NONE){session_start();}
     require_once(__DIR__."/../../system/db_functions.php");
     require_once(__DIR__."/../../admin/scripts/rights_system.php");
     require_once(__DIR__."/../../parsedown/parsedown.php");
+    require_once(__DIR__."/../../system/account/account_functions.php");
     
     $Parsedown = new Parsedown();
     $Parsedown->setSafeMode(true);
 
+    if($_POST['deleteComment'] == "true"){
+        deleteCommentFromDB($_POST['commentid']);
+    }
+
     if($_POST["command"] == "showComments") {
         showComments($_POST["id"]);
+        displayCommentForm($_POST["id"]);
     }
+    if($_POST["saveComment"] === "true"){
+        var_dump($_POST);
+        writeCommentToDB();
+    }
+   
 
     function showAllNews() {
         global $Parsedown;
@@ -34,7 +46,8 @@
     function showComments($newsid) {
         global $Parsedown;
         $mysqli = connect_DB();
-        $select = "SELECT cnc.id_author AS userId, 
+        $select = "SELECT cnc.id AS commentId,
+                cnc.id_author AS userId, 
                 cnc.id_news AS newsId, 
                 cnc.content AS content, 
                 cup.name AS authorName, 
@@ -46,8 +59,10 @@
         $result = $mysqli->query($select);
   
         foreach($result as $row){
+            $commentid = $row['commentId'];
             $commentContent = $Parsedown->text($row['content']);
             $commentPpic = base64_encode($row['ppic']);
+            $authorid = $row['userId'];
             $commentAuthor = $row['authorName'];
             $commentDate = $row['date'];
             include(__DIR__."/templates/comment_template.php");
@@ -56,7 +71,55 @@
         $mysqli->close();
     }
 
-    function displayCommentForm() {
+    function displayCommentForm($newsid) {
+        if (session_status() === PHP_SESSION_NONE){session_start();}
+        if(!empty($_SESSION)){
+            if(checkPermission("newsblogComment", false)){
+                echo "<form method='post' class='bg-lightdark rounded'>
+                        <label for='commentContent' class='form-label'></label>
+                            <input type='hidden' name='newsid' value='".$newsid."'>
+                            <textarea class='form-control' id='commentContent".$newsid."' name='commentContent' palceholder='Schreibe hier deinen Kommentar'></textarea>
+                            <hr class='mt-0'>
+                            <div class='d-flex flex-row align-items-center justify-content-between px-2 pb-2'>
+                                <div class='d-flex'>
+                                    ".getProfilePic(25,1)."
+                                    <p class='small mb-0 ms-2'>".selectOneRow_DB("name", "clanms_user_profile", "id_user", $_SESSION['userid'])."</p>
+                                </div>
+                                <input type='hidden' name='nav' value='news'>
+                                <button name='saveComment' class='btn btn-danger submit' value='true'>Senden</button>
+                            </div>
+                    </form>";
+            }
+            else{
+                echo "<p>Bitte melden Sie sich an, um zu kommentieren</p>";
+            }
+        }
+}
 
+    function writeCommentToDB(){
+        $content = $_POST['commentContent'];
+        $newsid = $_POST['newsid'];
+        $userid = $_SESSION['userid'];
+        $timestamp = date('Y-m-d H:i:s');
+        $mysqli = connect_DB();
+        if(!empty($content)){
+            $insert = $mysqli->prepare("INSERT INTO clanms_news_comments(id_author, id_news, content, date_written) VALUES (?,?,?,?)");
+            $insert->bind_param("iiss", $userid, $newsid, $content, $timestamp);
+            $insert->execute();
+            $insert->close();
+        }else{
+            showToastMessage("Bitte geben sie einen Kommentar ein");
+        }
+        $mysqli->close();
+        $_POST = '';
+    }
+
+    function deleteCommentFromDB($commentId){
+        $mysqli = connect_DB();
+        $delete = $mysqli->prepare("DELETE FROM clanms_news_comments WHERE id = ?");
+        $delete->bind_param("i", $commentId);
+        $delete->execute();
+        $delete->close();
+        $mysqli->close();
     }
 ?>

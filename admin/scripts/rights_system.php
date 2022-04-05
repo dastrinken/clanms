@@ -45,6 +45,9 @@
             case "newsblogComment":
                 $rightsId = 11;
                 break;
+            case "newsblogDeleteComment":
+                $rightsId = 12;
+                break;
         }
         $rightsValue = checkUserRights($_SESSION['userid'], $rightsId);
 
