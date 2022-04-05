@@ -23,7 +23,8 @@ function showDashboard(buttonId) {
         enabled: true,
         uniqueId: "welcomeText",
         delay: 1000,
-      } 
+      },
+      hideIcons: ['side-by-side', 'fullscreen']
     });
   });
 }
@@ -99,7 +100,8 @@ function newEntry(content) {
       autosave: {
         enabled: true,
         delay: 1000,
-      } 
+      },
+      hideIcons: ['side-by-side', 'fullscreen']
     });
   }
 
