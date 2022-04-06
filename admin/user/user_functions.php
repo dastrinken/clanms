@@ -80,7 +80,7 @@
                 <span class='td border-bottom border-dark'>Profilbild</span>
                 <span class='td border-bottom border-dark'>E-mail</span>
                 <span class='td border-bottom border-dark'>Registriert seit</span>
-                <span class='td border-bottom border-dark'>Aktiviert (1 = ja, 0 = nein)</span>
+                <span class='td border-bottom border-dark'>Status Aktiviert</span>
                 <span class='td border-bottom border-dark'>Nutzergruppe</span>
                 <span class='td border-bottom border-dark'></span>
                 <span class='td border-bottom border-dark'></span>
@@ -122,34 +122,46 @@
                             <input type="hidden" name="userRegisteredSince" value="'.$user_registeredSince.'">
                         </span>
             
-                        <span class="td border-end border-activeTable">
+                        <span class="td border-end border-activeTable">';
+            if(checkPermission("accounts",true, $user_id)){
+                $table.='            
                             <select name="activated" class="form-select border-0" aria-label="select activated status">
                             <option value="'.$activatedInt.'">'.$user_activated.'</option>';
-            if($activatedInt == 0) {
-                $table .= '<option value="1">aktiviert</option>';
-            } else {
-                $table .= '<option value="0">nicht aktiviert</option>';
+                if($activatedInt == 0) {
+                    $table .= '<option value="1">aktiviert</option>';
+                } else {
+                    $table .= '<option value="0">nicht aktiviert</option>';
+                }
+                $table .= '</select>';
+            }else{
+                $table .= ''.$user_activated.'';
             }              
-            $table .= '</select>
-                        </span>
-                        <span class="td border-end border-activeTable">
-                            <select name="userGroup" class="form-select border-0" aria-label="select user group">
-                                <option value='.$group_id.'>'.$group_title.'</option>';
-                                foreach($groups as $row) {
-                                    if($row['groupId'] == $group_id) {
-                                        continue;
-                                    }
-                                    $table .="<option value=".$row['groupId'].">".$row['title']."</option>";
-                                }
-                        $table .='</select>
-                        </span>
-                        <span class="td border-end border-activeTable">
-                            <button name="updateUser" value="true" class="btn btn-secondary submit">Speichern</button>
-                        </span>
-                        <span class="td border-end border-activeTable">
-                            <button name="deleteUserOverview" type="submit" value="true" class="btn btn-danger submit" onclick="return confirm(\'Der Benutzer wird endgültig aus der Datenbank gelöscht, bist du dir sicher?\');">Löschen</button>
-                        </span>
-                    </form>';
+            $table .= '</span>
+                        <span class="td border-end border-activeTable">';
+            if(checkPermission("accounts",true, $user_id)){
+                $table.='<select name="userGroup" class="form-select border-0" aria-label="select user group">
+                            <option value='.$group_id.'>'.$group_title.'</option>';
+                foreach($groups as $row) {
+                    if($row['groupId'] == $group_id) {
+                        continue;
+                    }
+                    $table .="<option value=".$row['groupId'].">".$row['title']."</option>";
+                }
+                $table .='</select>';
+                    
+            }else{
+                $table.=''.$group_title.'';
+            }
+            $table.='</span>';
+            if(checkPermission("accounts",true, $user_id)){
+                $table.='<span class="td border-activeTable">
+                        <button name="updateUser" value="true" class="btn btn-secondary submit">Speichern</button>
+                    </span>
+                    <span class="td border-activeTable">
+                        <button name="deleteUserOverview" type="submit" value="true" class="btn btn-danger submit" onclick="return confirm(\'Der Benutzer wird endgültig aus der Datenbank gelöscht, bist du dir sicher?\');">Löschen</button>
+                    </span>';
+            }
+            $table.='</form>';
         }
         $table .= "</div>";
         $result->close();

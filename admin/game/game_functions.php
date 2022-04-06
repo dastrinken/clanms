@@ -47,15 +47,16 @@
                         <span class="td border-end border-activeTable" name="gameDescription">
                             '.$gameDesc.'
                             <input type="hidden" name="gameDesc" value="'.$gameDesc.'">
-                        </span>
-                        <span class="td border-end border-activeTable">
-                            <button name="editGame" value="true" class="btn btn-secondary submit">Bearbeiten</button>
-                           
-                        </span>
-                        <span class="td border-end border-activeTable">
-                            <button name="deleteGame" type="submit" value="true" class="btn btn-danger submit" onclick="return confirm(\'Das Spiel wird endgültig aus der Datenbank gelöscht, bist du dir sicher?\');">Löschen</button>
-                        </span>
-                    </form>';
+                        </span>';
+                        if(checkPermission("game",false)){
+                            $table.='<span class="td border-end border-activeTable">
+                                        <button name="editGame" value="true" class="btn btn-secondary submit">Bearbeiten</button>   
+                                    </span>
+                                    <span class="td border-end border-activeTable">
+                                        <button name="deleteGame" type="submit" value="true" class="btn btn-danger submit" onclick="return confirm(\'Das Spiel wird endgültig aus der Datenbank gelöscht, bist du dir sicher?\');">Löschen</button>
+                                    </span>';
+                        }
+                        $table.='</form>';
                     
         }
         $table .= '</div>';
