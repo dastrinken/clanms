@@ -84,10 +84,10 @@
             </li>
             <li class="nav-item">
                 <button class="nav-link linktab" id="accountTab" aria-current="page" href="#" onclick="changeContent(this.id);">Account</button>
-            </li>
+            </li><!--
             <li class="nav-item">
                 <a class="nav-link linktab" aria-current="page" id="preferencesTab" href="#" onclick="changeContent(this.id);">Preferences</a>
-            </li>
+            </li>-->
         </ul>
     </div>
     <div class="row bg-lightdark p-4">
