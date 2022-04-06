@@ -55,3 +55,11 @@ function closeToast() {
     toast.classList.remove("showToast");
     toast.classList.add("hideToast");
 }
+
+var simplemde = new SimpleMDE({
+    autosave: {
+        enabled: true,
+        delay: 1000,
+    },
+    hideIcons: ['side-by-side', 'fullscreen']
+    });

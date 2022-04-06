@@ -1,6 +1,7 @@
 <?php
     $displayDate = date_create_from_format("Y-m-d H:i:s", $article_date_published)->format("d.m.Y");
     $displayTime = date_create_from_format("Y-m-d H:i:s", $article_date_published)->format("H:i");
+    $commentCount = getCommentsRowCount($article_id);
 ?>
 <link rel="stylesheet" href="./content/newsblog/newsblog_style.css">
 <div class="border-black rounded mb-4 p-3 bg-lightdark">
@@ -16,7 +17,7 @@
     </p>
     <div class="row">
         <div class="col d-flex justify-content-center">
-            <button id="<?php echo $article_id; ?>" onclick="showComments(this.id)" class="btn w-50 bg-blackened btn-darkmode-outline article-icon fs-6" title="Kommentare lesen" alt="Kommentare"  data-bs-toggle="collapse" data-bs-target="#<?php echo 'collapse'.$article_id; ?>" aria-expanded="false" aria-controls="<?php echo 'content'.$article_id; ?>">X Kommentare</button>
+            <button id="<?php echo $article_id; ?>" onclick="showComments(this.id)" class="btn w-50 bg-blackened btn-darkmode-outline article-icon fs-6 border-0" title="Kommentare lesen" alt="Kommentare"  data-bs-toggle="collapse" data-bs-target="#<?php echo 'collapse'.$article_id; ?>" aria-expanded="false" aria-controls="<?php echo 'content'.$article_id; ?>"><?php echo $commentCount?> Kommentar(e) </button>
         </div>
     </div>
 </div>

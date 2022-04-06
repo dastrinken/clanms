@@ -71,7 +71,7 @@ function getArticlesFromDB($displayOption) {
             $where = "WHERE 1=1";
             break;
     }
-    $totalPagesDB = "SELECT * FROM clanms_news AS news $where";
+    $totalPagesDB = "SELECT id FROM clanms_news AS news $where";
     $pagesResult = $mysqli->query($totalPagesDB);
     $rowCount = $pagesResult->num_rows;
     $totalPages = ceil($rowCount / $displayAmount);

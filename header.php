@@ -8,7 +8,7 @@
     <!-- Hauptnavigation (oben) -->
     <ul class="nav justify-content-center">
         <li><a href="./" class="nav-link px-2 link-dark nav-darkmode">Home</a></li>
-        <li><a href="./?nav=news" class="nav-link px-2 link-dark nav-darkmode">Blog</a></li>
+        <li><a href="./?nav=news&page=1" class="nav-link px-2 link-dark nav-darkmode">Blog</a></li>
         <li><a href="./?nav=info" class="nav-link px-2 link-dark nav-darkmode">About us</a></li>
         <li><a href="./?nav=calendar" class="nav-link px-2 link-dark nav-darkmode">Events</a></li>
         <li><a href="./?nav=gallery" class="nav-link px-2 link-dark nav-darkmode">Gallery</a></li>
@@ -25,7 +25,7 @@
                     <a href='#' class='d-flex align-items-center justify-content-center pe-3 link-dark text-decoration-none dropdown-toggle' id='dropdownUser3' data-bs-toggle='dropdown' aria-expanded='false'>
                         ".getProfilePic(52, 1)."
                     </a>
-                    <ul class='dropdown-menu text-small shadow' aria-labelledby='dropdownUser3'>
+                    <ul class='dropdown-menu dropdown-menu-dark text-small shadow' aria-labelledby='dropdownUser3'>
                         <li><a class='dropdown-item' href='./?nav=profile'>Profil</a></li>";
             if(checkPermission("admindashboard", false)) {
                 echo "<li>
