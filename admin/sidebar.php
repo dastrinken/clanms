@@ -18,40 +18,18 @@
                                 </a>
                             </li>
                             <li class="nav-item">
+                                <a id="newsLink" class="nav-link" href="#" onclick="getTableView('newsblog', 'content', 'all'); setActive(this.id); return false;">
+                                    Newsblog
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a id="gallLink" class="nav-link" href="#" onclick="getTableView('gallery', 'content', 'all'); setActive(this.id); return false;">
+                                    Gallerie
+                                </a>
+                            </li>
+                            <li class="nav-item">
                                 <a id="settingsLink" class="nav-link" aria-current="page" href="#" onclick="showDashboard(this.id); setActive(this.id); return false;">
                                     Einstellungen
-                                </a>
-                            </li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <!-- Newsblog -->
-        <div class="accordion accordion-flush" id="accordionSidebarTwo">
-            <div class="accordion-item bg-light rounded-0">
-                <h6 id="headingTwo" class="sidebar-heading accordion-header d-flex justify-content-between align-items-center px-3 mt-1 mb-1 text-muted">
-                    <span>Newsblog</span>
-                    <button class="btn" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTwo" aria-expanded="true" aria-controls="collapseTwo">
-                        <i class="bi-list"></i>
-                    </button>
-                </h6>
-                <div id="collapseTwo" class="accordion-collapse collapse show" aria-labelledby="headingTwo" data-bs-parent="#accordionSidebarTwo">
-                    <div class="accordion-body">
-                        <ul class="nav flex-column">
-                            <li class="nav-item">
-                                <a id="newsLink" class="nav-link" href="#" onclick="getTableView('newsblog', 'content', 'all'); setActive(this.id); return false;">
-                                    Übersicht
-                                </a>
-                            </li>
-                            <li class="nav-item">
-                                <a id="newsCatLink" class="nav-link" aria-current="page" href="" onclick="getTableView('newsblog', 'categories', 'all'); setActive(this.id); return false;">
-                                    Kategorien
-                                </a>
-                            </li>
-                            <li class="nav-item">
-                                <a id="newsTagsLink" class="nav-link" aria-current="page" href="#" onclick="setActive(this.id); return false;">
-                                    Tags
                                 </a>
                             </li>
                         </ul>
@@ -84,33 +62,6 @@
                             <li class="nav-item">
                                 <a id="gamesLink" class="nav-link" aria-current="page" href="" onclick="getTableView('game', 'content','all');setActive(this.id); return false;">
                                     Spiele
-                                </a>
-                            </li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <!-- Gallerie -->
-        <div class="accordion accordion-flush" id="accordionSidebarFive">
-            <div class="accordion-item bg-light rounded-0">
-                <h6 id="headingFive" class="sidebar-heading accordion-header d-flex justify-content-between align-items-center px-3 mt-1 mb-1 text-muted">
-                    <span>Gallerie</span>
-                    <button class="btn" type="button" data-bs-toggle="collapse" data-bs-target="#collapseFive" aria-expanded="true" aria-controls="collapseFive">
-                        <i class="bi-list"></i>
-                    </button>
-                </h6>
-                <div id="collapseFive" class="accordion-collapse collapse show" aria-labelledby="headingFive" data-bs-parent="#accordionSidebarFive">
-                    <div class="accordion-body">
-                        <ul class="nav flex-column">
-                            <li class="nav-item">
-                                <a id="gallLink" class="nav-link" href="#" onclick="getTableView('gallery', 'content', 'all'); setActive(this.id); return false;">
-                                    Übersicht
-                                </a>
-                            </li>
-                            <li class="nav-item">
-                                <a id="gallSettingsLink" class="nav-link" aria-current="page" href="#" onclick="setActive(this.id); return false;">
-                                    Einstellungen
                                 </a>
                             </li>
                         </ul>

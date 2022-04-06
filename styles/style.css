@@ -30,7 +30,7 @@ main > .container {
   box-shadow: 0 0 1.5px 0.15rem #DEDEDE6B !important;
 }
 
-/* navbar and sidebar */
+/* navbar */
 
 header {
   background-color: var(--bs-danger);
@@ -42,14 +42,6 @@ a {
 
 a:hover {
   color: black;
-}
-
-.sidebar {
-  height: 100%;
-}
-
-.sidebar a:hover {
-  background: #C42F3E;
 }
 
 .width-15p {

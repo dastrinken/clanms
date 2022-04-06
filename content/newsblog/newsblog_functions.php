@@ -13,8 +13,9 @@
     }
 
     if($_POST["command"] == "showComments") {
-        showComments($_POST["id"]);
         displayCommentForm($_POST["id"]);
+        showComments($_POST["id"]);
+        
     }
     if($_POST["saveComment"] === "true"){
         var_dump($_POST);
@@ -22,14 +23,28 @@
     }
    
 
+    $totalPages;
     function showAllNews() {
         global $Parsedown;
+        //Pagination variables
+        global $totalPages;
+        $displayAmount = 5;
+        $page = $_GET['page'];
+        $offset = ($page - 1) * $displayAmount;
+
         $mysqli = connect_DB();
+        $totalPagesDB = "SELECT id FROM clanms_news AS news";
+        $pagesResult = $mysqli->query($totalPagesDB);
+        $rowCount = $pagesResult->num_rows;
+        $totalPages = ceil($rowCount / $displayAmount);
+        $pagesResult->close();
+        
         $select = "SELECT news.id, news.headline, news.content, news.color, news.date_published, user.username FROM clanms_news AS news
-        LEFT JOIN clanms_user AS user
-        ON news.id_author = user.id
+        LEFT JOIN clanms_user AS user 
+        ON news.id_author = user.id 
         WHERE DATEDIFF(news.date_published, NOW()) <= 0 
-        ORDER BY news.date_published DESC;";
+        ORDER BY news.date_published DESC 
+        LIMIT $offset, $displayAmount;";
         $result = $mysqli->query($select);
         while($row = $result->fetch_assoc()) {
             $article_id = $row['id'];
@@ -40,9 +55,22 @@
             $article_color = $row['color'];
             include(__DIR__."/templates/article_template.php");
         }
+        include(__DIR__."/newsblog_pagination.php");
         $mysqli->close();
     }
 
+    function getCommentsRowCount($articleId){
+        $mysqli = connect_DB();
+        $select = $mysqli->prepare("SELECT id FROM clanms_news_comments WHERE id_news = ?");
+        $select->bind_param("i", $articleId);
+        $select->execute();
+        $select->store_result();
+        $result = $select->num_rows;
+        $select->close();
+        $mysqli->close();
+        return $result;
+    }
+    
     function showComments($newsid) {
         global $Parsedown;
         $mysqli = connect_DB();
@@ -76,7 +104,7 @@
         if (session_status() === PHP_SESSION_NONE){session_start();}
         if(!empty($_SESSION)){
             if(checkPermission("newsblogComment", false)){
-                echo "<form method='post' class='bg-lightdark rounded'>
+                echo "<form method='post' class='bg-lightdark rounded mb-3'>
                         <label for='commentContent' class='form-label'></label>
                             <input type='hidden' name='newsid' value='".$newsid."'>
                             <textarea class='form-control' id='commentContent".$newsid."' name='commentContent' palceholder='Schreibe hier deinen Kommentar'></textarea>
