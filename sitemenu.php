@@ -6,7 +6,7 @@
         include(__DIR__."/content/newsblog/newsblog_functions.php");
         showAllNews();
     } elseif($_GET['nav'] === 'info') {
-        /* include("info.php"); */
+        include(__DIR__."/content/about_us/about_us.php");
     } elseif($_GET['nav'] === 'profile') {
         include(__DIR__."/system/account/settings.php");
     } elseif($_GET['nav'] === 'calendar') {
