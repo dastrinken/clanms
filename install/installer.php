@@ -276,5 +276,5 @@
             $this->steps[] = $step;
         }
     }
-
+    /* TODO: install, upload standard user avatar (blobs cannot have default values) */
 ?>

@@ -281,7 +281,7 @@ function registerNewAccount() {
                                     $stmt->execute();
                                     $stmt->close();
                                     /* Erstelle Benutzerprofil in der Datenbank */
-                                    $avatar = file_get_contents(__DIR__."/../ressources/images/standard_avatar.jpg");
+                                    $avatar = file_get_contents(__DIR__."/../../ressources/images/standardAvatar.png");
                                     $info = "Willkommen auf meinem öffentlichen Profil!";
                                     $stmt = $mysqli->prepare("INSERT INTO clanms_user_profile (id_user, name, avatar, info) VALUES (?,?,?,?)");
                                     $stmt->bind_param("isss", $id, $getuser, $avatar, $info);
