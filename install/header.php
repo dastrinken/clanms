@@ -24,12 +24,4 @@
         }
         ?>
     </ol>
-    <!--
-    <ul class="nav justify-content-center">
-        <li><a href="./?progress=0" class="nav-link px-2 link-dark">Willkommen</a></li>
-        <li><a href="./?progress=1" class="nav-link px-2 link-dark">Datenbank</a></li>
-        <li><a href="./?progress=2" class="nav-link px-2 link-dark">Einstellungen</a></li>
-        <li><a href="./?progress=3" class="nav-link px-2 link-dark">Abschluss</a></li>
-    </ul>
-    -->
 </header>
