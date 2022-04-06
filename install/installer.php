@@ -5,8 +5,10 @@
         public $steps = null;
         public $params = null;
         private $systemcheck = true;
+        private $doc = null;
 
         public function __construct() {
+            $this->doc = new DOMDocument();
             $this->addWelcomePage();
             $this->addDbSettings();
             $this->addHomepageSettings();
@@ -25,8 +27,48 @@
 
         public function getContent() {
             $display = $this->steps[$this->step-1]['content'];
+            if($_POST['dbSettings'] == true) {
+                $this->params[2]['host']     = $_POST['dbhost'];
+                $this->params[2]['database'] = $_POST['dbname'];
+                $this->params[2]['user']     = $_POST['dbuser'];
+                $this->params[2]['password'] = $_POST['dbpw'];
+
+                $this->doc->loadHTML($this->steps[3]['content']);
+                $phpv = $this->doc->getElementById("php_check");
+                $dbc = $this->doc->getElementById("db_check");
+
+                $checkOk = $this->doc->createElement("td", "O.k. ");
+                $checkOk->setAttribute("class", "conform");
+                $iconOk = $this->doc->createElement("i", "");
+                $checkOk->appendChild($iconOk);
+                $iconOk->setAttribute("class", "bi-check2-square");
+
+                $checkFalse = $this->doc->createElement("td", "Not O.k. ");
+                $checkFalse->setAttribute("class", "conflict");
+                $iconFalse = $this->doc->createElement("i", "");
+                $checkFalse->appendChild($iconFalse);
+                $iconFalse->setAttribute("class", "bi-exclamation-square");
+
+                if(substr(phpversion(), 0, 1) >= 7) {
+                    $phpv->replaceChild(clone $checkOk, $phpv->lastChild);
+                } else {
+                    $phpv->replaceChild(clone $checkFalse, $phpv->lastChild);
+                }
+                if($mysqli = mysqli_connect($this->params[2]['host'], $this->params[2]['user'], $this->params[2]['password'], $this->params[2]['database'])) {
+                    $dbc->replaceChild(clone $checkOk, $dbc->lastChild);
+                } else {
+                    $dbc->replaceChild(clone $checkFalse, $dbc->lastChild);
+                }
+                $this->steps[3]['content'] = $this->doc->saveHTML();
+            }
+            if($_POST['hpSettings'] == true) {
+                $this->params[3]['pageTitle'] = $_POST['pageTitle'];
+                $this->params[3]['username'] = $_POST['username'];
+                $this->params[3]['userpw'] = $_POST['userpw'];
+            }
+
             if($this->params[$this->step]) {
-                foreach($this->params[$this->step-1] as $name=>$value) {
+                foreach($this->params[$this->step] as $name=>$value) {
                     $display = str_replace("{".$name."}", $value, $display);
                 }
             }
@@ -34,7 +76,7 @@
         }
 
         public function showReturnButton() {
-            return $this->step > 1 and $this->step != $this->allsteps-1;
+            return $this->step > 1 and $this->step != $this->allsteps;
         }
 
         public function showFwdButton() {
@@ -154,32 +196,16 @@
         private function addSystemCheck() {
             $step['headline'] = 'Systemcheck';
             $step['content'] = '<div class="d-flex flex-column justify-content-center align-items-center">
-                                    <p>Hier siehst du, ob dein System den Mindestanforderungen entspricht:</p>
-                                    <table class="table table-dark table-hover">
-                                        <tr>
-                                            <td>PHP-Version</td>
-                                            <td class="';
-            if(substr(phpversion(), 0, 1) >= 7) {
-                $step['content'] .= 'conform"><i class="bi-check2-square"></i> O.k.';
-            } else {
-                $step['content'] .= 'conflict"><i class="bi-exclamation-square"></i> Problem';
-                $this->systemcheck = false;
-            }
-                                            
-            $step['content'] .= '</td>
-                                        </tr>
-                                        <tr>
-                                            <td>Liegt in (Sub)Domain</td>
-                                            <td class="';
-            if(count(explode("/", $_SERVER['REQUEST_URI'])) == 2) {
-                $step['content'] .= 'conform"><i class="bi-check2-square"></i> O.k.';
-            } else {
-                $step['content'] .= 'conflict"><i class="bi-exclamation-square"></i> Problem';
-                $this->systemcheck = false;
-            }
-            $step['content'] .= '</tr>
-                                    </table>
-                                </div>';
+                                <p>Hier siehst du, ob dein System den Mindestanforderungen entspricht:</p>
+                                <table class="table table-dark table-hover">
+                                    <tr id="php_check">
+                                        <td>PHP-Version</td>
+                                    </tr>
+                                    <tr id="db_check">
+                                        <td>Datenbankverbindung</td>
+                                    </tr>
+                                </table>
+                            </div>';
             $this->steps[] = $step;
         }
 
@@ -189,13 +215,14 @@
                                     <hr/>
                                     <p>Trage hier deine Zugangsdaten ein. ClanMS wird automatisch die benötigten Tabellen in deiner Datenbank erstellen.<br/>
                                     Falls du Hilfe benötigst, folge den Hinweisen oder besuche unser GitHub-Wiki.</p>
+                                    <input type='hidden' name='dbSettings' value ='true'>
                                     <div class='input-group mb-3'>
                                         <span class='input-group-text' id='hostname'><abbr title='Normalerweise localhost, nur ändern wenn du dir wirklich sicher bist!'>Hostname</span>
                                         <input type='text' class='form-control' value='{host}' aria-label='Hostname' aria-describedby='hostname' name='dbhost'>
                                     </div>
                                     <div class='input-group mb-3'>
                                         <span class='input-group-text' id='dbname'><abbr title='Der Name der Datenbank, die ClanMS nutzen soll.'>Datenbank</span>
-                                        <input type='text' class='form-control' value='{database}' aria-label='Hostname' aria-describedby='dbname' name='dbname'>
+                                        <input type='text' class='form-control' placeholder='Name der Datenbank, die ClanMS nutzen soll' value='{database}' aria-label='Hostname' aria-describedby='dbname' name='dbname'>
                                     </div>
                                     <div class='input-group mb-3'>
                                         <span class='input-group-text' id='username'><abbr title='Dein Datenbank Benutzername'>DB-Nutzer</span>
@@ -214,7 +241,32 @@
 
         private function addHomepageSettings() {
             $step['headline'] = 'Homepage';
-            $step['content'] = 'Einstellungen - Homepage';
+            $step['content'] = "<h4 class='text-center'>Einstellungen</h4>
+                                <hr/>
+                                <p>Die Zugangsdaten, die du hier einträgst, gelten für den Betreiber-Account der Webseite.<br/>
+                                Sie sind also auch deine Anmeldedaten nach der Installation, bewahre sie sicher auf!<br/>
+                                <i>(Die Daten kannst du nachher jederzeit im Adminbereich deiner Seite ändern.)</i><br/>
+                                Falls du Hilfe benötigst, folge den Hinweisen oder besuche unser GitHub-Wiki.</p>
+                                <input type='hidden' name='hpSettings' value='true'>
+                                <div class='input-group mb-3'>
+                                    <span class='input-group-text' id='pageTitle'><abbr title='Der Titel deiner öffentlichen Seite (z.B. Name deines Clans)'>Seitentitel</span>
+                                    <input type='text' class='form-control' placeholder ='Titel der Seite' value='{pageTitle}' aria-label='PageTitle' aria-describedby='pageTitle' name='pageTitle'>
+                                </div>
+                                <div class='input-group mb-3'>
+                                    <span class='input-group-text' id='loginName'><abbr title='Der Name, mit dem du dich im System einloggen wirst'>Login-Name</span>
+                                    <input type='text' class='form-control' placeholder='Dein Nutzername für den Admin-Account' value='{username}' aria-label='LoginName' aria-describedby='loginName' name='username'>
+                                </div>
+                                <div class='input-group mb-3'>
+                                    <span class='input-group-text' id='password'><abbr title='Das Passwort für deinen Admin-Account'>Login-Passwort</span>
+                                    <input type='password' class='form-control' placeholder='Dein Passwort (Admin Login)' value='{userpw}' aria-label='Password' aria-describedby='password' name='userpw'>
+                                </div>
+                                <div class='input-group mb-3'>
+                                    <span class='input-group-text' id='password'><abbr title='Wiederhole das eingegebene Passwort'>Passwort wdh.&nbsp;&nbsp;</span>
+                                    <input type='password' class='form-control' placeholder='Wiederhole das Passwort' value='{userpw}' aria-label='Password' aria-describedby='password'>
+                                </div>";
+            $this->params[3]['pageTitle'] = 'ClanMS';
+            $this->params[3]['username'] = 'admin';
+            $this->params[3]['userpw'] = '1234';
             $this->steps[] = $step;
         }
 
