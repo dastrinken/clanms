@@ -25,10 +25,14 @@ function writeArticleToDB($editExisting) {
 
 function deleteArticleFromDB($articleId) {
     $mysqli = connect_DB();
-    $stmt = $mysqli->prepare("DELETE FROM clanms_news WHERE clanms_news.id = ?");
-    $stmt->bind_param("i", $articleId);
+    $stmt = $mysqli->prepare("DELETE FROM clanms_news_comments WHERE id_news = ?");
+    $stmt->bind_param("i",$articleId);
     $stmt->execute();
     $stmt->close();
+    $stmt1 = $mysqli->prepare("DELETE FROM clanms_news WHERE clanms_news.id = ?");
+    $stmt1->bind_param("i", $articleId);
+    $stmt1->execute();
+    $stmt1->close();
     $mysqli->close();
 }
 
