@@ -131,14 +131,17 @@ function getArticlesFromDB($displayOption) {
                     <span class="td border-end border-activeTable">
                         '.$date_created.'
                         <input type="hidden" name="date_created" value="'.$date_created.'">
-                    </span>
-                    <span class="td border-end border-activeTable">
                         <input type="hidden" name="content" value="'.$content.'">
-                        <input type="hidden" name="userid" value="'.$_SESSION["userid"].'">
-                        <button name="editArticle" value="true" class="btn btn-secondary submit">Bearbeiten</button>
-                    </span>
-                    <span class="td border-end border-activeTable"><button name="deleteArticle" value="true" class="btn btn-danger submit" onclick="return confirm(\'Der Artikel wird endgültig aus der Datenbank gelöscht, bist du dir sicher?\');">Löschen</button></span>
-                </form>';
+                    </span>';
+                    if(checkPermission("newsblog",true, $news_author_id)){
+                        $table.='<span class="td border-end border-activeTable">
+                                    <button name="editArticle" value="true" class="btn btn-secondary submit">Bearbeiten</button>
+                                </span>
+                                <span class="td border-end border-activeTable">
+                                    <button name="deleteArticle" value="true" class="btn btn-danger submit" onclick="return confirm(\'Der Artikel wird endgültig aus der Datenbank gelöscht, bist du dir sicher?\');">Löschen</button>
+                                </span>';
+                    }
+                    $table.='</form>';
     }
     $table .= "</div>";
     $result->close();

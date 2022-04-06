@@ -111,14 +111,16 @@ function showEventCats(){
                     </span>
                     <span class="td border-end border-activeTable">
                         <img src="data:image/png;base64,'.$catImg.'" width = "64px" height= "64px" class="rounded-circle" />
-                    </span>
-                    <span class="td border-end border-activeTable">
-                        <button name="editEventCat" value="true" class="btn btn-secondary submit">Bearbeiten</button>
-                    </span>
-                    <span class="td border-end border-activeTable">
-                        <button name="deleteEventCat" value="true" class="btn btn-danger submit" onclick="return confirm(\'Das Event wird endgültig aus der Datenbank gelöscht, bist du dir sicher?\');">Löschen</button>
-                    </span>
-                </form>';
+                    </span>';
+                    if(checkPermission("eventCategory",false)){
+                        $table.='<span class="td border-end border-activeTable">
+                                    <button name="editEventCat" value="true" class="btn btn-secondary submit">Bearbeiten</button>
+                                </span>
+                                <span class="td border-end border-activeTable">
+                                    <button name="deleteEventCat" value="true" class="btn btn-danger submit" onclick="return confirm(\'Das Event wird endgültig aus der Datenbank gelöscht, bist du dir sicher?\');">Löschen</button>
+                                </span>';
+                    }
+                $table.='</form>';
     }
     $table .= "</div>";
     return $table;
@@ -282,14 +284,17 @@ function getEventsFromDB($displayOption) {
                     <input type="hidden" name="author_id" value="'.$event_author.'">
                 </span>
 
-                <input type="hidden" name="description" value="'.$event_desc.'">
-                <span class="td border-end border-activeTable">
-                    <button name="editEvent" value="true" class="btn btn-secondary submit">Bearbeiten</button>
-                </span>
-                <span class="td border-end border-activeTable">
-                    <button name="deleteEvent" value="true" class="btn btn-danger submit" onclick="return confirm(\'Das Event wird endgültig aus der Datenbank gelöscht, bist du dir sicher?\');">Löschen</button>
-                </span>
-            </form>';
+                <input type="hidden" name="description" value="'.$event_desc.'">';
+                if(checkPermission("eventorganizer",true, $event_author)){
+                    $table.='<span class="td border-end border-activeTable">
+                                <button name="editEvent" value="true" class="btn btn-secondary submit">Bearbeiten</button>
+                            </span>
+                            <span class="td border-end border-activeTable">
+                                <button name="deleteEvent" value="true" class="btn btn-danger submit" onclick="return confirm(\'Das Event wird endgültig aus der Datenbank gelöscht, bist du dir sicher?\');">Löschen</button>
+                            </span>';
+                }
+
+                $table.='</form>';
     }
     $table .= "</div>";
     $result->close();

@@ -130,11 +130,15 @@
                 <div id="collapseFour" class="accordion-collapse collapse show" aria-labelledby="headingFour" data-bs-parent="#accordionSidebarFour">
                     <div class="accordion-body">
                         <ul class="nav flex-column">
-                            <li class="nav-item">
-                                <a id="userLink" class="nav-link" aria-current="page" href="#" onclick="getTableView('user', 'content', 'all'); setActive(this.id); return false;">
-                                    Benutzer
-                                </a>
-                            </li>
+                            <?php
+                            if(checkPermission("accounts", false)){
+                                echo "<li class='nav-item'>
+                                    <a id='userLink' class='nav-link' aria-current='page' href='#' onclick='getTableView(\"user\", \"content\", \"all\"); setActive(this.id); return false;'>
+                                        Benutzer
+                                    </a>
+                                </li>";
+                            }
+                            ?>
                             <li class="nav-item">
                                 <a id="groupsLink" class="nav-link" href="#" onclick="getTableView('groups', 'content', 'all'); setActive(this.id); return false;">
                                     Gruppen
