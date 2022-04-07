@@ -1,4 +1,3 @@
-
 <?php 
     if($_GET['code']) {
         include(__DIR__."/system/account/login/activation.php");
@@ -13,7 +12,8 @@
         include(__DIR__."/content/calendar/calendar_functions.php");
         include(__DIR__."/content/calendar/calendar_page.php");
     } elseif($_GET['nav'] === 'gallery') {
-        include(__DIR__."/content/gallery/gallery.php");
+        include(__DIR__."/content/gallery/gallery_functions.php");
+        include(__DIR__."/content/gallery/galleryframe.php");
     } elseif($_GET['nav'] === 'faq'){
         include(__DIR__."/content/faq/faq_functions.php");
         include(__DIR__."/content/faq/faq.php");

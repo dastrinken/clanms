@@ -1,13 +1,19 @@
 <?php
+    require_once(__DIR__."/../../system/db_functions.php");
+
+    if($_POST['command'] == 'deleteImage') {
+        deleteImageFromDB($_POST['postId']);
+    }
+
     function writeGalleryToDB($editExisting) {
         $title = $_POST['galleryTitle'];
         $description = $_POST['galleryDescription'];
         if($_FILES['image']['size'] != 0) {
-            $pathtothumb =  './gallery/images/'.$_FILES['image']['name'];
+            $pathtothumb =  '/gallery/images/'.$_FILES['image']['name'];
             uploadImage();
         }
         else {
-            $pathtothumb = './gallery/images/gallery.jpg';
+            $pathtothumb = '/gallery/images/gallery.jpg';
         }
 
         $mysqli = connect_DB();
@@ -27,13 +33,53 @@
         $mysqli->close();
     }
 
-    function deleteGalleryFromDB($eventId) {
+    function deleteGalleryFromDB($galleryId) {
+            $countImage = getGalleryImagesCount($galleryId) > 0 ? deleteGalleryImages($galleryId) : "";
             $mysqli = connect_DB();
             $stmt = $mysqli->prepare("DELETE FROM clanms_galleries WHERE clanms_galleries.id = ?");
-            $stmt->bind_param("i", $eventId);
+            $stmt->bind_param("i", $galleryId);
             $stmt->execute();
             $stmt->close();
             $mysqli->close();
+    }
+
+    function deleteGalleryImages($galleryId) {
+        $mysqli = connect_DB();
+        $select = $mysqli->query("SELECT filename FROM clanms_images 
+                    LEFT JOIN clanms_gallery_images 
+                    ON clanms_images.id = clanms_gallery_images.id_image 
+                    WHERE clanms_gallery_images.id_gallery = $galleryId");
+        if(deleteImagesFromServer($select->fetch_all(MYSQLI_ASSOC))) {
+            $mysqli->query("DELETE FROM clanms_gallery_images WHERE id_gallery = $galleryId");
+        }
+        $mysqli->close();
+    }
+
+    function deleteImagesFromServer($filesArray) {
+        $deletion = true;
+        foreach($filesArray as $filename) {
+            if(!unlink("./gallery/images/".$filename['filename'])) {
+                $deletion = false;
+            }
+        }
+        return $deletion;
+    }
+
+    function deleteImageFromDB($imageId) {
+        $mysqli = connect_DB();
+        $select = $mysqli->query("SELECT filename FROM clanms_images WHERE id = $imageId;");
+        while($row = $select->fetch_assoc()) {
+            $filename = $row['filename'];
+        }
+        $select->close();
+        if($mysqli->query("DELETE FROM clanms_gallery_images WHERE id_image = $imageId;")) {
+            if($mysqli->query("DELETE FROM clanms_images WHERE id = $imageId;")){
+                if(!unlink("./images/".$filename)) {
+                    echo "Datei konnte nicht gelöscht werden.";
+                }
+            }
+        }
+        $mysqli->close();
     }
 
 
@@ -41,16 +87,22 @@
     function getGalleriesFromDB() {
         if (session_status() === PHP_SESSION_NONE){session_start();}
         $mysqli = connect_DB();
-        $query = "SELECT * FROM clanms_galleries";
+        $query = "SELECT * FROM clanms_galleries;";
         $select = $mysqli->query($query);
         if($select->num_rows == NULL) {
             echo "<p>Keine Gallerie vorhanden, klicke oben auf 'Neu' um eine zu erstellen.</p>";
         } else {
             while($row = $select->fetch_assoc()) {
+                $imageCount = getGalleryImagesCount($row['id']);
+                $warning = $imageCount > 0 ? "In dieser Gallerie befinden sich noch $imageCount Bild(er), möchtest du sie wirklich löschen?" : "Die Gallerie wird endgültig aus der Datenbank gelöscht, bist du dir sicher?";
                 $card = '<div class="col m-2">
                             <form>
                                 <div class="card" style="width: 18rem;">
-                                    <img class="card-img-top" src="'.$row['path_thumbnail'].'" alt="'.$row['title'].'" thumbnail">
+                                    <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-primary">
+                                        '.$imageCount.'
+                                    </span>
+
+                                    <img class="card-img-top" src=".'.$row['path_thumbnail'].'" alt="'.$row['title'].'" thumbnail">
                                     <div class="card-body">
                                     <h5 class="card-title">'.$row['title'].'</h5>
                                     <p class="card-text">'.$row['description'].'</p>
@@ -60,8 +112,8 @@
                                     <input type="hidden" name="galleryDescription" value="'.$row['description'].'">
                                     <input type="hidden" name="galleryThumbnail" value="'.$row['path_thumbnail'].'">
 
-                                    <button name="editGallery" value="true" class="btn btn-primary submit">Bearbeiten</button>
-                                    <button name="deleteGallery" value="true" class="btn btn-danger submit" onclick="return confirm(\'Die Gallerie wird endgültig aus der Datenbank gelöscht, bist du dir sicher?\');">Löschen</button>
+                                    <button name="editGallery" value="true" class="btn btn-primary submit" >Bearbeiten</button>
+                                    <button name="deleteGallery" value="true" class="btn btn-danger submit" onclick="return confirm(\''.$warning.'\');">Löschen</button>
                                     </div>
                                 </div>
                             </form>
@@ -71,6 +123,14 @@
             $select->close();
         }
         $mysqli->close();
+    }
+
+    function getGalleryImagesCount($gallId) {
+        $mysqli = connect_DB();
+        $select = "SELECT id FROM clanms_gallery_images WHERE id_gallery = $gallId;";
+        $result = $mysqli->query($select);
+        $mysqli->close();
+        return $result->num_rows;
     }
 
     function getImagesFromDB() {
@@ -91,7 +151,13 @@
             echo "<p>Keine Bilder vorhanden.</p>";
         } else {
             while($row = $select->fetch_assoc()) {
-                $carousel = '<img src="./gallery/images/'.$row['filename'].'" class="m-3 img-thumbnail" alt="'.$row['imgtitle'].'" style=" width: 15%;">';
+
+                $carousel = '<div class="card p-0 m-2 bg-light" style=" width: 15%;">
+                                <span class="position-absolute top-0 start-100 translate-middle">
+                                     <button name="deleteImage" value="true" class="btn btn-sm submit" onclick="deleteImageFromDB('.$row['imageId'].'); reloadImages();"><i class="bi-x-square-fill text-danger"></i></button>
+                                </span>
+                                <img src="./gallery/images/'.$row['filename'].'" class="m-1 img-thumbnail border-0" alt="'.$row['imgtitle'].'">
+                            </div>';
                 echo $carousel;
             }
             $select->close();

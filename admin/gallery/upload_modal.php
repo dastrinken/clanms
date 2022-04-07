@@ -25,8 +25,8 @@
                     </div>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-primary submit" onclick="uploadImage();">Speichern</button>
-                    <button type="button" class="btn btn-secondary" onclick="reloadContent();" data-bs-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-primary submit" onclick="uploadImage(); reloadImages();">Speichern</button>
+                    <button type="button" class="btn btn-secondary" onclick="reloadImages();" data-bs-dismiss="modal">Close</button>
                 </div>
             </form>
         </div>
