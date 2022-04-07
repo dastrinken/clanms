@@ -20,10 +20,10 @@
     <link href="./bootstrap/css/bootstrap.css" rel="stylesheet">
     <link rel="stylesheet" href="./bootstrap/icons/bootstrap-icons.css"> 
     <link rel="stylesheet" href="./styles/style.css"> 
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/simplemde/latest/simplemde.min.css">
+    <link rel="stylesheet" href="./simplemde/simplemde.min.css">
     <script src="./bootstrap/js/bootstrap.bundle.js"></script>
     <script src="./system/js/jquery.js"></script>
-    <script src="./simplemde/simplemin.js"></script>
+    <script src="./simplemde/simplemde.min.js"></script>
     <!-- Newsblog -->
     <script src="./content/newsblog/newsblog.js"></script>
     <?php echo "<title>$title</title>" ?>

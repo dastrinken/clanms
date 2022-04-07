@@ -12,11 +12,13 @@
         deleteCommentFromDB($_POST['commentid']);
     }
 
-    if($_POST["command"] == "showComments") {
+    //wird nicht mehr genutzt
+    /*if($_POST["command"] == "showComments") {
         displayCommentForm($_POST["id"]);
         showComments($_POST["id"]);
         
     }
+    */
     if($_POST["saveComment"] === "true"){
         var_dump($_POST);
         writeCommentToDB();
@@ -106,8 +108,10 @@
             if(checkPermission("newsblogComment", false)){
                 echo "<form method='post' class='bg-lightdark rounded mb-3'>
                         <label for='commentContent' class='form-label'></label>
-                            <input type='hidden' name='newsid' value='".$newsid."'>
-                            <textarea class='form-control' id='commentContent".$newsid."' name='commentContent' palceholder='Schreibe hier deinen Kommentar'></textarea>
+                            <div class='mx-2 text-dark'>
+                                <input type='hidden' name='newsid' value='".$newsid."'>
+                                <textarea class='form-control text-dark' id='commentContent".$newsid."' name='commentContent' palceholder='Schreibe hier deinen Kommentar'></textarea>
+                            </div>
                             <hr class='mt-0'>
                             <div class='d-flex flex-row align-items-center justify-content-between px-2 pb-2'>
                                 <div class='d-flex'>
