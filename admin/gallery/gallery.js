@@ -9,15 +9,9 @@ function uploadImage() {
     var xhr = new XMLHttpRequest();
     xhr.open("POST", "./gallery/upload_image.php", true);
     xhr.onload = function() {
-        console.log(this.responseText);
+        console.log("Bild hochgeladen!");
     }
     xhr.send(formData);
-}
-  
-function reloadContent()
-{
-     document.getElementById("image-preview").oUp.reload();
-     return true;
 }
 
 function findGetParameter(parameterName) {
@@ -31,4 +25,21 @@ function findGetParameter(parameterName) {
           if (tmp[0] === parameterName) result = decodeURIComponent(tmp[1]);
         });
     return result;
+}
+
+function deleteImageFromDB(imageId) {
+    /* image id -> übermitteln an PHP-Script -> Bild aus Datenbank löschen -> anschließend div neu laden */
+    $.post("./gallery/gallery_functions.php", 
+    {
+        command: "deleteImage",
+        postId: imageId
+    },
+    function(data) {
+        console.log(data);
+    });
+}
+
+function reloadImages(){
+
+    $('#image-preview').load(document.URL +  ' #image-preview');
 }

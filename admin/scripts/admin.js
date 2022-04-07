@@ -1,4 +1,9 @@
 /* General */
+var popoverTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="popover"]'))
+var popoverList = popoverTriggerList.map(function (popoverTriggerEl) {
+  return new bootstrap.Popover(popoverTriggerEl)
+})
+
 function setActive(buttonID) {
   var button = document.getElementById(buttonID);
   var active = document.getElementsByClassName("active");

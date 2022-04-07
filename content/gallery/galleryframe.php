@@ -1,27 +1,11 @@
-<?php
-
-?>
 <section class="container">
-    <div class="row" id="gallery">
-        <div class="col-md-3">
-            <img src="./content/gallery/images/img1.jpg" alt="" class="img-thumbnail"> </img>
-        </div>
-        <div class="col-md-3">
-            <img src="./content/gallery/images/img2.jpg" alt="" class="img-thumbnail"> </img>
-        </div>
-        <div class="col-md-3">
-            <img src="./content/gallery/images/img3.jpg" alt="" class="img-thumbnail"> </img>
-        </div>
-        <div class="col-md-3">
-            <img src="./content/gallery/images/img4.jpg" alt="" class="img-thumbnail"> </img>
-        </div>
-        <div class="col-md-3">
-            <img src="./content/gallery/images/img5.jpg" alt="" class="img-thumbnail"> </img>
-        </div>
+    <div class="row" id="gallery" class="gallery">
+          <?php getGalleriesFromDB(); ?>
     </div>
 </section>
 
 <script>
+    /*
     let galleryImages = document.querySelectorAll(".img-thumbnail");
     let getLatestOpenImg;
     let windowWith = window.innerw;
@@ -117,6 +101,6 @@ function changeImg(changeDir) {
         
     }
 }
-
+*/
 
 </script>
