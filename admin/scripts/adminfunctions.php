@@ -17,7 +17,7 @@
     include_once(__DIR__."/../groups/groups_functions.php");
     include_once(__DIR__."/../game/game_functions.php");
     include_once(__DIR__."/../../content/calendar/calendar_functions.php");
-
+    include_once(__DIR__."/../../content/newsblog/newsblog_functions.php");
 
     /* Newsblog */
     if($_POST['saveArticle']) {
@@ -25,6 +25,9 @@
     } 
     if($_GET['deleteArticle'] === 'true') {
         deleteArticleFromDB($_GET['articleId']);
+    }
+    if($_POST['deleteComment'] === 'true') {
+        deleteCommentFromDB($_POST['commentId']);
     }
 
     /* Events */
@@ -71,4 +74,5 @@
     if($_POST['saveGroup'] === 'save'){
         writeGroupToDB();
     }
+
 ?>

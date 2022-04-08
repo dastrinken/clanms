@@ -42,7 +42,7 @@ var saveFolder;
 var saveFile;
 var page = 1;
 
-function getTableView(folder, file, displayOption) {
+function getTableView(folder, file, displayOption, id = null) {
   saveFolder = folder;
   saveFile = file;
   saveDisplay = displayOption;
@@ -69,6 +69,10 @@ function getTableView(folder, file, displayOption) {
   }
 
   switch(displayOption) {
+    case 'comments':
+      xhttp.open("GET", "./"+folder+"/"+file+".php?displayOption="+displayOption+"&page="+page+"&articleId="+id);
+      headline = saveFolder+" - Gesamt";
+      break;
     case 'all':
       xhttp.open("GET", "./"+folder+"/"+file+".php?displayOption="+displayOption+"&page="+page);
       headline = saveFolder+" - Gesamt";
@@ -134,6 +138,7 @@ function newEntry(content) {
       break;
     case "group":
       xhttp.open("GET", "./groups/createGroup.php?author="+username+"&userid="+userid);
+      break;
   }
   xhttp.send();
 }

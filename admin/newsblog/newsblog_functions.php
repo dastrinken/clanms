@@ -46,11 +46,9 @@ $totalPages;
 function getArticlesFromDB($displayOption) {
     if (session_status() === PHP_SESSION_NONE){session_start();}
     global $totalPages;
-
     $displayAmount = 10;
     $page = $_GET['page'];
     $offset = ($page - 1) * $displayAmount;
-
     $mysqli = connect_DB();
     switch($displayOption) {
         case "all":
@@ -76,8 +74,9 @@ function getArticlesFromDB($displayOption) {
     $rowCount = $pagesResult->num_rows;
     $totalPages = ceil($rowCount / $displayAmount);
     $pagesResult->close();
-    
-    $select = "SELECT news.id, news.headline, news.content, news.color, news.date_published, news.date_created, news.id_author, user.username, news.last_edited FROM clanms_news AS news
+
+    $select = "SELECT news.id, news.headline, news.content, news.color, news.date_published, news.date_created, news.id_author, user.username, news.last_edited 
+    FROM clanms_news AS news
     LEFT JOIN clanms_user AS user
     ON news.id_author = user.id
     $where
@@ -93,6 +92,7 @@ function getArticlesFromDB($displayOption) {
                         <span class='td border-bottom border-dark'></span>
                         <span class='td border-bottom border-dark'>Titel</span>
                         <span class='td border-bottom border-dark'>Author</span>
+                        <span class='td border-bottom border-dark'>Kommentare</span>
                         <span class='td border-bottom border-dark'>Letzte Änderung</span>
                         <span class='td border-bottom border-dark'></span>
                         <span class='td border-bottom border-dark'></span>
@@ -106,6 +106,12 @@ function getArticlesFromDB($displayOption) {
         $headline = $row['headline'];
         $content = $row['content'];
         $name_author = $row['username'];
+        $commentCount = getCommentsRowCount($news_id);
+        if($commentCount > 0) {
+            $commentText = '<a href="#" onclick="getTableView(\'newsblog\', \'commentsOverview\', \'comments\', \''.$news_id.'\'); return false;">'.$commentCount.' Kommentare</a>';
+        } else {
+            $commentText = ' - ';
+        }
         $date_published = $row['date_published'];
         $date_created = $row['last_edited'] != null ? $row['last_edited'] : $row['date_created'];
         $color = $row['color'];
@@ -127,6 +133,9 @@ function getArticlesFromDB($displayOption) {
                         '.$name_author.'
                         <input type="hidden" name="author_name" value="'.$name_author.'">
                         <input type="hidden" name="author_id" value="'.$news_author_id.'">
+                    </span>
+                    <span class="td border-end border-activeTable text-center">
+                        '.$commentText.'
                     </span>
                     <span class="td border-end border-activeTable">
                         '.$date_created.'

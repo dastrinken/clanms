@@ -4,7 +4,7 @@
     $dispTime = date_create_from_format("Y-m-d H:i:s", $commentDate)->format("H:i");
 $output = '<form method="post" class="submit">
         <div class="border-bottom border-dark rounded bg-lightdark mb-3 pb-3">
-            <div class="d-flex flex-row p-3 ">
+            <div class="d-flex flex-column p-3 ">
                 <p class="px-1">
                     '.$commentContent.'
                 </p>

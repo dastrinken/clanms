@@ -12,13 +12,6 @@
         deleteCommentFromDB($_POST['commentid']);
     }
 
-    //wird nicht mehr genutzt
-    /*if($_POST["command"] == "showComments") {
-        displayCommentForm($_POST["id"]);
-        showComments($_POST["id"]);
-        
-    }
-    */
     if($_POST["saveComment"] === "true"){
         var_dump($_POST);
         writeCommentToDB();
@@ -115,7 +108,7 @@
                         <label for='commentContent' class='form-label'></label>
                             <div class='mx-2 text-dark'>
                                 <input type='hidden' name='newsid' value='".$newsid."'>
-                                <textarea class='form-control text-dark' id='commentContent".$newsid."' name='commentContent' palceholder='Schreibe hier deinen Kommentar'></textarea>
+                                <textarea class='form-control text-dark' id='commentContent".$newsid."' name='commentContent' placeholder='Schreibe hier deinen Kommentar'></textarea>
                             </div>
                             <hr class='mt-0'>
                             <div class='d-flex flex-row align-items-center justify-content-between px-2 pb-2'>
