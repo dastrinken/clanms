@@ -14,6 +14,18 @@
             break;
     }
 
+    function getEnrollment($userid, $eventid){
+        $return = false;
+        $mysqli = connect_DB();
+        $select = "SELECT id FROM clanms_event_enrolls WHERE id_user = $userid AND id_event = $eventid";
+        $result = $mysqli->query($select);
+        if($result->num_rows > 0){
+            $return = true;
+        }
+        $mysqli->close();
+        return $return;
+    }
+
     /**
      * Selects num_rows from given event for display (eventid has to be set as a global)
      */
@@ -49,7 +61,7 @@
      */
     function getClosestEventId() {
         $mysqli = connect_DB();
-        $select = "SELECT id, MIN(DATEDIFF(start, NOW())) AS diff FROM clanms_event WHERE start > NOW() GROUP BY id ORDER BY diff ASC LIMIT 1;";
+        $select = "SELECT id, MIN(DATEDIFF(start, NOW())) AS diff FROM clanms_event WHERE date(start) >= date(NOW()) GROUP BY id ORDER BY diff ASC LIMIT 1;";
         $result = $mysqli->query($select);
         while($row = $result->fetch_row()) {
             $id = $row[0];
@@ -58,7 +70,7 @@
         $mysqli->close();
         return $id;
     }
-
+    
     /**
      * Selects all Events from database
      * @return Array returns an associative mysqli result array with all data from clanms_event

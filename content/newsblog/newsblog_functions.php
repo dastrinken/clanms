@@ -32,6 +32,9 @@
         global $totalPages;
         $displayAmount = 5;
         $page = $_GET['page'];
+        if($page < 1){
+            $page = 1;
+        }
         $offset = ($page - 1) * $displayAmount;
 
         $mysqli = connect_DB();
@@ -75,6 +78,7 @@
     
     function showComments($newsid) {
         global $Parsedown;
+        $page = $_GET['page'];
         $mysqli = connect_DB();
         $select = "SELECT cnc.id AS commentId,
                 cnc.id_author AS userId, 
@@ -104,6 +108,7 @@
 
     function displayCommentForm($newsid) {
         if (session_status() === PHP_SESSION_NONE){session_start();}
+        $page = $_GET['page'];
         if(!empty($_SESSION)){
             if(checkPermission("newsblogComment", false)){
                 echo "<form method='post' class='bg-lightdark rounded mb-3'>
@@ -119,13 +124,14 @@
                                     <p class='small mb-0 ms-2'>".selectOneRow_DB("name", "clanms_user_profile", "id_user", $_SESSION['userid'])."</p>
                                 </div>
                                 <input type='hidden' name='nav' value='news'>
+                                <input type='hidden' name='page' value='$page'>
                                 <button name='saveComment' class='btn btn-danger submit' value='true'>Senden</button>
                             </div>
                     </form>";
             }
-            else{
+            
+            }else{
                 echo "<p>Bitte melden Sie sich an, um zu kommentieren</p>";
-            }
         }
 }
 

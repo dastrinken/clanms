@@ -21,6 +21,7 @@ if(!empty($_SESSION)){
     if(checkPermission("newsblogDeleteComment",true, $authorid)){
                         $output.='<input type="hidden" name="commentid" value="'.$commentid.'">
                                     <input type="hidden" name="nav" value="news">
+                                    <input type="hidden" name="page" value="'.$page.'">
                                     <button class="btn btn-danger btn-sm submit" name="deleteComment" value="true">Löschen</button>';
                     }
                 }

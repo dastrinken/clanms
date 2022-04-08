@@ -10,6 +10,7 @@ function uploadImage() {
     xhr.open("POST", "./gallery/upload_image.php", true);
     xhr.onload = function() {
         console.log("Bild hochgeladen!");
+        reloadImages();
     }
     xhr.send(formData);
 }

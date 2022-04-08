@@ -32,5 +32,4 @@
         $result->close();
         $mysqli->close();
     }
-
 ?>

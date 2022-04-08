@@ -27,8 +27,8 @@
         <!-- Kommentare -->
         
         <?php 
-        displayCommentForm($article_id);
-        showComments($article_id);
+            displayCommentForm($article_id);
+            showComments($article_id);
         ?>
     </div>
 </div>

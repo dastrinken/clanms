@@ -1,6 +1,8 @@
 <?php
     /* SESSION setzen, falls noch nicht geschehen */
     if (session_status() === PHP_SESSION_NONE){session_start();}
+    /* Globale Konstanten einbinden */
+    require_once(__DIR__."/../../system/constants.php");
     /* Einbinden aller Funktionen aus anderen Admin-Bereichen */
     require_once(__DIR__."/../../system/db_functions.php");
     require_once(__DIR__."/rights_system.php");

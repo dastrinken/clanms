@@ -2,13 +2,28 @@
     require_once(__DIR__."/../scripts/adminfunctions.php");
 
     if($editing) {
-
         $galleryTitle = $_GET['galleryTitle'];
         $galleryDescription = $_GET['galleryDescription'];
         $galleryThumbnail = $_GET['galleryThumbnail'];
         $galleryId = $_GET['galleryId'];
+        echo "<h2 class='text-center mt-2'>Bilder verwalten</h2>";
+        echo '<div class="row d-flex flex-column">
+                    <div class="col d-flex flex-wrap my-5" id="image-preview">
+                        <button class="btn collapsebutton pt-3 border-0" data-bs-toggle="modal" data-bs-target="#uploadModal">
+                            <h4>
+                            <i class="bi-plus-square">
+                            </i>
+                            Bild hinzufügen</h4>
+                        </button>';
+        getImagesFromDB();
+        echo '</div>
+            </div><hr/>';
+        echo '<button class="btn w-100 mb-3 collapsed d-flex justify-content-evenly align-items-end collapsebutton" type="button" data-bs-toggle="collapse" data-bs-target="#collapseGallery" aria-expanded="false" aria-controls="collapseGallery">
+                <i class="bi-arrow-down h3"></i><h2 class="text-center mt-2">Gallerie bearbeiten</h2><i class="bi-arrow-down h3"></i>
+            </button>
+                <div class="collapse" id="collapseGallery">';
 
-        echo "<h2 class='text-center mt-2'>Gallerie bearbeiten</h2>";
+        
     } else {
         echo "<h2 class='text-center mt-2'>Neue Gallerie</h2>";
     }
@@ -17,7 +32,6 @@
     $imageDescription = $_GET['imageDescription'];
     $imageFilename = $_GET['filename'];
     $imageId = $_GET['imageId'];
-
 ?>
 <div class="row d-flex flex-column">
     <div class="col mb-3">
@@ -30,8 +44,9 @@
                 <label for="galleryDescription" class="form-label">Beschreibung</label>
                 <textarea class="form-control" id="galleryDescription" name="galleryDescription" placeholder="Beschreibe die Gallerie..."><?php echo $galleryDescription; ?></textarea>
             </div>
-            <div class="input-group mb-3">
-                <input type="file" class="form-control" name="image" placeholder="Datei Hochladen hier...">
+            <div class="mb-3">
+                <label for="image" class="form-label">Gallerie - Thumbnail</label>
+                <input id="image" type="file" class="form-control" name="image" placeholder="Datei Hochladen hier...">
             </div>
             <?php 
                     if($editing) {
@@ -45,14 +60,9 @@
             <button id="saveGallery" class="form-control submit w-25" name="saveGallery" value="save">Speichern</button>
         </form>
     </div>
-    <hr />
-    <div class="col d-flex flex-wrap" id="image-preview">
-        <button class="btn" data-bs-toggle="modal" data-bs-target="#uploadModal">
-            <h4>
-            <i class="bi-plus-square">
-            </i>
-            Bild hinzufügen</h4>
-        </button>
-        <?php getImagesFromDB(); ?>
-    </div>
 </div>
+<?php
+if($editing){
+    echo '</div>';
+}
+?>

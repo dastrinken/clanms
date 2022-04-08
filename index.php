@@ -5,8 +5,8 @@
     require(__DIR__."/system/helper_functions.php");
     require(__DIR__."/system/account/account_functions.php");
     require(__DIR__."/parsedown/parsedown.php");
-    if($_POST){
-        header('Location: ./index.php?nav='.$_POST['nav']);
+    if($_POST['nav']){
+        header('Location: ./index.php?nav='.$_POST['nav'].'&page='.$_POST['page']);
     }
 ?>
 <!DOCTYPE html>
@@ -22,6 +22,7 @@
     <link rel="stylesheet" href="./styles/style.css"> 
     <link rel="stylesheet" href="./simplemde/simplemde.min.css">
     <script src="./bootstrap/js/bootstrap.bundle.js"></script>
+    <script src="./system/js/constants.js"></script>
     <script src="./system/js/jquery.js"></script>
     <script src="./simplemde/simplemde.min.js"></script>
     <!-- Newsblog -->
