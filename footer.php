@@ -10,7 +10,7 @@
     <ul class="nav col-md-4 justify-content-end list-unstyled d-flex">
       <?php
         $mysqli = connect_DB();
-        $select = "SELECT * FROM clanms_social_media WHERE 1=1;";
+        $select = "SELECT * FROM clanms_social_media WHERE display <> 0;";
         $query = $mysqli->query($select);
         while($row = $query->fetch_assoc()) {
           echo '<li class="ms-3"><a class="text-muted" href="'.$row["url"].'" target="_blank"><i class="'.$row["icon"].' footer-icon"></i></a></li>';

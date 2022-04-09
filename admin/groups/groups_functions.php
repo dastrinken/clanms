@@ -59,17 +59,20 @@
      * @param int $groupId The id of the users group
      */
     function showRightsTable($groupId) {
+        //TODO: Helpful tooltips on checkboxes
         $mysqli = connect_DB();
         $select = "SELECT cr.id AS rightId, 
                     cr.title AS rightTitle, 
                     cghr.value AS rightValue, 
                     cg.id AS groupId, 
                     cg.title AS groupTitle, 
-                    cg.description AS groupDesc 
+                    cg.description AS groupDesc,
+                    cr.sorting_order AS grouped 
                     FROM clanms_group_has_rights AS cghr
                     LEFT JOIN clanms_rights AS cr ON cghr.id_right = cr.id
                     LEFT JOIN clanms_groups AS cg ON cghr.id_group = cg.id
-                    WHERE cg.id = ".$groupId.";";
+                    WHERE cg.id = ".$groupId."
+                    ORDER BY cr.sorting_order ASC;";
         $result = $mysqli->query($select);
         $table = "<div class='table'>
                         <div class='thead'>
@@ -82,9 +85,25 @@
                         </div>
                         <div class='tbody'>";
         while($row = $result->fetch_assoc()) {
+            if($row['grouped'] % 10 == 0) {
+                $borderclass = "border border-0 border-top";
+                if($row['grouped'] < 10) {
+                    $leading = "News";
+                } elseif($row['grouped'] < 20) {
+                    $leading = "Event";
+                } elseif($row['grouped'] < 30) {
+                    $leading = "Gall";
+                } elseif($row['grouped'] < 40) {
+                    $leading = "Adm";
+                } elseif($row['grouped'] < 50) {
+                    $leading = "Acc";
+                }
+            } else {
+                $borderclass = "";
+            }
             $table .= "<div class='tr activeTable'>
-                        <span class='td border-end text-center'>".$row['rightId']."</span>
-                        <span class='td border-end'>".$row['rightTitle']."</span>";
+                        <span class='td border-end text-center $borderclass'>".$leading."<input type='hidden' name='rightId' value='".$row['rightId']."'></span>
+                        <span class='td border-end $borderclass'>".$row['rightTitle']."</span>";
             $checkedOwn = $row['rightValue'] >= 25 ? "checked" : "";
             $checkedAll = $row['rightValue'] >= 75 ? "checked" : "";
             //set checkboxes to disabled if permission is false and generally disable admin-rights checkboxes
@@ -93,7 +112,7 @@
             } else {
                 $disabled = "";
             }
-            $table .= "<span class='td border-end'><div class='form-check'><input id='".$row['groupId']."_".$row['rightId']."_25' class='form-check-input' type='checkbox' ".$checkedOwn.$disabled."></div></span>";
+            $table .= "<span class='td border-end $borderclass'><div class='form-check'><input id='".$row['groupId']."_".$row['rightId']."_25' class='form-check-input' type='checkbox' ".$checkedOwn.$disabled."></div></span>";
             //some rights only have one value therefore showing only one checkbox
             switch($row['rightId']) {
                 case 6:
@@ -101,10 +120,10 @@
                 case 8:
                 case 9:
                 case 10:
-                    $table .= "<span class='td'></span>";
+                    $table .= "<span class='td $borderclass'></span>";
                     break;
                 default:
-                $table .= "<span class='td'><div class='form-check'><input id='".$row['groupId']."_".$row['rightId']."_75' class='form-check-input' type='checkbox' ".$checkedAll.$disabled."></div></span>";
+                $table .= "<span class='td $borderclass'><div class='form-check'><input id='".$row['groupId']."_".$row['rightId']."_75' class='form-check-input' type='checkbox' ".$checkedAll.$disabled."></div></span>";
                     break;
             }
             
