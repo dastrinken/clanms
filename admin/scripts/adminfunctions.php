@@ -18,6 +18,7 @@
     include_once(__DIR__."/../game/game_functions.php");
     include_once(__DIR__."/../../content/calendar/calendar_functions.php");
     include_once(__DIR__."/../../content/newsblog/newsblog_functions.php");
+    
 
     /* Newsblog */
     if($_POST['saveArticle']) {
@@ -36,6 +37,9 @@
     } 
     if($_GET['deleteEvent'] === 'true') {
         deleteEventFromDB($_GET['eventId']);
+    }
+    if([$_POST['deleteEnroll'] === 'true']) {
+        deleteEnroll($_POST['enrollid']);
     }
 
     /* Benutzerverwaltung */

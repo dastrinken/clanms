@@ -29,10 +29,9 @@
     /**
      * Selects num_rows from given event for display (eventid has to be set as a global)
      */
-    function getEnrollCount(){
-        global $eventId;
+    function getEnrollCount($eventId){
         $mysqli = connect_DB();
-        $select = "SELECT * FROM clanms_event_enrolls WHERE id_event =$eventId";
+        $select = "SELECT id FROM clanms_event_enrolls WHERE id_event =$eventId";
         $result = $mysqli->query($select);
         return $result->num_rows;
     }
