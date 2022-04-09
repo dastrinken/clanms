@@ -28,6 +28,7 @@
                         <div class="tr mb-2">
                             <span class="td border-bottom border-dark">#</span>
                             <span class="td border-bottom border-dark">Author</span>
+                            <span class="td border-bottom border-dark">Profilbild</span>
                             <span class="td border-bottom border-dark">Kommentar</span>
                             <span class="td border-bottom border-dark">Datum</span>
                             <span class="td border-bottom border-dark"></span>
@@ -49,9 +50,12 @@
                                 <input type="hidden" name="commentId" value="'.$commentid.'">
                             </span>
                             <span class="td border-end border-activeTable" name="commentAuthor">'.$commentAuthor.'</span>
+                            <span class="td border-end border-activeTable" name="authorPic">
+                                <img src="data:image/png;base64,'.$commentPpic.'" width="64px" height="64px" class="rounded-circle">
+                            </span>
                             <span class="td border-end border-activeTable" name="content">'.$commentContent.'</span>
                             <span class="td border-end border-activeTable" name="date">'.$commentDate.'</span>
-                            <span class="td border-end border-activeTable" name="date">';
+                            <span class="td border-end border-activeTable">';
             if(checkPermission("newsblogCommentAdmin", true, $authorid)){
                 $table .= '<button class="btn btn-danger submit" name="deleteComment" value="true">Löschen</button>';
             }

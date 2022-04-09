@@ -104,7 +104,11 @@ function getTableView(folder, file, displayOption, id = null) {
   switch(displayOption) {
     case 'comments':
       xhttp.open("GET", "./"+folder+"/"+file+".php?displayOption="+displayOption+"&page="+page+"&articleId="+id);
-      headline = saveFolder+" - Gesamt";
+      headline = saveFolder+" - Kommentare";
+      break;
+    case 'enrolls':
+      xhttp.open("GET", "./"+folder+"/"+file+".php?displayOption="+displayOption+"&page="+page+"&eventId="+id);
+      headline = saveFolder+" - Anmeldungen";
       break;
     case 'all':
       xhttp.open("GET", "./"+folder+"/"+file+".php?displayOption="+displayOption+"&page="+page);
