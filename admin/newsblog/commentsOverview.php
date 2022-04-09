@@ -52,7 +52,7 @@
                             <span class="td border-end border-activeTable" name="content">'.$commentContent.'</span>
                             <span class="td border-end border-activeTable" name="date">'.$commentDate.'</span>
                             <span class="td border-end border-activeTable" name="date">';
-            if(checkPermission("newsblogDeleteComment", true, $authorid)){
+            if(checkPermission("newsblogCommentAdmin", true, $authorid)){
                 $table .= '<button class="btn btn-danger submit" name="deleteComment" value="true">Löschen</button>';
             }
             $table .= '</span></form>';

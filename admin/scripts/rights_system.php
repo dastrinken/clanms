@@ -41,7 +41,7 @@
             case "newsblogComment":
                 $rightsId = 11;
                 break;
-            case "newsblogDeleteComment":
+            case "newsblogCommentAdmin":
                 $rightsId = 12;
                 break;
         }

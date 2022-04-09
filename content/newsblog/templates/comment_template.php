@@ -18,7 +18,7 @@ $output = '<form method="post" class="submit">
                 <span>
                 <p class="small mb-0">'.$dispDate.' - '.$dispTime.'</p>';
 if(!empty($_SESSION)){
-    if(checkPermission("newsblogDeleteComment",true, $authorid)){
+    if(checkPermission("newsblogComment",true, $authorid)){
                         $output.='<input type="hidden" name="commentid" value="'.$commentid.'">
                                     <input type="hidden" name="nav" value="news">
                                     <input type="hidden" name="page" value="'.$page.'">
