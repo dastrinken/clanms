@@ -248,8 +248,8 @@ a:hover {
 /* Popup from Gallery */
 
 .img-window {
-  width: 100 vw;
-  height: 100 vh;
+  width: 100vw;
+  height: 100vh;
   background-color: #212529;
   position: fixed;
   top: 0;
@@ -261,8 +261,8 @@ a:hover {
 }
 
 .img-window img {
-  max-height: 80 vh;
-  max-width: 80 vw;
+  max-height: 80vh;
+  max-width: 80vw;
 }
 
 /* Next Image */
@@ -294,5 +294,5 @@ a:hover {
   text-transform: uppercase;
 }
 .img-btn-prev:hover {
-  opacity: 0,8;
+  opacity: 0.8;
 }

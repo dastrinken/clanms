@@ -12,10 +12,16 @@ function getGalleriesFromDB() {
     $query = "SELECT * FROM clanms_galleries;";
     $select = $mysqli->query($query);
     if($select->num_rows == NULL) {
-        echo "<p>Keine Gallerie vorhanden.</p>";
+        $card = '<div class="container">
+                    <div class="row" id="gallery" class="gallery">
+                        <p>Keine Gallerie vorhanden.</p>
+                    </div>
+                </div>';
     } else {
+        $card = '<div class="container">
+                    <div class="row" id="gallery" class="gallery">';
         while($row = $select->fetch_assoc()) {
-            $card = '<div class="col m-2" id="galleryview">
+            $card .= '<div class="col m-2" id="galleryview">
                         <form>
                             <div class="card border-black shadow-sm rounded p-1 bg-dark" style="width: 18rem;">
 
@@ -26,16 +32,18 @@ function getGalleriesFromDB() {
 
                                 <input type="hidden" name="galleryId" value="'.$row['id'].'">
 
-                                <button name="openGallery" value="true" class="btn btn-primary" href=#;" >Öffnen</button>
+                                <button name="openGallery" value="true" class="btn btn-primary" href="" >Öffnen</button>
                                 </div>
                             </div>
                         </form>
                     </div>';
-            echo $card;
         }
         $select->close();
+        $card .= "</div>
+            </div>";
     }
     $mysqli->close();
+    echo $card;
 }
 
 function getImagesFromDB() {
@@ -69,14 +77,4 @@ function getImagesFromDB() {
     }
     $mysqli->close();
 }
-
-
 ?>
-
-<script>
-    function reloadImages(){
-
-$('#galleryvie').load(document.URL +  ' #galleryview');
-}
-
-</script>

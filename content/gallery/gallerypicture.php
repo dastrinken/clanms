@@ -1,22 +1,19 @@
-<section class="container">
-<div class="row" id="gallery" class="gallery">
-    <script>   
-    let srclist = [];
-    </script>
-      <?php getImagesFromDB(); ?>
+<div id="container">
+    <div class="row" id="gallery" class="gallery">
+        <script>   
+        let srclist = [];
+        </script>
+        <?php getImagesFromDB(); ?>
+    </div>
 </div>
-</section>
 
 
 
 
 <script>
-
-    
-
     let galleryImages = document.querySelectorAll(".img-thumbnail");
     let getLatestOpenImg;
-    let windowWith = window.innerw;
+    let windowWidth = window.innerWidth;
     let imgpos;
 
 
@@ -30,22 +27,22 @@
 
                 getLatestOpenImg = index +1;
                 
-                let container = document.getElementById("gallery");
+                let container = document.getElementById("container");
                 let newImageWindow = document.createElement("div");
                 container.appendChild(newImageWindow);
                 newImageWindow.setAttribute("class", "img-window ");
+                newImageWindow.classList.add("d-flex");
                 newImageWindow.setAttribute("onclick", "closeImg()");
 
                 let newImg = document.createElement("img");
                 newImageWindow.appendChild(newImg);
                 newImg.setAttribute("src", Imagesrc);
                 newImg.setAttribute("id", "current-img");
-                newImg.setAttribute("style", "width: 15%; height: 15%;");
 
 
                 newImg.onload = function() {
                     let imgWidth = this.width;
-                    let calcImgToEdge = ((windowWith - imgWidth) / 2) -80;
+                    let calcImgToEdge = Math.abs(((windowWidth - imgWidth) / 2) - 50);
 
                     let newNextBtn =  document.createElement("a");
                     let btnNextText = document.createTextNode("Next");
@@ -61,7 +58,7 @@
                     container.appendChild(newPrevBtn);
                     newPrevBtn.setAttribute("class", "img-btn-prev");
                     newPrevBtn.setAttribute("onclick", "changeImg(0)");
-                    newPrevBtn.style.cssText ="left: " + calcImgtoEdge + "px;";
+                    newPrevBtn.style.cssText ="left: " + calcImgToEdge + "px;";
 
                 }
 
@@ -104,13 +101,13 @@ function changeImg(changeDir) {
     newImg.onload = function() {
 
         let imgWidth = this.width;
-        let calcImgToEdge = ((windowWith - imgWidth) / 2) -80;
+        let calcImgToEdge = Math.abs(((windowWidth - imgWidth) / 2) - 50);
 
         let nextBtn = document.querySelector(".img-btn-next");
-        nextBtn.style.cssText = "right: " + calcImgtoEdge + "px;";
+        nextBtn.style.cssText = "right: " + calcImgToEdge + "px;";
 
         let PrevBtn = document.querySelector(".img-btn-prev");
-        PrevBtn.style.cssText = "left: " + calcImgtoEdge + "px;";
+        PrevBtn.style.cssText = "left: " + calcImgToEdge + "px;";
         
     }
 }
