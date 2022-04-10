@@ -55,4 +55,3 @@ function closeToast() {
     toast.classList.remove("showToast");
     toast.classList.add("hideToast");
 }
-

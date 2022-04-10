@@ -13,7 +13,7 @@
         include(__DIR__."/content/calendar/calendar_page.php");
     } elseif($_GET['nav'] === 'gallery') {
         include(__DIR__."/content/gallery/gallery_functions.php");
-        include(__DIR__."/content/gallery/galleryframe.php");
+        getGalleriesFromDB();
     } elseif($_GET['nav'] === 'faq'){
         include(__DIR__."/content/faq/faq_functions.php");
         include(__DIR__."/content/faq/faq.php");
