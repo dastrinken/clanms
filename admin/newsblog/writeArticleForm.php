@@ -27,16 +27,17 @@
 
         <div class="input-group w-auto me-2">
             <span class="input-group-text" id="ariaLabelPublish">Veröffentlichung</span>
-            <input class="form-control" type="datetime-local" name="publish" value="<?php echo empty($date_published) ? date('Y-m-d\TH:i:s') : $date_published_w3c; ?>" min="<?php echo date('Y-m-d\TH:i:s') ?>" aria-describedby="ariaLabelPublish">
+            <input class="form-control" type="datetime-local" name="publish" value="<?php echo empty($date_published) ? date('Y-m-d\TH:i') : $date_published_w3c; ?>" min="<?php echo date('Y-m-d\TH:i'); ?>" aria-describedby="ariaLabelPublish">
         </div>
-        <input type="hidden" name="userid" value="<?php echo $_GET['userid']; ?>">
         <?php 
             if($editing) {
-                echo '<input type="hidden" name="updateArticle" value="true">';
-                echo '<input type="hidden" name="articleId" value="'.$articleId.'">';
+                echo '<input type="hidden" name="updateArticle" value="true">
+                      <input type="hidden" name="articleId" value="'.$articleId.'">
+                      <input type="hidden" name="userid" value="'.$_SESSION["userid"].'">';
                 $editing = false;
             } else {
-                echo '<input type="hidden" name="updateArticle" value="false">';
+                echo '<input type="hidden" name="updateArticle" value="false">
+                      <input type="hidden" name="userid" value="'.$_GET["userid"].'">';
             }
         ?>
         <button id="saveArticle" class="form-control submit w-25" name="saveArticle" value="save">Speichern</button>

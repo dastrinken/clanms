@@ -18,7 +18,9 @@
     <div class='row d-flex align-content-center text-center bg-blackened m-1 p-1 rounded'>
         <h4 class='m-1'><?php echo $optionalText, $row['title']; ?></h4>
     </div>
-    <!-- CONTENT -->
+    <!-- CONTENT 
+        TODO: Text truncation
+    -->
     <div class='row'>
         <div class='col d-flex justify-content-center align-items-center p-2'>
             <?php getCategoryImage($row['event_cat'], 128, 2); ?>
@@ -27,7 +29,7 @@
             <hr/>
             <div class='row p-1'>
                 <pre>Datum: <?php echo $displayDate; ?> | Uhrzeit: <?php echo $displayTime; ?></pre>
-                <pre>Anmeldungen: <?php echo getEnrollCount(); ?></pre>
+                <pre>Anmeldungen: <?php echo getEnrollCount($eventId); ?></pre>
             </div>
             <div class='row p-1'>
                 <p><?php echo $row['description']; ?></p>

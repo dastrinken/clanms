@@ -1,4 +1,6 @@
 <?php
+
+
 /**
  * Connects with database and creates or updates an event entry
  * @param String $editExisting decides between new entry (false) or update existing one (true)
@@ -220,6 +222,7 @@ function getEventsFromDB($displayOption) {
             <span class='td border-bottom border-dark'>Kategorie</span>
             <span class='td border-bottom border-dark'>Spiel</span>
             <span class='td border-bottom border-dark'>Verantwortlich</span>
+            <span class='td border-bottom border-dark'>Anmeldungen</span>
             <span class='td border-bottom border-dark'></span>
             <span class='td border-bottom border-dark'></span>
         </div>
@@ -244,9 +247,16 @@ function getEventsFromDB($displayOption) {
     }
 
     $event_cat = $row['eventCat'];
+    
     $cat_title = $row['catTitle'];
     $game_id = $row['gameId'];
     $game_title = $row['gameTitle'];
+    $enrollCount = getEnrollCount($event_id);
+    if($enrollCount > 0) {
+        $enrollText = '<a href="#" onclick="getTableView(\'events\', \'enrollsOverview\', \'enrolls\', \''.$event_id.'\'); return false;">'.$enrollCount.' Anmeldungen</a>';
+    } else {
+        $enrollText = ' - ';
+    }
     $table .= '<form class="tr activeTable">
                 <span class="td border-end border-activeTable">
                 '.(/*$offset+*/$count).'
@@ -283,7 +293,9 @@ function getEventsFromDB($displayOption) {
                     '.$event_author_name.'
                     <input type="hidden" name="author_id" value="'.$event_author.'">
                 </span>
-
+                <span class="td border-end border-activeTable">
+                    '.$enrollText.'
+                </span>
                 <input type="hidden" name="description" value="'.$event_desc.'">';
                 if(checkPermission("eventorganizer",true, $event_author)){
                     $table.='<span class="td border-end border-activeTable">
@@ -300,6 +312,15 @@ function getEventsFromDB($displayOption) {
     $result->close();
     $mysqli->close();
     return $table;
+}
+
+function deleteEnroll($enrollid){
+    $mysqli = connect_DB();
+    $stmt = $mysqli->prepare("DELETE FROM clanms_event_enrolls WHERE clanms_event_enrolls.id = ?");
+    $stmt->bind_param("i", $enrollid);
+    $stmt->execute();
+    $stmt->close();
+    $mysqli->close();
 }
 
 ?>

@@ -8,11 +8,11 @@
             <!-- Title -->
             <div class="mb-3">
                 <div class="input-group">
-                    <fieldset disabled class="d-flex">
+                    <fieldset id="titleFieldset" disabled class="d-flex">
                         <span class="input-group-text rounded-0 rounded-start">Titel der Seite</span>
-                        <input type="text" aria-label="Last name" class="form-control rounded-0 rounded-end bg-light" value="<?php echo getSetting("title"); ?>">
+                        <input id="titleInput" type="text" aria-label="Homepage Title" class="form-control rounded-0 rounded-end bg-light" value="<?php echo getSetting("title"); ?>">
                     </fieldset>
-                    <button id="changeTitle" class="btn rounded"><i class="bi-pencil-square"></i></button>
+                    <button id="changeTitle" type="button" class="btn rounded ms-2"><i class="bi-pencil-square"></i></button>
                 </div>
             </div>
             <!-- Landingpage text -->

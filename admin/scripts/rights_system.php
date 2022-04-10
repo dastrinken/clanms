@@ -1,9 +1,5 @@
 <?php
-    /* define bounding constants */
-    define('VAL_MIN', 25);
-    define('VAL_MOD', 50);
-    define('VAL_ADM', 75);
-
+    require_once(__DIR__."/../../system/constants.php");
     /**
      * @param String $moduleName String representation of the modules name
      * @param bool $checkSameUser You might want to check if user is the author e.g new article and edit old article
@@ -45,7 +41,7 @@
             case "newsblogComment":
                 $rightsId = 11;
                 break;
-            case "newsblogDeleteComment":
+            case "newsblogCommentAdmin":
                 $rightsId = 12;
                 break;
         }

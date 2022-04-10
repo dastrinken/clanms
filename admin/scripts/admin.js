@@ -1,9 +1,4 @@
 /* General */
-var popoverTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="popover"]'))
-var popoverList = popoverTriggerList.map(function (popoverTriggerEl) {
-  return new bootstrap.Popover(popoverTriggerEl)
-})
-
 function setActive(buttonID) {
   var button = document.getElementById(buttonID);
   var active = document.getElementsByClassName("active");
@@ -31,7 +26,45 @@ function showDashboard(buttonId) {
       },
       hideIcons: ['side-by-side', 'fullscreen']
     });
+    manageHomepageSettings();
+    manageSocialMedia();
   });
+}
+
+/* Homepage Settings */
+function manageHomepageSettings() {
+  var changeBtn = document.getElementById("changeTitle");
+  let titleFieldset = document.getElementById("titleFieldset");
+  let titleInput = document.getElementById("titleInput");
+  changeBtn.addEventListener("click", function() {
+    titleFieldset.toggleAttribute("disabled");
+    titleInput.classList.toggle("bg-light");
+    titleInput.select();
+    changeBtn.classList.toggle("btn-success");
+    changeBtn.firstChild.classList.toggle("bi-pencil-square");
+    changeBtn.firstChild.classList.toggle("bi-check-all");
+    $.post("./dashboard/settings_functions.php",
+          { command: "changeTitle",
+            content: titleInput.value});
+  });
+}
+
+function manageSocialMedia() {
+  var checkboxArray = document.getElementsByClassName("form-check-input");
+  console.log(checkboxArray);
+  var checked;
+  for(let i = 0; i < checkboxArray.length; i++) {
+    checkboxArray[i].addEventListener("click", function() {
+      let textField = document.getElementById(this.id+"-text")
+      if($(this).is(':checked')) {
+        checked = "true";
+      } else {
+        checked = "false";
+      }
+      $.post("./dashboard/settings_functions.php", 
+            { id: this.id, command: "saveSocialMedia", active: checked, content: textField.value});
+    });
+  }
 }
 
 /* Newsblog */
@@ -42,7 +75,7 @@ var saveFolder;
 var saveFile;
 var page = 1;
 
-function getTableView(folder, file, displayOption) {
+function getTableView(folder, file, displayOption, id = null) {
   saveFolder = folder;
   saveFile = file;
   saveDisplay = displayOption;
@@ -69,6 +102,14 @@ function getTableView(folder, file, displayOption) {
   }
 
   switch(displayOption) {
+    case 'comments':
+      xhttp.open("GET", "./"+folder+"/"+file+".php?displayOption="+displayOption+"&page="+page+"&articleId="+id);
+      headline = saveFolder+" - Kommentare";
+      break;
+    case 'enrolls':
+      xhttp.open("GET", "./"+folder+"/"+file+".php?displayOption="+displayOption+"&page="+page+"&eventId="+id);
+      headline = saveFolder+" - Anmeldungen";
+      break;
     case 'all':
       xhttp.open("GET", "./"+folder+"/"+file+".php?displayOption="+displayOption+"&page="+page);
       headline = saveFolder+" - Gesamt";
@@ -134,6 +175,7 @@ function newEntry(content) {
       break;
     case "group":
       xhttp.open("GET", "./groups/createGroup.php?author="+username+"&userid="+userid);
+      break;
   }
   xhttp.send();
 }

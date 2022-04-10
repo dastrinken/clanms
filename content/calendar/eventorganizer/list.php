@@ -17,6 +17,9 @@ function getEnrolls(){
             WHERE cee.id_event = $eventId";
     $result = $mysqli->query($select);
     $list ='<ul class="list-group list-group-flush">';
+    if($result->num_rows == 0) {
+        echo "<p>Es gibt bisher keine Anmeldungen für dieses Event.</p>";
+    }
     while($row = $result->fetch_assoc()){
         $date = date_create_from_format("Y-m-d H:i:s", $row["since"])->format("d.m.Y");
         $list .= '<li class="list-group-item list-group-item-action list-group-item-secondary">

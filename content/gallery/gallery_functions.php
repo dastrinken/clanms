@@ -12,7 +12,7 @@ function getGalleriesFromDB() {
     $query = "SELECT * FROM clanms_galleries;";
     $select = $mysqli->query($query);
     if($select->num_rows == NULL) {
-        echo "<p>Keine Gallerie vorhanden, klicke oben auf 'Neu' um eine zu erstellen.</p>";
+        echo "<p>Keine Gallerie vorhanden.</p>";
     } else {
         while($row = $select->fetch_assoc()) {
             $card = '<div class="col m-2" id="galleryview">

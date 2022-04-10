@@ -17,8 +17,8 @@
                             <label class="form-check-label me-3" for="flexCheckDefault">
                                 <abbr title="'.$row["title"].'"><i class="'.$row["icon"].' fs-2"></i></abbr>
                             </label>
-                            <input class="form-check me-3" type="text" name="'.lcfirst($row["title"]).'" placeholder="'.$row["url"].'">
-                            <input class="form-check-input ms-3" type="checkbox" value="" id="flexCheckDefault" '.$checked.'>
+                            <input class="form-check me-3" id="'.$row["id"].'-text" type="text" name="'.lcfirst($row["title"]).'" placeholder="'.$row["url"].'" value="'.$row["url"].'">
+                            <input class="form-check-input ms-3" type="checkbox" value="" id="'.$row["id"].'" '.$checked.'>
                         </div>
                     </div>
                 </form>';
@@ -26,7 +26,7 @@
         ?>
     </div>
     <div class="col">
-        <p>TODO: JavaScript funktionalität: Änderung soll direkt beim eintippen oder checkbox auswählen erfolgen (ohne "senden"-Button), Formular um neue Kanäle hinzuzufügen...</p>
+        <p></p>
     </div>
     <hr />
 </div>

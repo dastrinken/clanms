@@ -23,7 +23,6 @@
 
     /* Gallery */
     if($_POST['uploadImage']){
-        var_dump($_FILES);
         uploadImage();
         }
     

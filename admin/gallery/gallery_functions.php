@@ -1,16 +1,18 @@
 <?php
     require_once(__DIR__."/../../system/db_functions.php");
+    $nameExt;
 
     if($_POST['command'] == 'deleteImage') {
         deleteImageFromDB($_POST['postId']);
     }
 
     function writeGalleryToDB($editExisting) {
+        global $nameExt;
         $title = $_POST['galleryTitle'];
         $description = $_POST['galleryDescription'];
         if($_FILES['image']['size'] != 0) {
-            $pathtothumb =  '/gallery/images/'.$_FILES['image']['name'];
             uploadImage();
+            $pathtothumb =  '/gallery/images/'.$nameExt.$_FILES['image']['name'];
         }
         else {
             $pathtothumb = '/gallery/images/gallery.jpg';
@@ -95,25 +97,26 @@
             while($row = $select->fetch_assoc()) {
                 $imageCount = getGalleryImagesCount($row['id']);
                 $warning = $imageCount > 0 ? "In dieser Gallerie befinden sich noch $imageCount Bild(er), möchtest du sie wirklich löschen?" : "Die Gallerie wird endgültig aus der Datenbank gelöscht, bist du dir sicher?";
-                $card = '<div class="col m-2">
+                $card = '<div class="col m-2" style="max-width: 30%;">
                             <form>
-                                <div class="card" style="width: 18rem;">
+                                <div class="card shadow-sm">
                                     <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-primary">
                                         '.$imageCount.'
                                     </span>
 
                                     <img class="card-img-top" src=".'.$row['path_thumbnail'].'" alt="'.$row['title'].'" thumbnail">
-                                    <div class="card-body">
-                                    <h5 class="card-title">'.$row['title'].'</h5>
-                                    <p class="card-text">'.$row['description'].'</p>
+                                    <div class="card-body border-top bg-light">
+                                        <h5 class="card-title">'.$row['title'].'</h5>
+                                        <p class="card-text">'.$row['description'].'</p>
 
-                                    <input type="hidden" name="galleryId" value="'.$row['id'].'">
-                                    <input type="hidden" name="galleryTitle" value="'.$row['title'].'">
-                                    <input type="hidden" name="galleryDescription" value="'.$row['description'].'">
-                                    <input type="hidden" name="galleryThumbnail" value="'.$row['path_thumbnail'].'">
-
-                                    <button name="editGallery" value="true" class="btn btn-primary submit" >Bearbeiten</button>
-                                    <button name="deleteGallery" value="true" class="btn btn-danger submit" onclick="return confirm(\''.$warning.'\');">Löschen</button>
+                                        <input type="hidden" name="galleryId" value="'.$row['id'].'">
+                                        <input type="hidden" name="galleryTitle" value="'.$row['title'].'">
+                                        <input type="hidden" name="galleryDescription" value="'.$row['description'].'">
+                                        <input type="hidden" name="galleryThumbnail" value="'.$row['path_thumbnail'].'">
+                                        <div class="col d-flex justify-content-evenly">
+                                            <button name="editGallery" value="true" class="btn btn-primary submit" >Bearbeiten</button>
+                                            <button name="deleteGallery" value="true" class="btn btn-danger submit" onclick="return confirm(\''.$warning.'\');">Löschen</button>
+                                        </div>
                                     </div>
                                 </div>
                             </form>
@@ -148,7 +151,7 @@
 
         $select = $mysqli->query($query);
         if($select->num_rows == NULL) {
-            echo "<p>Keine Bilder vorhanden.</p>";
+            echo "<p class='w-50 text-center'>Keine Bilder vorhanden.</p>";
         } else {
             while($row = $select->fetch_assoc()) {
 
@@ -165,6 +168,7 @@
         $mysqli->close();
     }
 
+    /* TODO: make year-directories work */
     function uploadImage() {
         $errors= array();
         global $nameExt;
@@ -180,12 +184,12 @@
         
         $extensions= array("jpeg","jpg","png");
         
-        if(in_array($file_ext,$extensions)=== false){
-        $errors[]="extension not allowed, please choose a JPEG or PNG file.";
+        if(in_array($file_ext,$extensions) === false){
+        $errors[]="Format not allowed, please choose a JPEG or PNG file.";
         }
         
-        if($file_size > 10097152){
-        $errors[]='File size must be exactly 2 MB';
+        if($file_size > (2*MB)){
+        $errors[]='File size must be smaller than 2 MB';
         }
         
         if(empty($errors)==true){

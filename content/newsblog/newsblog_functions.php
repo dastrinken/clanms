@@ -12,11 +12,6 @@
         deleteCommentFromDB($_POST['commentid']);
     }
 
-    if($_POST["command"] == "showComments") {
-        displayCommentForm($_POST["id"]);
-        showComments($_POST["id"]);
-        
-    }
     if($_POST["saveComment"] === "true"){
         var_dump($_POST);
         writeCommentToDB();
@@ -30,6 +25,9 @@
         global $totalPages;
         $displayAmount = 5;
         $page = $_GET['page'];
+        if($page < 1){
+            $page = 1;
+        }
         $offset = ($page - 1) * $displayAmount;
 
         $mysqli = connect_DB();
@@ -73,6 +71,7 @@
     
     function showComments($newsid) {
         global $Parsedown;
+        $page = $_GET['page'];
         $mysqli = connect_DB();
         $select = "SELECT cnc.id AS commentId,
                 cnc.id_author AS userId, 
@@ -102,12 +101,15 @@
 
     function displayCommentForm($newsid) {
         if (session_status() === PHP_SESSION_NONE){session_start();}
+        $page = $_GET['page'];
         if(!empty($_SESSION)){
             if(checkPermission("newsblogComment", false)){
                 echo "<form method='post' class='bg-lightdark rounded mb-3'>
                         <label for='commentContent' class='form-label'></label>
-                            <input type='hidden' name='newsid' value='".$newsid."'>
-                            <textarea class='form-control' id='commentContent".$newsid."' name='commentContent' palceholder='Schreibe hier deinen Kommentar'></textarea>
+                            <div class='mx-2 text-dark'>
+                                <input type='hidden' name='newsid' value='".$newsid."'>
+                                <textarea class='form-control text-dark' id='commentContent".$newsid."' name='commentContent' placeholder='Schreibe hier deinen Kommentar'></textarea>
+                            </div>
                             <hr class='mt-0'>
                             <div class='d-flex flex-row align-items-center justify-content-between px-2 pb-2'>
                                 <div class='d-flex'>
@@ -115,13 +117,14 @@
                                     <p class='small mb-0 ms-2'>".selectOneRow_DB("name", "clanms_user_profile", "id_user", $_SESSION['userid'])."</p>
                                 </div>
                                 <input type='hidden' name='nav' value='news'>
+                                <input type='hidden' name='page' value='$page'>
                                 <button name='saveComment' class='btn btn-danger submit' value='true'>Senden</button>
                             </div>
                     </form>";
             }
-            else{
+            
+            }else{
                 echo "<p>Bitte melden Sie sich an, um zu kommentieren</p>";
-            }
         }
 }
 

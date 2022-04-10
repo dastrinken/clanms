@@ -1,6 +1,8 @@
 <?php
     /* SESSION setzen, falls noch nicht geschehen */
     if (session_status() === PHP_SESSION_NONE){session_start();}
+    /* Globale Konstanten einbinden */
+    require_once(__DIR__."/../../system/constants.php");
     /* Einbinden aller Funktionen aus anderen Admin-Bereichen */
     require_once(__DIR__."/../../system/db_functions.php");
     require_once(__DIR__."/rights_system.php");
@@ -15,7 +17,8 @@
     include_once(__DIR__."/../groups/groups_functions.php");
     include_once(__DIR__."/../game/game_functions.php");
     include_once(__DIR__."/../../content/calendar/calendar_functions.php");
-
+    include_once(__DIR__."/../../content/newsblog/newsblog_functions.php");
+    
 
     /* Newsblog */
     if($_POST['saveArticle']) {
@@ -24,6 +27,9 @@
     if($_GET['deleteArticle'] === 'true') {
         deleteArticleFromDB($_GET['articleId']);
     }
+    if($_POST['deleteComment'] === 'true') {
+        deleteCommentFromDB($_POST['commentId']);
+    }
 
     /* Events */
     if($_POST['saveEvent']) {
@@ -31,6 +37,9 @@
     } 
     if($_GET['deleteEvent'] === 'true') {
         deleteEventFromDB($_GET['eventId']);
+    }
+    if([$_POST['deleteEnroll'] === 'true']) {
+        deleteEnroll($_POST['enrollid']);
     }
 
     /* Benutzerverwaltung */
@@ -69,4 +78,5 @@
     if($_POST['saveGroup'] === 'save'){
         writeGroupToDB();
     }
+
 ?>
