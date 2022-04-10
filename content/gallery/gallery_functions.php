@@ -5,21 +5,21 @@
     require_once(__DIR__."/../../parsedown/parsedown.php");
     require_once(__DIR__."/../../system/account/account_functions.php");
     
+    if($_GET['getImages']) {
+        echo "<script>let srclist = [];</script>";
+        getImagesFromDB($_GET['getImages']);
+    }
 
 function getGalleriesFromDB() {
     if (session_status() === PHP_SESSION_NONE){session_start();}
     $mysqli = connect_DB();
     $query = "SELECT * FROM clanms_galleries;";
     $select = $mysqli->query($query);
+    $card = '<div class="container">
+                <div class="row" id="gallery" class="gallery">';
     if($select->num_rows == NULL) {
-        $card = '<div class="container">
-                    <div class="row" id="gallery" class="gallery">
-                        <p>Keine Gallerie vorhanden.</p>
-                    </div>
-                </div>';
+        $card .= '<p>Keine Gallerie vorhanden.</p>';
     } else {
-        $card = '<div class="container">
-                    <div class="row" id="gallery" class="gallery">';
         while($row = $select->fetch_assoc()) {
             $card .= '<div class="col m-2" id="galleryview">
                         <form>
@@ -32,7 +32,7 @@ function getGalleriesFromDB() {
 
                                 <input type="hidden" name="galleryId" value="'.$row['id'].'">
 
-                                <button name="openGallery" value="true" class="btn btn-primary" href="" >Öffnen</button>
+                                <button name="openGallery" type="button" value="true" class="btn btn-primary" onclick="getGallery('.$row["id"].');">Öffnen</button>
                                 </div>
                             </div>
                         </form>
@@ -46,9 +46,9 @@ function getGalleriesFromDB() {
     echo $card;
 }
 
-function getImagesFromDB() {
+function getImagesFromDB(?int $galleryId = null) {
     if (session_status() === PHP_SESSION_NONE){session_start();}  /* ImagesId's die der der GalleryId matchen */
-    $galleryId = $_GET['galleryId'];
+    $galleryId = $galleryId == null ? $_GET['galleryId'] : $galleryId;
     $mysqli = connect_DB();
     $query = "SELECT cgi.id_image AS imageId, 
                 ci.title AS imgtitle, 
@@ -58,23 +58,30 @@ function getImagesFromDB() {
                 LEFT JOIN clanms_images AS ci 
                 ON cgi.id_image = ci.id 
                 WHERE cgi.id_gallery = $galleryId";
-
     $select = $mysqli->query($query);
+    $carousel = '<div id="imageContainer" class="container">
+                    <div id="galleryNav" class="row">
+                        <div class="col my-2">
+                            <a href="./index.php?nav=gallery" class="btn btn-danger"><i class="bi-arrow-return-left"></i></a>
+                        </div>
+                    </div>
+                    <div class="row" id="gallery" class="gallery">';
     if($select->num_rows == NULL) {
-        echo "<p>Keine Bilder vorhanden.</p>";
+        $carousel .= "<p>Keine Bilder vorhanden.</p>";
     } else {
         while($row = $select->fetch_assoc()) {
 
-            $carousel = '<div class="card p-0 m-2 bg-light" style=" width: 15%;">
+            $carousel .= '<div class="card p-0 m-0 bg-transparent shadow-none border-0" style=" width: 15%;">
                             <script>   
                                 srclist.push("./admin/gallery/images/'.$row['filename'].'");
                             </script>
-                            <img src="./admin/gallery/images/'.$row['filename'].'" class="m-1 img-thumbnail border-0" alt="'.$row['imgtitle'].'">
+                            <img src="./admin/gallery/images/'.$row['filename'].'" class="m-0 gallery-thumb border-0 border-top border-black" alt="'.$row['imgtitle'].'">
                         </div>';
-            echo $carousel;
         }
         $select->close();
     }
+    $carousel .= "</div></div>";
     $mysqli->close();
+    echo $carousel;
 }
 ?>

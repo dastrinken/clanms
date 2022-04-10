@@ -27,6 +27,8 @@
     <script src="./simplemde/simplemde.min.js"></script>
     <!-- Newsblog -->
     <script src="./content/newsblog/newsblog.js"></script>
+    <!-- Gallery -->
+    <script src="./content/gallery/gallery.js"></script>
     <?php echo "<title>$title</title>" ?>
 </head>
 <body class="bg-dark text-white">

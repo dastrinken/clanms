@@ -254,7 +254,6 @@ a:hover {
   position: fixed;
   top: 0;
   left: 0;
-  cursor: pointer;
   justify-content: center;
   align-items: center;
   z-index: 100;
@@ -263,11 +262,49 @@ a:hover {
 .img-window img {
   max-height: 80vh;
   max-width: 80vw;
+  border: 2px solid black;
+  box-shadow: 0px 0px 16px #0000005c;
+  border-radius: .3rem;
+  cursor: pointer;
+}
+.animate-open-img {
+  animation: img-window-open .2s linear;
+}
+@keyframes img-window-open {
+	from {
+		transform: scale(0);
+		opacity: 0;
+	}
+	to {
+		transform: scale(1);
+		opacity: 1;	
+	}
+}
+.switch-animate-left {
+  animation: img-switch-left .2s linear;
+}
+@keyframes img-switch-left {
+	from {
+		transform: translateX(100%) scale(0);
+	}
+	to {
+		transform: translateX(0) scale(100%);
+	}
+}
+.switch-animate-right {
+  animation: img-switch-right .2s linear;
+}
+@keyframes img-switch-right {
+	from {
+		transform: translateX(-100%) scale(0);
+	}
+	to {
+		transform: translateX(0) scale(100%);
+	}
 }
 
 /* Next Image */
-
-.img-btn-next {
+.switch-img-btn {
   display: block;
   padding: 6px 10px;
   border-radius: 4px;
@@ -277,22 +314,10 @@ a:hover {
   z-index: 500;
   color: #ffffff;
   text-transform: uppercase;
-}
-.img-btn-next:hover {
-  opacity: 0,8;
+  cursor: pointer;
 }
 
-.img-btn-prev {
-  display: block;
-  padding: 6px 10px;
-  border-radius: 4px;
-  background-color: #111111;
-  position: fixed;
-  top: 48vh;
-  z-index: 500;
-  color: #ffffff;
-  text-transform: uppercase;
-}
-.img-btn-prev:hover {
+.switch-img-btn:hover {
+  color: #dc3545;
   opacity: 0.8;
 }
