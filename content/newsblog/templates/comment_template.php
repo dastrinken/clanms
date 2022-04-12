@@ -22,7 +22,7 @@ if(!empty($_SESSION)){
                         $output.='<input type="hidden" name="commentid" value="'.$commentid.'">
                                     <input type="hidden" name="nav" value="news">
                                     <input type="hidden" name="page" value="'.$page.'">
-                                    <button class="btn btn-danger btn-sm submit" name="deleteComment" value="true">Löschen</button>';
+                                    <button class="btn btn-danger btn-sm submit" name="deleteComment" onclick="return confirm(\'Kommentar wirklich löschen?\');" value="true">Löschen</button>';
                     }
                 }
 $output.='</span></div></div></form>';
