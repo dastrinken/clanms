@@ -6,7 +6,7 @@
     require(__DIR__."/system/account/account_functions.php");
     require(__DIR__."/parsedown/parsedown.php");
     if(!checkInstallStatus()) {
-        //header('Location: ./install');
+        header('Location: ./install');
     }
     if($_POST['nav']){
         header('Location: ./index.php?nav='.$_POST['nav'].'&page='.$_POST['page']);
