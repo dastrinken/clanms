@@ -58,4 +58,18 @@
         $mysqli->close();
         return $return;
     }
+
+    /**
+     * Checks if installation ist finished, returns false if not
+     */
+    function checkInstallStatus() {
+        $status = false;
+        $mysqli = connect_DB();
+        $install = getSetting("install");
+        if(boolval($install) === true) {
+            $status = true;
+        }
+        $mysqli->close();
+        return $status;
+    }
 ?>

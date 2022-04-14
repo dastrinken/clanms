@@ -1,4 +1,4 @@
-<form action='' method='post'>
+<form method='post'>
     <h4 class='text-center'>Einstellungen</h4>
     <hr/>
     <p>Die Zugangsdaten, die du hier einträgst, gelten für den Betreiber-Account der Webseite.<br/>

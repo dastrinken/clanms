@@ -13,7 +13,7 @@
             $this->addDbSettings();
             $this->addHomepageSettings();
             $this->addSystemCheck();
-            $this->addAuth();
+            $this->completeInstall();
             $this->allsteps = sizeof($this->steps);
         }
 
@@ -27,11 +27,14 @@
 
         public function getContent() {
             $display = $this->steps[$this->step-1]['content'];
+            if($this->step == 5) {
+                include(__DIR__."/contents/completeInstall.php");
+            }
             if($_POST['dbSettings'] == true) {
-                $this->params[2]['host']     = $_POST['dbhost'];
-                $this->params[2]['database'] = $_POST['dbname'];
-                $this->params[2]['user']     = $_POST['dbuser'];
-                $this->params[2]['password'] = $_POST['dbpw'];
+                $this->params[2]['host']     = $_POST['host'];
+                $this->params[2]['database'] = $_POST['database'];
+                $this->params[2]['user']     = $_POST['user'];
+                $this->params[2]['password'] = $_POST['password'];
 
                 $this->doc->loadHTML($this->steps[3]['content']);
                 $phpv = $this->doc->getElementById("php_check");
@@ -205,6 +208,7 @@
                                         <td>Datenbankverbindung</td>
                                     </tr>
                                 </table>
+                                <p>Mit einem Klick auf Abschlie&szlig;en wird ClanMS mit den von dir eingegebenen Daten installiert.</p>
                             </div>';
             $this->steps[] = $step;
         }
@@ -218,19 +222,19 @@
                                     <input type='hidden' name='dbSettings' value ='true'>
                                     <div class='input-group mb-3'>
                                         <span class='input-group-text' id='hostname'><abbr title='Normalerweise localhost, nur ändern wenn du dir wirklich sicher bist!'>Hostname</span>
-                                        <input type='text' class='form-control' value='{host}' aria-label='Hostname' aria-describedby='hostname' name='dbhost'>
+                                        <input type='text' class='form-control' value='{host}' aria-label='Hostname' aria-describedby='hostname' name='host'>
                                     </div>
                                     <div class='input-group mb-3'>
                                         <span class='input-group-text' id='dbname'><abbr title='Der Name der Datenbank, die ClanMS nutzen soll.'>Datenbank</span>
-                                        <input type='text' class='form-control' placeholder='Name der Datenbank, die ClanMS nutzen soll' value='{database}' aria-label='Hostname' aria-describedby='dbname' name='dbname'>
+                                        <input type='text' class='form-control' placeholder='Name der Datenbank, die ClanMS nutzen soll' value='{database}' aria-label='Hostname' aria-describedby='dbname' name='database'>
                                     </div>
                                     <div class='input-group mb-3'>
                                         <span class='input-group-text' id='username'><abbr title='Dein Datenbank Benutzername'>DB-Nutzer</span>
-                                        <input type='text' class='form-control' placeholder='Dein Benutzername (Datenbank Login)' value='{user}' aria-label='Username' aria-describedby='username' name='dbuser'>
+                                        <input type='text' class='form-control' placeholder='Dein Benutzername (Datenbank Login)' value='{user}' aria-label='Username' aria-describedby='username' name='user'>
                                     </div>
                                     <div class='input-group mb-3'>
                                         <span class='input-group-text' id='password'><abbr title='Dein Datenbank Passwort'>DB-Passwort</span>
-                                        <input type='password' class='form-control' placeholder='Dein Passwort (Datenbank Login)' value='{password}' aria-label='Password' aria-describedby='password' name='dbpw'>
+                                        <input type='password' class='form-control' placeholder='Dein Passwort (Datenbank Login)' value='{password}' aria-label='Password' aria-describedby='password' name='password'>
                                     </div>";
             $this->params[2]['host']     = 'localhost';
             $this->params[2]['database'] = '';
@@ -270,9 +274,10 @@
             $this->steps[] = $step;
         }
 
-        private function addAuth(){
-            $step['headline'] = 'Authentifizierung';
-            $step['content']  = 'Authentifizierung';
+        private function completeInstall(){
+            $step['headline'] = 'Installation';
+            $step['content']  = '';
+            
             $this->steps[] = $step;
         }
     }
