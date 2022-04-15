@@ -5,10 +5,14 @@
      * @return Object The mysqli-object
      */
     function connect_DB() {
-        global $dbhost, $dbuser, $dbpw, $db;
+        global $installFlag, $dbhost, $dbuser, $dbpw, $db;
         $mysqli = new mysqli($dbhost, $dbuser, $dbpw, $db);
         if($mysqli->connect_error) {
-            die("Connection to Database failed..." . $mysqli->connect_error);
+            if($installFlag == false) {
+                die("Connection to Database failed..." . $mysqli->connect_error);
+            } else {
+                header('Location: ./install');
+            }
         } else {
             return $mysqli;
         }

@@ -35,62 +35,60 @@
 ?>
 <!DOCTYPE html>
 <html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link href="../bootstrap/css/bootstrap.css" rel="stylesheet">
+        <link rel="stylesheet" href="../styles/style.css">
+        <script src="../bootstrap/js/bootstrap.bundle.js"></script>
+        <link rel="stylesheet" href="../bootstrap/icons/bootstrap-icons.css">
+        <link rel="stylesheet" href="./install.css">
+        <title>ClanMS - Installation</title>
+    </head>
 
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link href="../bootstrap/css/bootstrap.css" rel="stylesheet">
-    <link rel="stylesheet" href="../styles/style.css">
-    <script src="../bootstrap/js/bootstrap.bundle.js"></script>
-    <link rel="stylesheet" href="../bootstrap/icons/bootstrap-icons.css">
-    <link rel="stylesheet" href="./install.css">
-    <title>ClanMS - Installation</title>
-</head>
-
-<body class="bg-blackened text-white">
-    <main>
-        <div class="container-fluid">
-            <div class="row">
-                <?php include(__DIR__ . "/header.php"); ?>
-            </div>
-            <div class="row">
-                <div class="container">
-                    <div id="mainContent" class="row p-3 bg-blackened overflow-auto justify-content-md-center">
-                        <div class="content mb-4 p-3 bg-lightdark col-md-auto shadow-sm rounded">
-                            <form action="./" method="post">
-                                <?php
-                                    echo $_SESSION['installer']->getContent();
-                                ?>
-                                <div class="row">
+    <body class="bg-blackened text-white">
+        <main>
+            <div class="container-fluid">
+                <div class="row">
+                    <?php include(__DIR__ . "/header.php"); ?>
+                </div>
+                <div class="row">
+                    <div class="container">
+                        <div id="mainContent" class="row p-3 bg-blackened overflow-auto justify-content-md-center">
+                            <div class="content mb-4 p-3 bg-lightdark col-md-auto shadow-sm rounded">
+                                <form action="./" method="post">
                                     <?php
-                                    if($_SESSION['installer']->step == 1 || $_SESSION['installer']->step == $_SESSION['installer']->allsteps) {
-                                        echo '<div class="col d-flex justify-content-center">';
-                                    } else {
-                                        echo '<div class="col d-flex justify-content-between">';
-                                    }
-                                    if ($_SESSION['installer']->showReturnButton()) {
-                                        echo '<input id="btnBack" class="btn btn-primary w-25" type="submit" name="back" value="Zurück" />';
-                                    }
-                                    if ($_SESSION['installer']->showFwdButton()) {
-                                        echo '<input id="btnNext" class="btn btn-primary w-25" type="submit" name="next" value="Weiter" />';
-                                    }
-                                    if ($_SESSION['installer']->showFinalButton()) {
-                                        echo '<input id="btnFinish" class="btn btn-primary w-25" type="submit" name="finish" value="Abschlie&szlig;en" />';
-                                    }
+                                        echo $_SESSION['installer']->getContent();
                                     ?>
+                                    <div class="row">
+                                        <?php
+                                        if($_SESSION['installer']->step == 1 || $_SESSION['installer']->step == $_SESSION['installer']->allsteps) {
+                                            echo '<div class="col d-flex justify-content-center">';
+                                        } else {
+                                            echo '<div class="col d-flex justify-content-between">';
+                                        }
+                                        if ($_SESSION['installer']->showReturnButton()) {
+                                            echo '<input id="btnBack" class="btn btn-primary w-25" type="submit" name="back" value="Zurück" />';
+                                        }
+                                        if ($_SESSION['installer']->showFwdButton()) {
+                                            echo '<input id="btnNext" class="btn btn-primary w-25" type="submit" name="next" value="Weiter" />';
+                                        }
+                                        if ($_SESSION['installer']->showFinalButton()) {
+                                            echo '<input id="btnFinish" class="btn btn-primary w-25" type="submit" name="finish" value="Abschlie&szlig;en" />';
+                                        }
+                                        ?>
+                                        </div>
                                     </div>
-                                </div>
-                            </form>
+                                </form>
+                            </div>
                         </div>
                     </div>
                 </div>
+                <div class="row">
+                    <?php include("./footer.php"); ?>
+                </div>
             </div>
-            <div class="row">
-                <?php include("./footer.php"); ?>
-            </div>
-        </div>
-    </main>
-</body>
-
+        </main>
+    </body>
 </html>

@@ -68,6 +68,7 @@
                 $this->params[3]['pageTitle'] = $_POST['pageTitle'];
                 $this->params[3]['username'] = $_POST['username'];
                 $this->params[3]['userpw'] = $_POST['userpw'];
+                $this->params[3]['usermail'] = $_POST['usermail'];
             }
 
             if($this->params[$this->step]) {
@@ -257,8 +258,12 @@
                                     <input type='text' class='form-control' placeholder ='Titel der Seite' value='{pageTitle}' aria-label='PageTitle' aria-describedby='pageTitle' name='pageTitle'>
                                 </div>
                                 <div class='input-group mb-3'>
-                                    <span class='input-group-text' id='loginName'><abbr title='Der Name, mit dem du dich im System einloggen wirst'>Login-Name</span>
-                                    <input type='text' class='form-control' placeholder='Dein Nutzername für den Admin-Account' value='{username}' aria-label='LoginName' aria-describedby='loginName' name='username'>
+                                    <span class='input-group-text' id='loginMail'><abbr title='Die Mailadresse, mit der du dich einloggst.'>Login-Email</span>
+                                    <input type='text' class='form-control' placeholder='Dein Nutzername für den Admin-Account' value='{usermail}' aria-label='loginMail' aria-describedby='loginMail' name='usermail'>
+                                </div>
+                                <div class='input-group mb-3'>
+                                    <span class='input-group-text' id='loginName'><abbr title='Der Name, den andere Nutzer sehen werden.'>Profil-Name</span>
+                                    <input type='text' class='form-control' placeholder='Dein Profilname für den Admin-Account' value='{username}' aria-label='LoginName' aria-describedby='loginName' name='username'>
                                 </div>
                                 <div class='input-group mb-3'>
                                     <span class='input-group-text' id='password'><abbr title='Das Passwort für deinen Admin-Account'>Login-Passwort</span>
@@ -271,6 +276,7 @@
             $this->params[3]['pageTitle'] = 'ClanMS';
             $this->params[3]['username'] = 'admin';
             $this->params[3]['userpw'] = '1234';
+            $this->params[3]['usermail'] = 'admin@clanms.de';
             $this->steps[] = $step;
         }
 
