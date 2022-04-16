@@ -33,7 +33,6 @@
 </head>
 <body class="bg-dark text-white">
     <main>
-    <?php //require("./sidebar.php"); ?>
         <div class="container">
             <div class="row">
                 <div class="col">
