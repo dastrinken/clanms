@@ -14,6 +14,7 @@
             <li><a href="./?nav=calendar" class="nav-link px-2 link-dark nav-darkmode">Events</a></li>
             <li><a href="./?nav=gallery" class="nav-link px-2 link-dark nav-darkmode">Gallery</a></li>
             <li><a href="./?nav=faq" class="nav-link px-2 link-dark nav-darkmode">FAQ</a></li>
+            <!-- <li><a href="./?nav=42" class="nav-link px-2 link-dark nav-darkmode">!!Template for new module!!</a></li> -->
         </ul>
         <?php
             if(empty($_SESSION['userid']) || empty($_SESSION['username'])) {
@@ -69,7 +70,10 @@
         } elseif($_GET['nav'] === 'imp') {
             include(__DIR__."/content/impressum/impressum_funtions.php");
             include(__DIR__."/content/impressum/impressum.php");
-        } else {
+        } /* elseif($_GET['nav'] === '42') {
+            -- Template for new modules --
+        } */
+        else {
             /* default, vorerst Kalender + Willkommenstext einbinden, später variabel machen */
             include(__DIR__."/content/calendar/calendar_functions.php");
             include(__DIR__."/content/calendar/eventorganizer/widget.php");

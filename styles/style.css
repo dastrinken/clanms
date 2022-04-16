@@ -50,15 +50,6 @@ a:hover {
   width: 15% !important;
 }
 
-/* Verstecke Sidebar (schönere Lösung mit JS überlegen? zB. Ein- und Ausklappen */
-
-@media only screen and (max-width: 625px) {
-  #sidebar {
-    display: none !important;
-  }
-}
-
-
 /* following section describes main content layout and design 
 **  TODO: proper text style and decoration! E.g. what should a p-tag look like; what should lists look like and so on...
 **
