@@ -36,15 +36,9 @@
         <div class="container">
             <div class="row">
                 <div class="col">
-                    <div id="stickyHeader" class="row">
-                        <?php require("./header.php"); ?>
-                    </div>                    
-                    <!-- Content -->
-                    <div id="mainContent" class="row p-3 bg-blackened shadow overflow-auto">
-                        <?php 
-                            require(__DIR__."/sitemenu.php");
-                        ?>
-                    </div>
+                    <!-- interface for all user contents: site.php -->
+                    <?php require(__DIR__."/site.php") ?>
+
                 </div>
             </div>
             <div class="row"><!-- Footer -->
