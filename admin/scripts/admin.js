@@ -51,7 +51,6 @@ function manageHomepageSettings() {
 
 function manageSocialMedia() {
   var checkboxArray = document.getElementsByClassName("form-check-input");
-  console.log(checkboxArray);
   var checked;
   for(let i = 0; i < checkboxArray.length; i++) {
     checkboxArray[i].addEventListener("click", function() {

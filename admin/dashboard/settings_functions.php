@@ -16,13 +16,15 @@
     }
 
     function saveSocialMedia($id, $checked, $content) {
-        $checked = $checked == "true" ? 1 : 0;
-        $mysqli = connect_DB();
-        $update = $mysqli->prepare("UPDATE clanms_social_media SET url=?, display=? WHERE id=?");
-        $update->bind_param("sii", $content, $checked, $id);
-        $update->execute();
-        $update->close();
-        $mysqli->close();
+        if($content != "") {
+            $checked = $checked == "true" ? 1 : 0;
+            $mysqli = connect_DB();
+            $update = $mysqli->prepare("UPDATE clanms_social_media SET url=?, display=? WHERE id=?");
+            $update->bind_param("sii", $content, $checked, $id);
+            $update->execute();
+            $update->close();
+            $mysqli->close();
+        }
     }
 
     function updateHomepageTitle($newTitle) {
