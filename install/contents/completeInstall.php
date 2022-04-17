@@ -55,7 +55,6 @@
     function importSQL() {
         global $errorMsg;
         $sqlFile = '../system/clanms.sql';
-        $multiquery = file_get_contents($sqlFile);
         if($mysqli = mysqli_connect($_SESSION["installer"]->params[1]['host'], $_SESSION["installer"]->params[1]['user'], $_SESSION["installer"]->params[1]['password'], $_SESSION["installer"]->params[1]['database'])) {
             if($mysqli->select_db($_SESSION["installer"]->params[1]['database'])) {
                 $templine = '';
@@ -72,18 +71,18 @@
                             $templine = '';
                         }
                     }
-            } else {
-                $errorMsg .= "<br>Zugriff auf die angegebene Datenbank nicht möglich (wurde sie eingerichtet?).";
-            }
-
-
-            if($mysqli->multi_query($multiquery)) {
+                $mysqli->multi_query("DROP TRIGGER IF EXISTS `delete_enrolls`;
+                                CREATE TRIGGER `delete_enrolls` BEFORE DELETE ON `clanms_event` FOR EACH ROW BEGIN
+                                    DELETE FROM clanms_event_enrolls WHERE clanms_event_enrolls.id_event = OLD.id;
+                                END;
+                                DROP TRIGGER IF EXISTS `delete_images`;
+                                CREATE TRIGGER `delete_images` AFTER DELETE ON `clanms_gallery_images` FOR EACH ROW BEGIN
+                                    DELETE FROM clanms_images WHERE id = OLD.id_image;
+                                END;");
                 $mysqli->close();
                 return true;
             } else {
-                $mysqli->close();
-                $errorMsg .= "<br>Datenbankdatei konnte nicht importiert werden. (Für einen manuellen import findest du sie im Ordner system -> clanms.sql";
-                return false;
+                $errorMsg .= "<br>Zugriff auf die angegebene Datenbank nicht möglich (wurde sie eingerichtet?).";
             }
         } else {
             $errorMsg .= "<br>Datenbankverbindung konnte nicht hergestellt werden.";
