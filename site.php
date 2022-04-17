@@ -13,7 +13,7 @@
             <li><a href="./?nav=info" class="nav-link px-2 link-dark nav-darkmode">About us</a></li>
             <li><a href="./?nav=calendar" class="nav-link px-2 link-dark nav-darkmode">Events</a></li>
             <li><a href="./?nav=gallery" class="nav-link px-2 link-dark nav-darkmode">Gallery</a></li>
-            <li><a href="./?nav=faq" class="nav-link px-2 link-dark nav-darkmode">FAQ</a></li>
+            <!-- <li><a href="./?nav=faq" class="nav-link px-2 link-dark nav-darkmode">FAQ</a></li> -->
             <!-- <li><a href="./?nav=42" class="nav-link px-2 link-dark nav-darkmode">!!Template for new module!!</a></li> -->
         </ul>
         <?php
