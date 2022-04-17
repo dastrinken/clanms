@@ -3,13 +3,13 @@
     if (session_status() === PHP_SESSION_NONE){session_start();}
     /* Globale Konstanten einbinden */
     require_once(__DIR__."/../../system/constants.php");
-    /* Einbinden aller Funktionen aus anderen Admin-Bereichen */
+    /* Einbinden aller wichtigen Systemfunktionen */
     require_once(__DIR__."/../../system/db_functions.php");
     require_once(__DIR__."/rights_system.php");
     require_once(__DIR__."/../../system/helper_functions.php");
     require_once(__DIR__."/../../system/account/account_functions.php");
     require_once(__DIR__."/../../parsedown/parsedown.php");
-    // optionale Funktionen
+    // Einbinden aller Module (hier neue Zeile hinzufügen).
     include_once(__DIR__."/../events/events_functions.php");
     include_once(__DIR__."/../newsblog/newsblog_functions.php");
     include_once(__DIR__."/../user/user_functions.php");

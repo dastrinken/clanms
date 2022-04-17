@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost:3306
--- Erstellungszeit: 15. Apr 2022 um 11:06
+-- Erstellungszeit: 17. Apr 2022 um 12:37
 -- Server-Version: 10.6.7-MariaDB-1:10.6.7+maria~focal
 -- PHP-Version: 7.4.28
 
@@ -17,6 +17,10 @@ SET time_zone = "+00:00";
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
 /*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
 /*!40101 SET NAMES utf8mb4 */;
+
+--
+-- Datenbank: `clanms`
+--
 
 -- --------------------------------------------------------
 
@@ -43,7 +47,7 @@ CREATE TABLE `clanms_event` (
 DROP TRIGGER IF EXISTS `delete_enrolls`;
 DELIMITER $$
 CREATE TRIGGER `delete_enrolls` BEFORE DELETE ON `clanms_event` FOR EACH ROW BEGIN
-	DELETE FROM clanms_event_enrolls WHERE clanms_event_enrolls.id_event = OLD.id;
+    DELETE FROM clanms_event_enrolls WHERE clanms_event_enrolls.id_event = OLD.id;
 END
 $$
 DELIMITER ;
@@ -86,19 +90,6 @@ CREATE TABLE `clanms_event_enrolls` (
   `id_user` int(11) NOT NULL,
   `id_event` int(11) NOT NULL,
   `enrolled` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp()
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-
--- --------------------------------------------------------
-
---
--- Tabellenstruktur für Tabelle `clanms_event_galleries`
---
-
-DROP TABLE IF EXISTS `clanms_event_galleries`;
-CREATE TABLE `clanms_event_galleries` (
-  `id` int(11) NOT NULL,
-  `id_event` int(11) NOT NULL,
-  `id_gallery` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- --------------------------------------------------------
@@ -155,11 +146,10 @@ CREATE TABLE `clanms_gallery_images` (
 DROP TRIGGER IF EXISTS `delete_images`;
 DELIMITER $$
 CREATE TRIGGER `delete_images` AFTER DELETE ON `clanms_gallery_images` FOR EACH ROW BEGIN
-	DELETE FROM clanms_images WHERE id = OLD.id_image;
+    DELETE FROM clanms_images WHERE id = OLD.id_image;
 END
 $$
 DELIMITER ;
-
 -- --------------------------------------------------------
 
 --
@@ -225,7 +215,7 @@ CREATE TABLE `clanms_group_has_rights` (
   `id_group` int(11) NOT NULL,
   `id_right` int(11) NOT NULL,
   `value` int(11) DEFAULT NULL
-) ;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Daten für Tabelle `clanms_group_has_rights`
@@ -297,32 +287,6 @@ CREATE TABLE `clanms_images` (
 -- --------------------------------------------------------
 
 --
--- Tabellenstruktur für Tabelle `clanms_images_tags`
---
-
-DROP TABLE IF EXISTS `clanms_images_tags`;
-CREATE TABLE `clanms_images_tags` (
-  `id` int(11) NOT NULL,
-  `name` varchar(50) DEFAULT NULL,
-  `description` varchar(150) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-
--- --------------------------------------------------------
-
---
--- Tabellenstruktur für Tabelle `clanms_images_use_tags`
---
-
-DROP TABLE IF EXISTS `clanms_images_use_tags`;
-CREATE TABLE `clanms_images_use_tags` (
-  `id` int(11) NOT NULL,
-  `id_image` int(11) NOT NULL,
-  `id_tag` int(11) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-
--- --------------------------------------------------------
-
---
 -- Tabellenstruktur für Tabelle `clanms_news`
 --
 
@@ -339,18 +303,12 @@ CREATE TABLE `clanms_news` (
   `id_editor` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
--- --------------------------------------------------------
-
 --
--- Tabellenstruktur für Tabelle `clanms_news_categories`
+-- Daten für Tabelle `clanms_news`
 --
 
-DROP TABLE IF EXISTS `clanms_news_categories`;
-CREATE TABLE `clanms_news_categories` (
-  `id` int(11) NOT NULL,
-  `title` varchar(100) DEFAULT NULL,
-  `description` text DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+INSERT INTO `clanms_news` (`id`, `headline`, `content`, `id_author`, `date_created`, `date_published`, `color`, `last_edited`, `id_editor`) VALUES
+(1, 'ClanMS - Newsblog', '## ClanMS Release\r\n> *\"Die besten Dinge im Leben sind nicht die, die man für Geld bekommt.\"* - Albert Einstein\r\n\r\n**Herzlich Willkommen auf deinem neu eingerichteten ClanMS.**\r\n\r\nDu solltest nun Zugang zum Adminbereich haben, um Beispielsweise diesen Artikel hier anzupassen oder zu löschen.\r\nWir wünschen dir und deinen Freunden viel Spaß mit der Software. Solltest du auf Probleme stoßen, die du nicht selbst lösen kannst, zögere nicht uns zu kontaktieren.\r\n\r\n![LAN-Party](http://87.106.169.186/images/network-lan-party-1558330.jpg)\r\nDanke, dass du dich für ClanMS entschieden hast.', 1, '2022-04-17 12:27:58', '2022-04-17 12:27:00', '#dc3545', NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -366,45 +324,6 @@ CREATE TABLE `clanms_news_comments` (
   `headline` varchar(50) DEFAULT NULL,
   `content` text DEFAULT NULL,
   `date_written` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp()
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-
--- --------------------------------------------------------
-
---
--- Tabellenstruktur für Tabelle `clanms_news_have_categories`
---
-
-DROP TABLE IF EXISTS `clanms_news_have_categories`;
-CREATE TABLE `clanms_news_have_categories` (
-  `id` int(11) NOT NULL,
-  `id_news` int(11) NOT NULL,
-  `id_category` int(11) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-
--- --------------------------------------------------------
-
---
--- Tabellenstruktur für Tabelle `clanms_news_tags`
---
-
-DROP TABLE IF EXISTS `clanms_news_tags`;
-CREATE TABLE `clanms_news_tags` (
-  `id` int(11) NOT NULL,
-  `title` varchar(50) DEFAULT NULL,
-  `description` varchar(150) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-
--- --------------------------------------------------------
-
---
--- Tabellenstruktur für Tabelle `clanms_news_use_tags`
---
-
-DROP TABLE IF EXISTS `clanms_news_use_tags`;
-CREATE TABLE `clanms_news_use_tags` (
-  `id` int(11) NOT NULL,
-  `id_news` int(11) NOT NULL,
-  `id_tag` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- --------------------------------------------------------
@@ -482,11 +401,11 @@ CREATE TABLE `clanms_social_media` (
 --
 
 INSERT INTO `clanms_social_media` (`id`, `title`, `description`, `icon`, `url`, `display`) VALUES
-(1, 'Youtube', 'YouTube is a video sharing service where users can watch, like, share, comment and upload their own videos.', 'bi-youtube', '', 1),
+(1, 'Youtube', 'YouTube is a video sharing service where users can watch, like, share, comment and upload their own videos.', 'bi-youtube', '', 0),
 (2, 'Twitch', 'Twitch is a platform for live video streaming, offering nearly anything you’d want to watch, from cooking, music, Q&A sessions, and — the leading driver of traffic — video games.', 'bi-twitch', '', 0),
 (3, 'Twitter', 'Twitter is an online news and social networking site where people communicate in short messages called tweets.', 'bi-twitter', '', 0),
 (4, 'Instagram', 'Instagram is an American photo and video sharing social networking service founded by Kevin Systrom and Mike Krieger.', 'bi-instagram', '', 0),
-(5, 'Facebook', 'Facebook is a social networking site that makes it easy for you to connect and share with family and friends online.', 'bi-facebook', '', 1),
+(5, 'Facebook', 'Facebook is a social networking site that makes it easy for you to connect and share with family and friends online.', 'bi-facebook', '', 0),
 (6, 'GitHub', 'GitHub, Inc. is a provider of Internet hosting for software development and version control using Git.', 'bi-github', 'https://github.com/dastrinken/clanms', 1);
 
 -- --------------------------------------------------------
@@ -511,7 +430,7 @@ CREATE TABLE `clanms_user` (
 --
 
 INSERT INTO `clanms_user` (`id`, `username`, `password`, `email`, `registeredSince`, `activated`, `activationCode`) VALUES
-(1, 'admin', '$2y$10$yAWL4InaW6eaO6tT37c9ue3a6wPMF8l3sfqKSgDtNKMle94/5a93G', 'admin@clanms.de', '2022-02-20', 1, 'a9711ca1a3dc55e66a016c18c3412834');
+(1, 'admin', '$2y$10$xe5yvOmzP6gAUodCwZsUr.1wnS41Iqd3d7zs8JDALEQTfNdUs.0/O', 'admin@clanms.de', '2022-02-20', 1, 'a9711ca1a3dc55e66a016c18c3412834');
 
 -- --------------------------------------------------------
 
@@ -583,14 +502,6 @@ ALTER TABLE `clanms_event_enrolls`
   ADD KEY `id_event` (`id_event`);
 
 --
--- Indizes für die Tabelle `clanms_event_galleries`
---
-ALTER TABLE `clanms_event_galleries`
-  ADD PRIMARY KEY (`id`),
-  ADD KEY `id_event` (`id_event`),
-  ADD KEY `id_gallery` (`id_gallery`);
-
---
 -- Indizes für die Tabelle `clanms_faq`
 --
 ALTER TABLE `clanms_faq`
@@ -637,20 +548,6 @@ ALTER TABLE `clanms_images`
   ADD PRIMARY KEY (`id`);
 
 --
--- Indizes für die Tabelle `clanms_images_tags`
---
-ALTER TABLE `clanms_images_tags`
-  ADD PRIMARY KEY (`id`);
-
---
--- Indizes für die Tabelle `clanms_images_use_tags`
---
-ALTER TABLE `clanms_images_use_tags`
-  ADD PRIMARY KEY (`id`),
-  ADD KEY `id_image` (`id_image`),
-  ADD KEY `id_tag` (`id_tag`);
-
---
 -- Indizes für die Tabelle `clanms_news`
 --
 ALTER TABLE `clanms_news`
@@ -659,40 +556,12 @@ ALTER TABLE `clanms_news`
   ADD KEY `id_editor` (`id_editor`);
 
 --
--- Indizes für die Tabelle `clanms_news_categories`
---
-ALTER TABLE `clanms_news_categories`
-  ADD PRIMARY KEY (`id`);
-
---
 -- Indizes für die Tabelle `clanms_news_comments`
 --
 ALTER TABLE `clanms_news_comments`
   ADD PRIMARY KEY (`id`),
   ADD KEY `id_author` (`id_author`),
   ADD KEY `id_news` (`id_news`);
-
---
--- Indizes für die Tabelle `clanms_news_have_categories`
---
-ALTER TABLE `clanms_news_have_categories`
-  ADD PRIMARY KEY (`id`),
-  ADD KEY `id_news` (`id_news`),
-  ADD KEY `id_category` (`id_category`);
-
---
--- Indizes für die Tabelle `clanms_news_tags`
---
-ALTER TABLE `clanms_news_tags`
-  ADD PRIMARY KEY (`id`);
-
---
--- Indizes für die Tabelle `clanms_news_use_tags`
---
-ALTER TABLE `clanms_news_use_tags`
-  ADD PRIMARY KEY (`id`),
-  ADD KEY `id_news` (`id_news`),
-  ADD KEY `id_tag` (`id_tag`);
 
 --
 -- Indizes für die Tabelle `clanms_rights`
@@ -756,12 +625,6 @@ ALTER TABLE `clanms_event_enrolls`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
--- AUTO_INCREMENT für Tabelle `clanms_event_galleries`
---
-ALTER TABLE `clanms_event_galleries`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
-
---
 -- AUTO_INCREMENT für Tabelle `clanms_faq`
 --
 ALTER TABLE `clanms_faq`
@@ -795,7 +658,7 @@ ALTER TABLE `clanms_groups`
 -- AUTO_INCREMENT für Tabelle `clanms_group_has_rights`
 --
 ALTER TABLE `clanms_group_has_rights`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=49;
 
 --
 -- AUTO_INCREMENT für Tabelle `clanms_images`
@@ -804,51 +667,15 @@ ALTER TABLE `clanms_images`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
--- AUTO_INCREMENT für Tabelle `clanms_images_tags`
---
-ALTER TABLE `clanms_images_tags`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
-
---
--- AUTO_INCREMENT für Tabelle `clanms_images_use_tags`
---
-ALTER TABLE `clanms_images_use_tags`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
-
---
 -- AUTO_INCREMENT für Tabelle `clanms_news`
 --
 ALTER TABLE `clanms_news`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
-
---
--- AUTO_INCREMENT für Tabelle `clanms_news_categories`
---
-ALTER TABLE `clanms_news_categories`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT für Tabelle `clanms_news_comments`
 --
 ALTER TABLE `clanms_news_comments`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
-
---
--- AUTO_INCREMENT für Tabelle `clanms_news_have_categories`
---
-ALTER TABLE `clanms_news_have_categories`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
-
---
--- AUTO_INCREMENT für Tabelle `clanms_news_tags`
---
-ALTER TABLE `clanms_news_tags`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
-
---
--- AUTO_INCREMENT für Tabelle `clanms_news_use_tags`
---
-ALTER TABLE `clanms_news_use_tags`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
@@ -900,13 +727,6 @@ ALTER TABLE `clanms_event_enrolls`
   ADD CONSTRAINT `clanms_event_enrolls_ibfk_2` FOREIGN KEY (`id_event`) REFERENCES `clanms_event` (`id`);
 
 --
--- Constraints der Tabelle `clanms_event_galleries`
---
-ALTER TABLE `clanms_event_galleries`
-  ADD CONSTRAINT `clanms_event_galleries_ibfk_1` FOREIGN KEY (`id_event`) REFERENCES `clanms_event` (`id`),
-  ADD CONSTRAINT `clanms_event_galleries_ibfk_2` FOREIGN KEY (`id_gallery`) REFERENCES `clanms_galleries` (`id`);
-
---
 -- Constraints der Tabelle `clanms_gallery_images`
 --
 ALTER TABLE `clanms_gallery_images`
@@ -921,13 +741,6 @@ ALTER TABLE `clanms_group_has_rights`
   ADD CONSTRAINT `clanms_group_has_rights_ibfk_2` FOREIGN KEY (`id_right`) REFERENCES `clanms_rights` (`id`);
 
 --
--- Constraints der Tabelle `clanms_images_use_tags`
---
-ALTER TABLE `clanms_images_use_tags`
-  ADD CONSTRAINT `clanms_images_use_tags_ibfk_1` FOREIGN KEY (`id_image`) REFERENCES `clanms_images` (`id`),
-  ADD CONSTRAINT `clanms_images_use_tags_ibfk_2` FOREIGN KEY (`id_tag`) REFERENCES `clanms_images_tags` (`id`);
-
---
 -- Constraints der Tabelle `clanms_news`
 --
 ALTER TABLE `clanms_news`
@@ -940,20 +753,6 @@ ALTER TABLE `clanms_news`
 ALTER TABLE `clanms_news_comments`
   ADD CONSTRAINT `clanms_news_comments_ibfk_1` FOREIGN KEY (`id_author`) REFERENCES `clanms_user` (`id`),
   ADD CONSTRAINT `clanms_news_comments_ibfk_2` FOREIGN KEY (`id_news`) REFERENCES `clanms_news` (`id`);
-
---
--- Constraints der Tabelle `clanms_news_have_categories`
---
-ALTER TABLE `clanms_news_have_categories`
-  ADD CONSTRAINT `clanms_news_have_categories_ibfk_1` FOREIGN KEY (`id_news`) REFERENCES `clanms_news` (`id`),
-  ADD CONSTRAINT `clanms_news_have_categories_ibfk_2` FOREIGN KEY (`id_category`) REFERENCES `clanms_news_categories` (`id`);
-
---
--- Constraints der Tabelle `clanms_news_use_tags`
---
-ALTER TABLE `clanms_news_use_tags`
-  ADD CONSTRAINT `clanms_news_use_tags_ibfk_1` FOREIGN KEY (`id_news`) REFERENCES `clanms_news` (`id`),
-  ADD CONSTRAINT `clanms_news_use_tags_ibfk_2` FOREIGN KEY (`id_tag`) REFERENCES `clanms_news_tags` (`id`);
 
 --
 -- Constraints der Tabelle `clanms_user_groups`
