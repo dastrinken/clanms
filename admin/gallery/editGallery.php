@@ -19,13 +19,13 @@
         echo '</div>
             </div><hr/>';
         echo '<button class="btn w-100 mb-3 collapsed d-flex justify-content-evenly align-items-end collapsebutton" type="button" data-bs-toggle="collapse" data-bs-target="#collapseGallery" aria-expanded="false" aria-controls="collapseGallery">
-                <i class="bi-arrow-down h3"></i><h2 class="text-center mt-2">Gallerie bearbeiten</h2><i class="bi-arrow-down h3"></i>
+                <i class="bi-arrow-down h3"></i><h2 class="text-center mt-2">Galerie bearbeiten</h2><i class="bi-arrow-down h3"></i>
             </button>
                 <div class="collapse" id="collapseGallery">';
 
         
     } else {
-        echo "<h2 class='text-center mt-2'>Neue Gallerie</h2>";
+        echo "<h2 class='text-center mt-2'>Neue Galerie</h2>";
     }
 
     $imageTitle = $_GET['imageTitle'];
@@ -38,14 +38,14 @@
         <form action="./dashboard.php" method="post" enctype="multipart/form-data">
             <div class="mb-3">
                 <label for="galleryTitle" class="form-label">Titel</label>
-                <input type="text" class="form-control" id="galleryTitle" name="galleryTitle" value="<?php echo $galleryTitle; ?>"placeholder="Titel der Gallerie...">
+                <input type="text" class="form-control" id="galleryTitle" name="galleryTitle" value="<?php echo $galleryTitle; ?>"placeholder="Titel der Galerie...">
             </div>
             <div class="mb-3">
                 <label for="galleryDescription" class="form-label">Beschreibung</label>
-                <textarea class="form-control" id="galleryDescription" name="galleryDescription" placeholder="Beschreibe die Gallerie..."><?php echo $galleryDescription; ?></textarea>
+                <textarea class="form-control" id="galleryDescription" name="galleryDescription" placeholder="Beschreibe die Galerie..."><?php echo $galleryDescription; ?></textarea>
             </div>
             <div class="mb-3">
-                <label for="image" class="form-label">Gallerie - Thumbnail</label>
+                <label for="image" class="form-label">Galerie - Thumbnail</label>
                 <input id="image" type="file" class="form-control" name="image" placeholder="Datei Hochladen hier...">
             </div>
             <?php 

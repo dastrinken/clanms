@@ -92,11 +92,11 @@
         $query = "SELECT * FROM clanms_galleries;";
         $select = $mysqli->query($query);
         if($select->num_rows == NULL) {
-            echo "<p>Keine Gallerie vorhanden, klicke oben auf 'Neu' um eine zu erstellen.</p>";
+            echo "<p>Keine Galerie vorhanden, klicke oben auf 'Neu' um eine zu erstellen.</p>";
         } else {
             while($row = $select->fetch_assoc()) {
                 $imageCount = getGalleryImagesCount($row['id']);
-                $warning = $imageCount > 0 ? "In dieser Gallerie befinden sich noch $imageCount Bild(er), möchtest du sie wirklich löschen?" : "Die Gallerie wird endgültig aus der Datenbank gelöscht, bist du dir sicher?";
+                $warning = $imageCount > 0 ? "In dieser Galerie befinden sich noch $imageCount Bild(er), möchtest du sie wirklich löschen?" : "Die Gallerie wird endgültig aus der Datenbank gelöscht, bist du dir sicher?";
                 $card = '<div class="col m-2" style="max-width: 30%;">
                             <form>
                                 <div class="card shadow-sm">

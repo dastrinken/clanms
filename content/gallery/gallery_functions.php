@@ -18,7 +18,7 @@ function getGalleriesFromDB() {
     $card = '<div class="container">
                 <div class="row" id="gallery" class="gallery">';
     if($select->num_rows == NULL) {
-        $card .= '<p>Keine Gallerie vorhanden.</p>';
+        $card .= '<p>Keine Galerie vorhanden.</p>';
     } else {
         while($row = $select->fetch_assoc()) {
             $card .= '<div class="col m-2" id="galleryview">

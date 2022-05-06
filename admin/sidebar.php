@@ -24,7 +24,7 @@
                             </li>
                             <li class="nav-item">
                                 <a id="gallLink" class="nav-link" href="#" onclick="getTableView('gallery', 'content', 'all'); setActive(this.id); return false;">
-                                    Gallerie
+                                    Galerie
                                 </a>
                             </li>
                             <li class="nav-item">
