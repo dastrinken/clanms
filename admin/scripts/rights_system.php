@@ -51,7 +51,7 @@
             return false;
         } elseif($rightsValue >= VAL_ADM) {
             return true;
-        } elseif($rightsValue == VAL_MIN) {
+        } elseif($rightsValue >= VAL_MIN && $rightsValue <= VAL_MOD) {
             if($checkSameUser) {
                 return checkSameUser($creatorId);
             } else {

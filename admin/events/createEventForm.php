@@ -37,11 +37,11 @@
 
         <div class="input-group w-auto me-2">
             <span class="input-group-text" id="ariaLabelPublish">Event Start</span>
-            <input class="form-control" type="datetime-local" name="date_start" value="<?php echo empty($date_start_w3c) ? date('Y-m-d\TH:i:s') : $date_start_w3c; ?>" aria-describedby="ariaLabelPublish">
+            <input class="form-control" type="datetime-local" name="date_start" value="<?php echo empty($date_start_w3c) ? date('Y-m-d\TH:i') : $date_start_w3c; ?>" min="<?php echo date('Y-m-d\TH:i'); ?>" aria-describedby="ariaLabelPublish">
         </div>
         <div class="input-group w-auto me-2">
             <span class="input-group-text" id="ariaLabelPublish">Event Ende</span>
-            <input class="form-control" type="datetime-local" name="date_end" value="<?php echo empty($date_end_w3c) ? date('Y-m-d\TH:i:s') : $date_end_w3c; ?>" aria-describedby="ariaLabelPublish">
+            <input class="form-control" type="datetime-local" name="date_end" value="<?php echo empty($date_end_w3c) ? date('Y-m-d\TH:i') : $date_end_w3c; ?>" min="<?php echo date('Y-m-d\TH:i'); ?>" aria-describedby="ariaLabelPublish">
         </div>
 
 
